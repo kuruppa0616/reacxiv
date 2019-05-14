@@ -1,4 +1,4 @@
-export = index;
+export default index;
 
 interface Illust {
 	id: number;
