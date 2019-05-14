@@ -11,8 +11,10 @@ const Home = memo((props: any) => {
 
 	useEffect(() => {
 		console.log("called");
-		pixiv.login(MAIL, PASSWORD).then((res: any) => {
-			console.log(res);
+		pixiv.login(MAIL, PASSWORD).then((res) => {
+			pixiv.searchIllust("ライネス").then((json) => {
+				console.log(JSON.stringify(json));
+			})
 			setToken(res.access_token);
 		})
 	}, [])
