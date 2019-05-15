@@ -53,6 +53,12 @@ interface Tag {
 }
 
 declare class index {
+	auth: null | {
+		access_token: string,
+		refresh_token: string
+	};
+	username?: string;
+	password?: string;
 	headers: {
 		'App-OS': 'ios',
 		'Accept-Language': 'en-us',
@@ -72,11 +78,14 @@ declare class index {
 	illustComments(id: any, options: any): any;
 	illustCommentsV2(id: any, options: any): any;
 	illustDetail(id: any, options: any): any;
-	illustFollow(options: any): any;
+	illustFollow(options?: any): Promise<{
+		illusts: Illust[]
+		next_url: string
+	}>;
 	illustMyPixiv(): any;
 	illustNew(options: any): any;
 	illustRanking(options: any): any;
-	illustRecommended(options: any): any;
+	illustRecommended(options?: any): any;
 	illustRelated(id: any, options: any): any;
 	illustWalkthrough(): any;
 	login(username: string, password: string, rememberPassword?: boolean): Promise<{

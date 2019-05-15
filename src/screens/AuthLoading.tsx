@@ -5,7 +5,7 @@ import pixivApi from '../api/PixivApi'
 import { MAIL, PASSWORD } from 'react-native-dotenv';
 import { TopPage } from '../components/TopPage';
 
-const Home = ((props: any) => {
+const AuthLoading = ((props: any) => {
 
 	const [isLogined, setIsLogined] = useState(false)
 
@@ -18,6 +18,7 @@ const Home = ((props: any) => {
 	return (
 		<Container>
 			{isLogined && <TopPage />}
+			<Text>Auth!</Text>
 		</Container>
 	);
 });
@@ -29,4 +30,4 @@ const Container = styled.View`
   align-items: center;
 
 `
-export default Home;
+export default AuthLoading;
