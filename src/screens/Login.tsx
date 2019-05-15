@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 const Login = ((props: any) => {
 	return (
 		<Container>
-			<Text>plese Login</Text>
+			<Text>please Login</Text>
 		</Container>
 	);
 });

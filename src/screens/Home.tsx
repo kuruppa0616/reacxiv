@@ -6,18 +6,9 @@ import { MAIL, PASSWORD } from 'react-native-dotenv';
 import { TopPage } from '../components/TopPage';
 
 const Home = ((props: any) => {
-
-	const [isLogined, setIsLogined] = useState(false)
-
-	useEffect(() => {
-		pixivApi.login(MAIL, PASSWORD).then((res) => {
-			setIsLogined(true)
-		})
-	}, [])
-
 	return (
 		<Container>
-			{isLogined && <TopPage />}
+			<Text>ログイン中</Text>
 		</Container>
 	);
 });

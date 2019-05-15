@@ -4,20 +4,20 @@ import { Button, FlatList, Text, View } from 'react-native';
 import pixivApi from '../api/PixivApi'
 import { MAIL, PASSWORD } from 'react-native-dotenv';
 import { TopPage } from '../components/TopPage';
+import { withNavigation, NavigationScreenProp } from 'react-navigation';
 
-const AuthLoading = ((props: any) => {
+interface Props {
+	navigation: NavigationScreenProp<any, any>;
+}
 
-	const [isLogined, setIsLogined] = useState(false)
+const AuthLoading = ((props: Props) => {
 
-	useEffect(() => {
-		pixivApi.login(MAIL, PASSWORD).then((res) => {
-			setIsLogined(true)
-		})
-	}, [])
+	// useEffect(() => {
+	// 	})
+	// }, [])
 
 	return (
 		<Container>
-			{isLogined && <TopPage />}
 			<Text>Auth!</Text>
 		</Container>
 	);
@@ -30,4 +30,6 @@ const Container = styled.View`
   align-items: center;
 
 `
-export default AuthLoading;
+export default withNavigation(AuthLoading);
+
+
