@@ -6,31 +6,40 @@ import { Illust } from 'pixiv-api-client';
 import { ThumbnailTile } from '@/components/ThumbnailTile';
 
 const inititalIllust: Illust[] = [];
-const Home = ((props: any) => {
+
+const Home = memo(() => {
 	const [recommend, setRecommend] = useState(inititalIllust);
+	const [nextURL, setNextURL] = useState("");
 
 	useEffect(() => {
-		console.log("おはよう");
 		pixivApi.illustRecommended().then((res) => {
-			setRecommend(res.illusts)
+			setRecommend(res.illusts);
+			setNextURL(res.next_url);
 		})
 	}, [])
+
+	const _renderItem = ({ item }: { item: Illust }) => (
+		<ThumbnailTile illust={item} />
+	)
+
+	const _onEndReached = () => {
+		pixivApi.requestUrl(nextURL).then((next) => {
+			setRecommend((recommend) => (
+				recommend.concat(next.illusts)
+			));
+			setNextURL(next.next_url);
+		})
+	}
+
 	return (
 		<Container>
 			<View>
 				<FlatList
-					data={recommend}
-					getItemLayout={(data, index) => ({
-						length: Math.floor(Dimensions.get('window').width) / 3,
-						offset: Math.floor(Dimensions.get('window').width) / 3 * index,
-						index,
-					})}
-					renderItem={({ item }) => (
-						<ThumbnailTile illust={item} />
-					)}
+					data={recommend.slice(0, recommend.length - recommend.length % 3)}
+					renderItem={_renderItem}
 					keyExtractor={(item) => item.id.toString()}
 					numColumns={3}
-
+					onEndReached={_onEndReached}
 				/>
 			</View>
 		</Container>

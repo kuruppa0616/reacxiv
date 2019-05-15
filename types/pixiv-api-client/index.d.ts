@@ -75,6 +75,13 @@ export interface Credential {
 	device_token: string;
 }
 
+interface IllustsResponse {
+	contest_exists: boolean
+	illusts: Illust[]
+	next_url: string
+	privacy_policy: {}
+}
+
 declare class PixivApiClient {
 	auth: null | {
 		access_token: string,
@@ -108,14 +115,7 @@ declare class PixivApiClient {
 	illustMyPixiv(): Promise<any>;
 	illustNew(options: any): Promise<any>;
 	illustRanking(options: any): Promise<any>;
-	illustRecommended(options?: any): Promise<{
-		contest_exists: boolean
-		illusts: Illust[]
-		next_url: string
-		privacy_policy: {}
-		ranking_illusts: Illust[]
-
-	}>;
+	illustRecommended(options?: any): Promise<IllustsResponse>;
 	illustRelated(id: number, options: any): Promise<any>;
 	illustWalkthrough(): Promise<any>;
 	login(username: string, password: string, rememberPassword?: boolean): Promise<Credential>
@@ -136,7 +136,7 @@ declare class PixivApiClient {
 	novelSeries(id: number): Promise<any>;
 	novelText(id: number): Promise<any>;
 	refreshAccessToken(refreshToken: string): Promise<any>;
-	requestUrl(url: string, options: any): Promise<any>;
+	requestUrl(url: string, options?: any): Promise<IllustsResponse>;
 	searchAutoComplete(word: string): Promise<any>;
 	searchIllust(word: string, options?: any): Promise<{
 		illusts: Illust[];

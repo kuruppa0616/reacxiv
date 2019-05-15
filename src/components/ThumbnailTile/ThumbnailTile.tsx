@@ -4,6 +4,7 @@ import { withNavigation, NavigationScreenProp } from 'react-navigation';
 
 import { Illust } from 'pixiv-api-client';
 import { PxImage } from '../Image';
+import { Text } from 'react-native';
 
 
 interface Props {
