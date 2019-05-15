@@ -4,12 +4,15 @@
     "paths": {
       "*": [
         "types/*"
+      ],
+      "@/*": [
+        "./src/*"
       ]
     },
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "jsx": "react",
     "lib": [
       "es6"
@@ -17,7 +20,7 @@
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
   },
   "exclude": [
     "node_modules",

@@ -1,6 +1,6 @@
-export default index;
+export default PixivApiClient;
 
-interface Illust {
+export interface Illust {
 	id: number;
 	title: string;
 	type: string;
@@ -47,12 +47,12 @@ interface Illust {
 	is_muted: boolean;
 }
 
-interface Tag {
+export interface Tag {
 	name: string;
 	translated_name: string;
 }
 
-declare class index {
+declare class PixivApiClient {
 	auth: null | {
 		access_token: string,
 		refresh_token: string
@@ -85,7 +85,14 @@ declare class index {
 	illustMyPixiv(): any;
 	illustNew(options: any): any;
 	illustRanking(options: any): any;
-	illustRecommended(options?: any): any;
+	illustRecommended(options?: any): Promise<{
+		contest_exists: boolean
+		illusts: Illust[]
+		next_url: string
+		privacy_policy: {}
+		ranking_illusts: Illust[]
+
+	}>;
 	illustRelated(id: any, options: any): any;
 	illustWalkthrough(): any;
 	login(username: string, password: string, rememberPassword?: boolean): Promise<{

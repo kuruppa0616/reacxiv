@@ -1,22 +1,32 @@
 import React, { memo, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
-import { Button, FlatList, Text, View } from 'react-native';
-import pixivApi from '../api/PixivApi'
-import { MAIL, PASSWORD } from 'react-native-dotenv';
-import { TopPage } from '../components/TopPage';
+import { Button, FlatList, Text, View, Image } from 'react-native';
+import pixivApi from '@/api/PixivApi'
+import { Illust } from 'pixiv-api-client';
+import { ThumbnailTile } from '@/components/ThumbnailTile';
 
+const inititalIllust: Illust[] = [];
 const Home = ((props: any) => {
+	const [recommend, setRecommend] = useState(inititalIllust);
+
+	useEffect(() => {
+		console.log("おはよう");
+		pixivApi.illustRecommended().then((res) => {
+			setRecommend(res.illusts)
+		})
+	}, [])
 	return (
 		<Container>
-			<Text>ログイン中</Text>
+			<View>
+				{recommend.length > 0 && <ThumbnailTile illust={recommend[0]} />}
+			</View>
 		</Container>
 	);
 });
 
 const Container = styled.View`
-	flex: 1 auto;
+	flex: 1 ;
 	width:100%;
-	justify-content: center;
   align-items: center;
 
 `

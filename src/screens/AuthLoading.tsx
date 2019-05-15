@@ -1,9 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
-import { Button, FlatList, Text, View } from 'react-native';
-import pixivApi from '../api/PixivApi'
+import { Text } from 'react-native';
+import pixivApi from '@/api/PixivApi'
 import { MAIL, PASSWORD } from 'react-native-dotenv';
-import { TopPage } from '../components/TopPage';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
 
 interface Props {
@@ -12,19 +11,23 @@ interface Props {
 
 const AuthLoading = ((props: Props) => {
 
-	// useEffect(() => {
-	// 	})
-	// }, [])
+	useEffect(() => {
+		pixivApi.login(MAIL, PASSWORD).then(() => {
+			props.navigation.navigate('App');
+		}).catch(() => {
+			props.navigation.navigate('Auth');
+		})
+	}, [])
 
 	return (
 		<Container>
-			<Text>Auth!</Text>
+			<Text>認証中</Text>
 		</Container>
 	);
 });
 
 const Container = styled.View`
-	flex: 1 auto;
+	flex: 1;
 	width:100%;
 	justify-content: center;
   align-items: center;

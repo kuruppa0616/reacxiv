@@ -10,7 +10,6 @@ const AuthNavigator = createStackNavigator({
   Login: Login,
 });
 
-
 const AppContainer = createAppContainer(createSwitchNavigator({
   AuthLoading: AuthLoading,
   App: AppNavigator,
