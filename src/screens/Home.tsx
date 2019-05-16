@@ -12,6 +12,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const Home = memo(() => {
 	const [recommend, setRecommend] = useState(inititalIllust);
 	const [nextURL, setNextURL] = useState("");
+	const [isRefreshing,setIsRefreshing] = useState(false);
 
 	useEffect(() => {
 		pixivApi.illustRecommended().then((res) => {
@@ -37,17 +38,27 @@ const Home = memo(() => {
 		})
 	}
 
+	const _onRefresh = () => {
+		setIsRefreshing(true);
+		pixivApi.illustRecommended().then((res) => {
+			setRecommend(res.illusts);
+			setNextURL(res.next_url);
+			setIsRefreshing(false);		
+		})
+	}
+
 	return (
 		<Container>
-			<View>
 				<FlatList
 					data={recommend.slice(0, recommend.length - recommend.length % 3)}
 					renderItem={_renderItem}
 					keyExtractor={_keyExtractor}
 					numColumns={NUM_COLUMNS}
 					onEndReached={_onEndReached}
+					onEndReachedThreshold={0.4}
+					onRefresh={_onRefresh}
+					refreshing={isRefreshing}
 				/>
-			</View>
 		</Container>
 	);
 });
