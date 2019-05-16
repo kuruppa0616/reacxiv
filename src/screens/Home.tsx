@@ -1,11 +1,13 @@
 import React, { memo, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { Button, FlatList, Text, View, Image, Dimensions } from 'react-native';
-import pixivApi from '@/api/PixivApi'
+import pixivApi from '@/api/PixivApi';
 import { Illust } from 'pixiv-api-client';
 import { ThumbnailTile } from '@/components/ThumbnailTile';
 
 const inititalIllust: Illust[] = [];
+const NUM_COLUMNS = 3;
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const Home = memo(() => {
 	const [recommend, setRecommend] = useState(inititalIllust);
@@ -16,11 +18,15 @@ const Home = memo(() => {
 			setRecommend(res.illusts);
 			setNextURL(res.next_url);
 		})
-	}, [])
+	}, []);
 
 	const _renderItem = ({ item }: { item: Illust }) => (
-		<ThumbnailTile illust={item} />
-	)
+		<ThumbnailTile illust={item} size={SCREEN_WIDTH / NUM_COLUMNS} />
+	);
+
+	const _keyExtractor = (item: Illust) => (
+		item.id.toString()
+	);
 
 	const _onEndReached = () => {
 		pixivApi.requestUrl(nextURL).then((next) => {
@@ -37,8 +43,8 @@ const Home = memo(() => {
 				<FlatList
 					data={recommend.slice(0, recommend.length - recommend.length % 3)}
 					renderItem={_renderItem}
-					keyExtractor={(item) => item.id.toString()}
-					numColumns={3}
+					keyExtractor={_keyExtractor}
+					numColumns={NUM_COLUMNS}
 					onEndReached={_onEndReached}
 				/>
 			</View>

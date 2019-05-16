@@ -10,16 +10,17 @@ import { Text } from 'react-native';
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
 	illust: Illust;
+	size: number;
 }
 const ThumbnailTile = ((props: Props) => {
-	const { illust } = props
+	const { illust, size } = props
 	return (
 		<Container	>
-			<PxImage url={illust.image_urls.square_medium} width={128} height={128} />
+			<PxImage url={illust.image_urls.square_medium} width={size} height={size} />
 		</Container>
 	);
 });
 const Container = styled.View`
-	height:150px;
+	padding: 1px;
 `
 export default withNavigation(ThumbnailTile);
