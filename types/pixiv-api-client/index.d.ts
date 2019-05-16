@@ -98,7 +98,7 @@ declare class PixivApiClient {
 	};
 	authInfo(): Promise<any>;
 	bookmarkIllust(id: number, restrict?: any, tags?: string[]): Promise<void>;
-	bookmarkNovel(id: number, restrict: any, tags?: string[]): Promise<any>;
+	bookmarkNovel(id: number, restrict: any, tags?: string[]): Promise<void>;
 	createProvisionalAccount(nickname: string): Promise<any>;
 	editUserAccount(fields: any): Promise<any>;
 	followUser(id: number, restrict: any): Promise<any>;

@@ -14,6 +14,7 @@ const useIllusts = (fetchIllusts:(options?: any)=>Promise<IllustsResponse>):[Ill
   }, []);
 
   const loadInitIllusts = async() => {
+    // setIllusts(inititalIllust);
 		await fetchIllusts().then((res) => {
 			setIllusts(res.illusts);
       setNextURL(res.next_url);
@@ -21,7 +22,7 @@ const useIllusts = (fetchIllusts:(options?: any)=>Promise<IllustsResponse>):[Ill
   }
 
   const loadNextIllusts = async() =>{
-    if(!nextURL)return;
+    if(!nextURL) return;
     await pixivApi.requestUrl(nextURL).then((res) => {
 			setIllusts((recommend) => (
 				recommend.concat(res.illusts)

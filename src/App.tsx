@@ -1,11 +1,15 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation';
 
-import { Home, Login, AuthLoading } from './screens'
+import { Login, AuthLoading } from './screens'
+import { Home,Recommend,New } from './screens/Top'
 
 const AppNavigator = createStackNavigator({
   Home: Home,
+  Recommend: Recommend,
+  New: New
 });
+
 const AuthNavigator = createStackNavigator({
   Login: Login,
 });
