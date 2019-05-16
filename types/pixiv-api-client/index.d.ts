@@ -75,11 +75,11 @@ export interface Credential {
 	device_token: string;
 }
 
-interface IllustsResponse {
-	contest_exists: boolean
+export interface IllustsResponse {
+	// contest_exists: boolean
 	illusts: Illust[]
 	next_url: string
-	privacy_policy: {}
+	// privacy_policy: {}
 }
 
 declare class PixivApiClient {
@@ -97,7 +97,7 @@ declare class PixivApiClient {
 		'User-Agent': 'PixivIOSApp/7.2.2 (iOS 12.0.1; iPhone8,2)',
 	};
 	authInfo(): Promise<any>;
-	bookmarkIllust(id: number, restrict: any, tags?: string[]): Promise<any>;
+	bookmarkIllust(id: number, restrict?: any, tags?: string[]): Promise<void>;
 	bookmarkNovel(id: number, restrict: any, tags?: string[]): Promise<any>;
 	createProvisionalAccount(nickname: string): Promise<any>;
 	editUserAccount(fields: any): Promise<any>;
@@ -108,12 +108,9 @@ declare class PixivApiClient {
 	illustComments(id: number, options: any): Promise<any>;
 	illustCommentsV2(id: number, options: any): Promise<any>;
 	illustDetail(id: number, options: any): Promise<any>;
-	illustFollow(options?: any): Promise<{
-		illusts: Illust[]
-		next_url: string
-	}>;
+	illustFollow(options?: any): Promise<IllustsResponse>;
 	illustMyPixiv(): Promise<any>;
-	illustNew(options: any): Promise<any>;
+	illustNew(options?: any): Promise<any>;
 	illustRanking(options: any): Promise<any>;
 	illustRecommended(options?: any): Promise<IllustsResponse>;
 	illustRelated(id: number, options: any): Promise<any>;
@@ -154,7 +151,7 @@ declare class PixivApiClient {
 	trendingTagsIllust(options: any): Promise<any>;
 	trendingTagsNovel(options: any): Promise<any>;
 	ugoiraMetaData(id: number): Promise<any>;
-	unbookmarkIllust(id: number): Promise<any>;
+	unbookmarkIllust(id: number): Promise<void>;
 	unbookmarkNovel(id: number): Promise<any>;
 	unfollowUser(id: number): Promise<any>;
 	userBookmarkIllustTags(options: any): Promise<any>;

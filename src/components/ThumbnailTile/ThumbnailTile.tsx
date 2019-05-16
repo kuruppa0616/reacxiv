@@ -1,11 +1,11 @@
 import React, { memo, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
-import { Button, Icon } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { Illust } from 'pixiv-api-client';
 import { PxImage } from '../PxImage';
-import { Text } from 'react-native';
+import pixivApi from '@/api/PixivApi';
 
 
 interface Props {
@@ -13,12 +13,26 @@ interface Props {
 	illust: Illust;
 	size: number;
 }
+
 const ThumbnailTile = ((props: Props) => {
 	const { illust, size } = props
+	const [isBookmarked,setIsBookmarked] = useState(illust.is_bookmarked)
+
+	const _onPressbookmark = () =>{
+		const func = isBookmarked?()=>pixivApi.unbookmarkIllust(illust.id):()=>pixivApi.bookmarkIllust(illust.id)
+		func().then(()=>{
+			setIsBookmarked((isBookmarked)=>(
+				!isBookmarked			
+			));
+		})
+	}
 	return (
 		<Container	>
 			<PxImage url={illust.image_urls.square_medium} width={size} height={size} />
 			<ButoonArea>
+				<TouchableArea onPress={_onPressbookmark} >
+					<Icon size={23} name="heart" color={isBookmarked?'#e74c3c':'white'}/>
+				</TouchableArea>
 			</ButoonArea>
 		</Container>
 	);
@@ -32,5 +46,19 @@ const ButoonArea = styled.View`
 	position: absolute;
 	bottom:0%;
 	right:0%;
+	margin-right:10px;
+	margin-bottom:5px;
+`
+
+const TouchableArea = styled.TouchableWithoutFeedback`
+	width:20px;
+	height:20px;
+	border-width: 1;
+  border-radius: 2;
+  border-color: #ddd;
+  border-bottom-width: 0;
+  margin-left: 5;
+  margin-right: 5;
+  margin-top: 10;
 `
 export default withNavigation(ThumbnailTile);
