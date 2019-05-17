@@ -3,22 +3,14 @@ import styled from 'styled-components/native';
 import { Button, FlatList, Text, View, Image, Dimensions } from 'react-native';
 import pixivApi from '@/api/PixivApi';
 import { IllustList } from '@/components/IllustList';
-import { Top } from '.';
+import Home from './Home';
 
-const New = memo(() => {
+const Top = memo(() => {
 	return (
-		<Top>
-			<View>
-				<IllustList fetchIllusts={()=>pixivApi.illustFollow()}/>
-			</View>
-		</Top>
-
+		<Home>
+			<Text>Home</Text>
+		</Home>
 	);
 });
 
-// const Container = styled.View`
-// 	flex: 1 ;
-// 	width:100%;
-//   align-items: center;
-// `
-export default New;
+export default Top;

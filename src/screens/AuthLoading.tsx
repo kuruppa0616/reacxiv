@@ -4,6 +4,7 @@ import { Text } from 'react-native';
 import pixivApi from '@/api/PixivApi'
 import { MAIL, PASSWORD } from 'react-native-dotenv';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
+import { Screens } from '@/constants';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -13,9 +14,9 @@ const AuthLoading = ((props: Props) => {
 
 	useEffect(() => {
 		pixivApi.login(MAIL, PASSWORD).then(() => {
-			props.navigation.navigate('App');
+			props.navigation.navigate(Screens.App);
 		}).catch(() => {
-			props.navigation.navigate('Auth');
+			props.navigation.navigate(Screens.Auth);
 		})
 	}, [])
 

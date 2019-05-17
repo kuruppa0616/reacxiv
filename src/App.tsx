@@ -1,26 +1,20 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation';
 
-import { Login, AuthLoading } from './screens'
-import { Home,Recommend,New } from './screens/Top'
-
-const AppNavigator = createStackNavigator({
-  Home: Home,
-  Recommend: Recommend,
-  New: New
-});
+import { Login, AuthLoading, HomeScreen } from './screens'
+import { Screens } from '@/constants'
 
 const AuthNavigator = createStackNavigator({
   Login: Login,
 });
 
 const AppContainer = createAppContainer(createSwitchNavigator({
-  AuthLoading: AuthLoading,
-  App: AppNavigator,
-  Auth: AuthNavigator
+  [Screens.AuthLoading]: AuthLoading,
+  [Screens.App]: HomeScreen,
+  [Screens.Auth]: AuthNavigator
 },
   {
-    initialRouteName: 'AuthLoading',
+    initialRouteName: Screens.AuthLoading,
   }));
 
 const App = () => {
@@ -28,4 +22,5 @@ const App = () => {
     <AppContainer />
   );
 };
+
 export default App;

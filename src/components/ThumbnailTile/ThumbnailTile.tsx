@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Illust } from 'pixiv-api-client';
 import { PxImage } from '../PxImage';
 import pixivApi from '@/api/PixivApi';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import { Screens } from '@/constants';
 
 
 interface Props {
@@ -15,23 +17,26 @@ interface Props {
 }
 
 const ThumbnailTile = ((props: Props) => {
-	const { illust, size } = props
-	const [isBookmarked,setIsBookmarked] = useState(illust.is_bookmarked)
+	const { illust, size, navigation } = props
+	const [isBookmarked, setIsBookmarked] = useState(illust.is_bookmarked)
 
-	const _onPressbookmark = () =>{
-		const func = isBookmarked?()=>pixivApi.unbookmarkIllust(illust.id):()=>pixivApi.bookmarkIllust(illust.id)
-		func().then(()=>{
-			setIsBookmarked((isBookmarked)=>(
-				!isBookmarked			
-			));
-		})
+	const _onPressbookmark = () => {
+		navigation.navigate("IllustDeteil")
+		// const func = isBookmarked ? () => pixivApi.unbookmarkIllust(illust.id) : () => pixivApi.bookmarkIllust(illust.id)
+		// func().then(() => {
+		// 	setIsBookmarked((isBookmarked) => (
+		// 		!isBookmarked
+		// 	));
+		// })
 	}
 	return (
 		<Container	>
+			{/* <TouchableHighlight onPress={() => navigation.navigate('IllustDeteil')}> */}
 			<PxImage url={illust.image_urls.square_medium} width={size} height={size} />
+			{/* </TouchableHighlight> */}
 			<ButoonArea>
 				<TouchableArea onPress={_onPressbookmark} >
-					<Icon size={23} name="heart" color={isBookmarked?'#e74c3c':'white'}/>
+					<Icon size={23} name="heart" color={isBookmarked ? '#e74c3c' : 'white'} />
 				</TouchableArea>
 			</ButoonArea>
 		</Container>
