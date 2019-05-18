@@ -4,11 +4,11 @@ import { Button, FlatList, Text, View, Image, Dimensions } from 'react-native';
 import pixivApi from '@/api/PixivApi';
 import { IllustList } from '@/components/IllustList';
 import Home from './Home';
-import IllustDeteil from '../IllustDeteil';
-import { createStackNavigator } from 'react-navigation';
+import { IllustDetail } from '../DetailScreen';
+import { createStackNavigator, withNavigation } from 'react-navigation';
 import { Screens } from '@/constants';
 
-const Recommend = memo(() => {
+const Recommend = memo((props: any) => {
 	return (
 		<Home>
 			<View>
@@ -20,10 +20,20 @@ const Recommend = memo(() => {
 });
 
 const RecommendNavigator = createStackNavigator({
-	[Screens.Recommend]: Recommend,
-	[Screens.IllustDetail]: IllustDeteil
+	[Screens.Recommend]: {
+		screen: Recommend,
+		navigationOptions: () => ({
+			title: Screens.Recommend
+		})
+	},
+	[Screens.IllustDetail]: {
+		screen: IllustDetail,
+		navigationOptions: () => ({
+			title: Screens.IllustDetail
+		})
+	}
 }, {
-		initialRouteName: "Recommend"
+		initialRouteName: Screens.Recommend
 	})
 
 export default RecommendNavigator;

@@ -9,5 +9,6 @@ class ExtendedPixivApi extends PixivApi {
 		this.auth = auth;
 	};
 }
+
 const pixivApi = new ExtendedPixivApi()
 export default pixivApi;

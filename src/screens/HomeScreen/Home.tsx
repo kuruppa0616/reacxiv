@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 interface Props {
 	children: JSX.Element
 }
-const Top = memo((props: Props) => {
+const Home = memo((props: Props) => {
 	const { children } = props
 	return (
 		<Container>
@@ -19,4 +19,4 @@ const Container = styled.View`
   align-items: center;
 `
 
-export default Top;
+export default Home;

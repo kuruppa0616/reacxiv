@@ -8,6 +8,11 @@ const TabNavigator = createBottomTabNavigator({
 	[Screens.Home]: Top,
 	[Screens.Recommend]: Recommend,
 	[Screens.New]: New
-});
+}, {
+		tabBarOptions: {
+			activeTintColor: 'tomato',
+			inactiveTintColor: 'gray',
+		},
+	});
 
 export default TabNavigator;

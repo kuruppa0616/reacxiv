@@ -21,19 +21,19 @@ const ThumbnailTile = ((props: Props) => {
 	const [isBookmarked, setIsBookmarked] = useState(illust.is_bookmarked)
 
 	const _onPressbookmark = () => {
-		navigation.navigate("IllustDeteil")
-		// const func = isBookmarked ? () => pixivApi.unbookmarkIllust(illust.id) : () => pixivApi.bookmarkIllust(illust.id)
-		// func().then(() => {
-		// 	setIsBookmarked((isBookmarked) => (
-		// 		!isBookmarked
-		// 	));
-		// })
+		const func = isBookmarked ? () => pixivApi.unbookmarkIllust(illust.id) : () => pixivApi.bookmarkIllust(illust.id)
+		func().then(() => {
+			setIsBookmarked((isBookmarked) => (
+				!isBookmarked
+			));
+		})
 	}
+
 	return (
 		<Container	>
-			{/* <TouchableHighlight onPress={() => navigation.navigate('IllustDeteil')}> */}
-			<PxImage url={illust.image_urls.square_medium} width={size} height={size} />
-			{/* </TouchableHighlight> */}
+			<TouchableHighlight onPress={() => navigation.push(Screens.IllustDetail, { id: illust.id })}>
+				<PxImage url={illust.image_urls.square_medium} width={size} height={size} />
+			</TouchableHighlight>
 			<ButoonArea>
 				<TouchableArea onPress={_onPressbookmark} >
 					<Icon size={23} name="heart" color={isBookmarked ? '#e74c3c' : 'white'} />
