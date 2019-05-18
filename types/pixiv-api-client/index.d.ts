@@ -107,7 +107,7 @@ declare class PixivApiClient {
 	illustCommentReplies(id: number): Promise<any>;
 	illustComments(id: number, options?: any): Promise<any>;
 	illustCommentsV2(id: number, options?: any): Promise<any>;
-	illustDetail(id: number, options?: any): Promise<Illust>;
+	illustDetail(id: number, options?: any): Promise<{ illust: Illust }>;
 	illustFollow(options?: any): Promise<IllustsResponse>;
 	illustMyPixiv(): Promise<any>;
 	illustNew(options?: any): Promise<any>;

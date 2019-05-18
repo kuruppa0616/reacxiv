@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "react-navigation";
 import { Screens } from '@/constants';
 
 const TabNavigator = createBottomTabNavigator({
-	[Screens.Home]: Top,
+	[Screens.Top]: Top,
 	[Screens.Recommend]: Recommend,
 	[Screens.New]: New
 }, {

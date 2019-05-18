@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Text } from 'react-native'
 
 import { Illust } from 'pixiv-api-client';
 import { PxImage } from '../PxImage';
@@ -31,9 +32,12 @@ const ThumbnailTile = ((props: Props) => {
 
 	return (
 		<Container	>
-			<TouchableHighlight onPress={() => navigation.push(Screens.IllustDetail, { id: illust.id })}>
+			<TouchableHighlight onPress={() => navigation.navigate(Screens.IllustDetail, { id: illust.id })}>
 				<PxImage url={illust.image_urls.square_medium} width={size} height={size} />
 			</TouchableHighlight>
+			<NumPages>
+				<Text>{illust.page_count}</Text>
+			</NumPages>
 			<ButoonArea>
 				<TouchableArea onPress={_onPressbookmark} >
 					<Icon size={23} name="heart" color={isBookmarked ? '#e74c3c' : 'white'} />
@@ -47,6 +51,13 @@ const Container = styled.View`
 	padding: 0px;
 	position: relative;
 `
+const NumPages = styled.View`
+	position:absolute;
+	top:0%;
+	right:0%;
+	margin-right:10px;
+	margin-top:5px;
+`;
 const ButoonArea = styled.View`
 	position: absolute;
 	bottom:0%;

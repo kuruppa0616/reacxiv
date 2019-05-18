@@ -19,21 +19,5 @@ const Recommend = memo((props: any) => {
 	);
 });
 
-const RecommendNavigator = createStackNavigator({
-	[Screens.Recommend]: {
-		screen: Recommend,
-		navigationOptions: () => ({
-			title: Screens.Recommend
-		})
-	},
-	[Screens.IllustDetail]: {
-		screen: IllustDetail,
-		navigationOptions: () => ({
-			title: Screens.IllustDetail
-		})
-	}
-}, {
-		initialRouteName: Screens.Recommend
-	})
 
-export default RecommendNavigator;
+export default Recommend;
