@@ -1,19 +1,20 @@
 import React, { memo, useEffect, useState } from 'react';
-import FastImage from 'react-native-fast-image'
-
-import { Illust } from 'pixiv-api-client';
-import { StyleSheet } from 'react-native';
+import FastImage, { ImageStyle, OnLoadEvent } from 'react-native-fast-image'
+import { StyleProp, StyleSheet } from 'react-native';
 
 interface Props {
 	url: string;
 	width: number;
 	height: number;
+	style?: StyleProp<ImageStyle>
+	onLoad?(event: OnLoadEvent): void
 }
+
 const PxImage = ((props: Props) => {
-	const { url, width, height } = props
+	const { url, width, height, style, onLoad } = props
 	return (
 		<FastImage
-			style={{ width: width, height: height, padding:3 }}
+			style={[{ width: width, height: height }, style]}
 			source={{
 				uri: url,
 				headers: {
@@ -22,6 +23,7 @@ const PxImage = ((props: Props) => {
 				},
 				priority: FastImage.priority.normal,
 			}}
+			onLoad={onLoad}
 			resizeMode={FastImage.resizeMode.contain}
 		/>
 	);

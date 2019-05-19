@@ -3,9 +3,12 @@ import styled from 'styled-components/native';
 import { Text, View } from 'react-native';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
 import { Illust } from 'pixiv-api-client';
-import pixivApi from '@/api/PixivApi';
 import FastImage from 'react-native-fast-image';
-import { PxImage } from '@/components/PxImage';
+import axios, { AxiosError } from 'axios';
+
+import pixivApi from '@/api/PixivApi';
+import { PxImage, PxFitIllust } from '@/components/PxImage';
+
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -17,12 +20,18 @@ const IllustDetail = ((props: Props) => {
 	const { navigation } = props;
 	const illustId: number = navigation.getParam('id', 0)
 
+	const signal = axios.CancelToken.source();
 	const [illust, setIllust] = useState(initIllust)
 
 	useEffect(() => {
-		pixivApi.illustDetail(illustId).then((res) => {
+
+		// キャンセルできない
+		pixivApi.illustDetail(illustId, { cancelToken: signal.token }).then((res) => {
 			setIllust(res.illust);
 		});
+		return () => (
+			signal.cancel('component is ummounted')
+		)
 	}, [illust])
 
 	const _renderIllustDetail = (illust: Illust) => {
@@ -32,7 +41,7 @@ const IllustDetail = ((props: Props) => {
 		// 画像サイズをいい感じに
 		return (
 			<View>
-				<PxImage url={illust.image_urls.large} width={200} height={300}></PxImage>
+				<PxFitIllust url={illust.image_urls.large}></PxFitIllust>
 			</View>
 		)
 	}

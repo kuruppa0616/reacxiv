@@ -8,7 +8,7 @@ import Home from './Home';
 const Top = memo(() => {
 	return (
 		<Home>
-			<Text>Home</Text>
+			<IllustList fetchIllusts={() => pixivApi.illustRecommended()} />
 		</Home>
 	);
 });

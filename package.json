@@ -7,10 +7,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@types/react-native-dotenv": "^0.2.0",
     "@types/react-native-vector-icons": "^6.4.0",
     "@types/react-navigation": "^3.0.7",
     "@types/styled-components": "^4.1.14",
+    "axios": "^0.18.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-styled-components": "^1.10.0",
     "module-resolver": "^1.0.0",

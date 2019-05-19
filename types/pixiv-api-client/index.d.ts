@@ -1,4 +1,5 @@
 export default PixivApiClient;
+import { CancelToken } from 'axios';
 
 export interface Illust {
 	id: number;
@@ -82,6 +83,10 @@ export interface IllustsResponse {
 	// privacy_policy: {}
 }
 
+export interface RequestOption {
+	cancelToken: CancelToken
+}
+
 declare class PixivApiClient {
 	auth: null | {
 		access_token: string,
@@ -103,68 +108,68 @@ declare class PixivApiClient {
 	editUserAccount(fields: any): Promise<any>;
 	followUser(id: number, restrict: any): Promise<any>;
 	illustAddComment(id: number, comment: string, parentCommentid: number): Promise<any>;
-	illustBookmarkDetail(id: number, options?: any): Promise<any>;
+	illustBookmarkDetail(id: number, options?: RequestOption): Promise<any>;
 	illustCommentReplies(id: number): Promise<any>;
-	illustComments(id: number, options?: any): Promise<any>;
-	illustCommentsV2(id: number, options?: any): Promise<any>;
-	illustDetail(id: number, options?: any): Promise<{ illust: Illust }>;
-	illustFollow(options?: any): Promise<IllustsResponse>;
+	illustComments(id: number, options?: RequestOption): Promise<any>;
+	illustCommentsV2(id: number, options?: RequestOption): Promise<any>;
+	illustDetail(id: number, options?: RequestOption): Promise<{ illust: Illust }>;
+	illustFollow(options?: RequestOption): Promise<IllustsResponse>;
 	illustMyPixiv(): Promise<any>;
-	illustNew(options?: any): Promise<any>;
-	illustRanking(options?: any): Promise<any>;
-	illustRecommended(options?: any): Promise<IllustsResponse>;
-	illustRelated(id: number, options?: any): Promise<any>;
+	illustNew(options?: RequestOption): Promise<any>;
+	illustRanking(options?: RequestOption): Promise<any>;
+	illustRecommended(options?: RequestOption): Promise<IllustsResponse>;
+	illustRelated(id: number, options?: RequestOption): Promise<any>;
 	illustWalkthrough(): Promise<any>;
 	login(username: string, password: string, rememberPassword?: boolean): Promise<Credential>
 	logout(): Promise<void>;
-	mangaNew(options?: any): Promise<any>;
-	mangaRecommended(options?: any): Promise<any>;
+	mangaNew(options?: RequestOption): Promise<any>;
+	mangaRecommended(options?: RequestOption): Promise<any>;
 	novelAddComment(id: number, comment: string, parentCommentid: number): Promise<any>;
-	novelBookmarkDetail(id: number, options?: any): Promise<any>;
+	novelBookmarkDetail(id: number, options?: RequestOption): Promise<any>;
 	novelCommentReplies(id: number): Promise<any>;
-	novelComments(id: number, options?: any): Promise<any>;
-	novelCommentsV2(id: number, options?: any): Promise<any>;
+	novelComments(id: number, options?: RequestOption): Promise<any>;
+	novelCommentsV2(id: number, options?: RequestOption): Promise<any>;
 	novelDetail(id: number): Promise<any>;
-	novelFollow(options?: any): Promise<any>;
+	novelFollow(options?: RequestOption): Promise<any>;
 	novelMyPixiv(): Promise<any>;
-	novelNew(options?: any): Promise<any>;
-	novelRanking(options?: any): Promise<any>;
-	novelRecommended(options?: any): Promise<any>;
+	novelNew(options?: RequestOption): Promise<any>;
+	novelRanking(options?: RequestOption): Promise<any>;
+	novelRecommended(options?: RequestOption): Promise<any>;
 	novelSeries(id: number): Promise<any>;
 	novelText(id: number): Promise<any>;
 	refreshAccessToken(refreshToken: string): Promise<any>;
-	requestUrl(url: string, options?: any): Promise<IllustsResponse>;
+	requestUrl(url: string, options?: RequestOption): Promise<IllustsResponse>;
 	searchAutoComplete(word: string): Promise<any>;
-	searchIllust(word: string, options?: any): Promise<{
+	searchIllust(word: string, options?: RequestOption): Promise<{
 		illusts: Illust[];
 		next_url: string;
 		search_span_limit: number;
 	}>;
-	searchIllustBookmarkRanges(word: string, options?: any): Promise<any>;
-	searchIllustPopularPreview(word: string, options?: any): Promise<any>;
-	searchNovel(word: string, options?: any): Promise<any>;
-	searchNovelBookmarkRanges(word: string, options?: any): Promise<any>;
-	searchNovelPopularPreview(word: string, options?: any): Promise<any>;
+	searchIllustBookmarkRanges(word: string, options?: RequestOption): Promise<any>;
+	searchIllustPopularPreview(word: string, options?: RequestOption): Promise<any>;
+	searchNovel(word: string, options?: RequestOption): Promise<any>;
+	searchNovelBookmarkRanges(word: string, options?: RequestOption): Promise<any>;
+	searchNovelPopularPreview(word: string, options?: RequestOption): Promise<any>;
 	searchUser(word: string): Promise<any>;
 	sendAccountVerificationEmail(): Promise<any>;
 	setLanguage(lang: any): Promise<void>;
-	trendingTagsIllust(options?: any): Promise<any>;
-	trendingTagsNovel(options?: any): Promise<any>;
+	trendingTagsIllust(options?: RequestOption): Promise<any>;
+	trendingTagsNovel(options?: RequestOption): Promise<any>;
 	ugoiraMetaData(id: number): Promise<any>;
 	unbookmarkIllust(id: number): Promise<void>;
 	unbookmarkNovel(id: number): Promise<any>;
 	unfollowUser(id: number): Promise<any>;
-	userBookmarkIllustTags(options?: any): Promise<any>;
-	userBookmarkNovelTags(options?: any): Promise<any>;
-	userBookmarksIllust(id: number, options?: any): Promise<any>;
-	userBookmarksNovel(id: number, options?: any): Promise<any>;
-	userDetail(id: number, options?: any): Promise<any>;
+	userBookmarkIllustTags(options?: RequestOption): Promise<any>;
+	userBookmarkNovelTags(options?: RequestOption): Promise<any>;
+	userBookmarksIllust(id: number, options?: RequestOption): Promise<any>;
+	userBookmarksNovel(id: number, options?: RequestOption): Promise<any>;
+	userDetail(id: number, options?: RequestOption): Promise<any>;
 	userFollowDetail(id: number): Promise<any>;
-	userFollower(id: number, options?: any): Promise<any>;
-	userFollowing(id: number, options?: any): Promise<any>;
-	userIllusts(id: number, options?: any): Promise<any>;
+	userFollower(id: number, options?: RequestOption): Promise<any>;
+	userFollowing(id: number, options?: RequestOption): Promise<any>;
+	userIllusts(id: number, options?: RequestOption): Promise<any>;
 	userMyPixiv(id: number): Promise<any>;
-	userNovels(id: number, options?: any): Promise<any>;
-	userRecommended(options?: any): Promise<any>;
+	userNovels(id: number, options?: RequestOption): Promise<any>;
+	userRecommended(options?: RequestOption): Promise<any>;
 	userState(): Promise<any>;
 }

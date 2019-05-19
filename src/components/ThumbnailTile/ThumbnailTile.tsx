@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Text } from 'react-native'
 
 import { Illust } from 'pixiv-api-client';
-import { PxImage } from '../PxImage';
+import { PxThumbnail } from '../PxImage';
 import pixivApi from '@/api/PixivApi';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Screens } from '@/constants';
@@ -33,7 +33,7 @@ const ThumbnailTile = ((props: Props) => {
 	return (
 		<Container	>
 			<TouchableHighlight onPress={() => navigation.navigate(Screens.IllustDetail, { id: illust.id })}>
-				<PxImage url={illust.image_urls.square_medium} width={size} height={size} />
+				<PxThumbnail url={illust.image_urls.square_medium} size={size} />
 			</TouchableHighlight>
 			<NumPages>
 				<Text>{illust.page_count}</Text>
