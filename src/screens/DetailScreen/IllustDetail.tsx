@@ -14,19 +14,22 @@ interface Props {
 	navigation: NavigationScreenProp<any, any>;
 }
 
-let initIllust: Illust | null = null;
-
 const IllustDetail = ((props: Props) => {
 	const { navigation } = props;
-	const illustId: number = navigation.getParam('id', 0)
+	const illustIdParam: number = navigation.getParam('id', null)
+	const illustParam: Illust|null = navigation.getParam('illust', null)
 
 	const signal = axios.CancelToken.source();
-	const [illust, setIllust] = useState(initIllust)
+	const [illust, setIllust] = useState(illustParam)
 
-	useEffect(() => {
+	useEffect(() => {		
+		//paramでillustオブジェがわたってきたときはそれをそのまま使う		
+		if(illust){		
+			return
+		}
 
-		// キャンセルできない
-		pixivApi.illustDetail(illustId, { cancelToken: signal.token }).then((res) => {
+		// TODO:キャンセルできない
+		pixivApi.illustDetail(illustIdParam, { cancelToken: signal.token }).then((res) => {
 			setIllust(res.illust);
 		});
 		return () => (
@@ -35,7 +38,6 @@ const IllustDetail = ((props: Props) => {
 	}, [illust])
 
 	const _renderIllustDetail = (illust: Illust) => {
-		console.log(illust);
 		// https://github.com/DylanVann/react-native-fast-image/issues/77
 		// https://github.com/alphasp/pxview/blob/master/src/components/PXCacheImage.js#L79
 		// 画像サイズをいい感じに

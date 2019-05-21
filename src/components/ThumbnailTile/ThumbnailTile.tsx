@@ -30,9 +30,13 @@ const ThumbnailTile = ((props: Props) => {
 		})
 	}
 
+	const _onpressIllustDetail = () =>{
+		navigation.navigate(Screens.IllustDetail, { illust: illust })
+	}
+
 	return (
 		<Container	>
-			<TouchableHighlight onPress={() => navigation.navigate(Screens.IllustDetail, { id: illust.id })}>
+			<TouchableHighlight onPress={_onpressIllustDetail}>
 				<PxThumbnail url={illust.image_urls.square_medium} size={size} />
 			</TouchableHighlight>
 			<NumPages>

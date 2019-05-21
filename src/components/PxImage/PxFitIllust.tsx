@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import FastImage, { OnLoadEvent } from 'react-native-fast-image'
-import { PxImage } from '.';
+import  PxImage  from './PxImage';
 import { Device } from '@/constants';
 
 interface Props {

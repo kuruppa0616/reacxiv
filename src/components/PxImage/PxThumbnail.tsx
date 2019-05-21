@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import FastImage from 'react-native-fast-image'
-import { PxImage } from '.';
+import  PxImage  from './PxImage';
 
 interface Props {
 	url: string;
