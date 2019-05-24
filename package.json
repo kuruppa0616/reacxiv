@@ -9,6 +9,7 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/react-native-dotenv": "^0.2.0",
+    "@types/react-native-htmlview": "^0.12.2",
     "@types/react-native-vector-icons": "^6.4.0",
     "@types/react-navigation": "^3.0.7",
     "@types/styled-components": "^4.1.14",
@@ -23,6 +24,7 @@
     "react-native-dotenv": "^0.2.0",
     "react-native-fast-image": "^6.0.0",
     "react-native-gesture-handler": "^1.2.1",
+    "react-native-htmlview": "^0.14.0",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.9.1",
     "styled-components": "^4.2.0"

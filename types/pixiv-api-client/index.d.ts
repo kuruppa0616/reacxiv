@@ -5,22 +5,10 @@ export interface Illust {
 	id: number;
 	title: string;
 	type: string;
-	image_urls: {
-		square_medium: string;
-		medium: string;
-		large: string;
-	};
+	image_urls: ImageUrls;
 	caption: string;
 	restrict: number;
-	user: {
-		id: number;
-		name: string;
-		account: string;
-		profile_image_urls: {
-			medium: string;
-		};
-		is_followed: boolean;
-	};
+	user: User;
 	tags: Tag[];
 	tools: string[];
 	create_date: Date;
@@ -34,12 +22,7 @@ export interface Illust {
 		original_image_url: string;
 	};
 	meta_pages: {
-		image_urls: {
-			square_medium: string;
-			medium: string;
-			large: string;
-			original: string;
-		};
+		image_urls: ImageUrls;
 	}[];
 	total_view: number;
 	total_bookmarks: number;
@@ -48,9 +31,29 @@ export interface Illust {
 	is_muted: boolean;
 }
 
+export interface User {
+	id: number;
+	name: string;
+	account: string;
+	profile_image_urls: {
+		medium: string;
+	};
+	is_followed: boolean;
+}
+
 export interface Tag {
 	name: string;
 	translated_name: string;
+}
+
+export interface ImageUrls {
+	square_medium: string;
+	medium: string;
+	large: string;
+}
+
+export interface ImageUrlsWithOrig extends ImageUrls {
+	original: string;
 }
 
 export interface Credential {
@@ -83,8 +86,14 @@ export interface IllustsResponse {
 	// privacy_policy: {}
 }
 
+type Restrict = "public " | "private ";
+
 export interface RequestOption {
 	cancelToken: CancelToken
+}
+
+export interface WorksFollowRequestOption extends RequestOption {
+	restrict: "All " | Restrict;
 }
 
 declare class PixivApiClient {
@@ -102,18 +111,18 @@ declare class PixivApiClient {
 		'User-Agent': 'PixivIOSApp/7.2.2 (iOS 12.0.1; iPhone8,2)',
 	};
 	authInfo(): Promise<any>;
-	bookmarkIllust(id: number, restrict?: any, tags?: string[]): Promise<void>;
-	bookmarkNovel(id: number, restrict: any, tags?: string[]): Promise<void>;
+	bookmarkIllust(id: number, restrict?: Restrict, tags?: string[]): Promise<void>;
+	bookmarkNovel(id: number, restrict?: Restrict, tags?: string[]): Promise<void>;
 	createProvisionalAccount(nickname: string): Promise<any>;
 	editUserAccount(fields: any): Promise<any>;
-	followUser(id: number, restrict: any): Promise<any>;
+	followUser(id: number, restrict?: Restrict): Promise<void>;
 	illustAddComment(id: number, comment: string, parentCommentid: number): Promise<any>;
 	illustBookmarkDetail(id: number, options?: RequestOption): Promise<any>;
 	illustCommentReplies(id: number): Promise<any>;
 	illustComments(id: number, options?: RequestOption): Promise<any>;
 	illustCommentsV2(id: number, options?: RequestOption): Promise<any>;
 	illustDetail(id: number, options?: RequestOption): Promise<{ illust: Illust }>;
-	illustFollow(options?: RequestOption): Promise<IllustsResponse>;
+	illustFollow(options?: WorksFollowRequestOption): Promise<IllustsResponse>;
 	illustMyPixiv(): Promise<any>;
 	illustNew(options?: RequestOption): Promise<any>;
 	illustRanking(options?: RequestOption): Promise<any>;
@@ -130,7 +139,7 @@ declare class PixivApiClient {
 	novelComments(id: number, options?: RequestOption): Promise<any>;
 	novelCommentsV2(id: number, options?: RequestOption): Promise<any>;
 	novelDetail(id: number): Promise<any>;
-	novelFollow(options?: RequestOption): Promise<any>;
+	novelFollow(options?: WorksFollowRequestOption): Promise<any>;
 	novelMyPixiv(): Promise<any>;
 	novelNew(options?: RequestOption): Promise<any>;
 	novelRanking(options?: RequestOption): Promise<any>;
@@ -158,7 +167,7 @@ declare class PixivApiClient {
 	ugoiraMetaData(id: number): Promise<any>;
 	unbookmarkIllust(id: number): Promise<void>;
 	unbookmarkNovel(id: number): Promise<any>;
-	unfollowUser(id: number): Promise<any>;
+	unfollowUser(id: number): Promise<void>;
 	userBookmarkIllustTags(options?: RequestOption): Promise<any>;
 	userBookmarkNovelTags(options?: RequestOption): Promise<any>;
 	userBookmarksIllust(id: number, options?: RequestOption): Promise<any>;

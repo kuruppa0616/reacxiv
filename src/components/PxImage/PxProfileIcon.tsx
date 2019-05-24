@@ -5,11 +5,11 @@ interface Props {
 	url: string;
 	size: number
 }
-const PxThumbnail = ((props: Props) => {
+const PxProfileIcon = ((props: Props) => {
 	const { url, size } = props
 	return (
-		<PxImage url={url} width={size} height={size} style={{ margin: 1 }} />
+		<PxImage url={url} width={size} height={size} style={{ borderRadius: 50 }} />
 	);
 });
 
-export default PxThumbnail;
+export default PxProfileIcon;
