@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components/native';
 
 interface Props {

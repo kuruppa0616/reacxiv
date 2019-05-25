@@ -21,6 +21,7 @@
     "noEmit": true,
     "strict": true,
     "target": "esnext",
+    "experimentalDecorators": true,
   },
   "exclude": [
     "node_modules",

@@ -1,14 +1,12 @@
-import React, { memo, useEffect, useState } from 'react';
-import styled from 'styled-components/native';
-import { Button, FlatList, Text, View, Image, Dimensions } from 'react-native';
+import React, { memo, useContext } from 'react';
+import { View } from 'react-native';
 import pixivApi from '@/api/PixivApi';
 import { IllustList } from '@/components/IllustList';
 import Home from './Home';
-import { IllustDetail } from '../DetailScreen';
-import { createStackNavigator, withNavigation } from 'react-navigation';
-import { Screens } from '@/constants';
+import { RecommendIllustsStore } from '@/mobx/stores';
 
 const Recommend = memo((props: any) => {
+	const store = useContext(RecommendIllustsStore);
 	return (
 		<Home>
 			<View>
