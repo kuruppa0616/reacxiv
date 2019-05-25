@@ -96,7 +96,7 @@ export interface WorksFollowRequestOption extends RequestOption {
 	restrict: "All " | Restrict;
 }
 
-declare class PixivApiClient {
+export declare class PixivApiClient {
 	auth: null | {
 		access_token: string,
 		refresh_token: string

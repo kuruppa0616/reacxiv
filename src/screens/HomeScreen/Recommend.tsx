@@ -1,16 +1,19 @@
 import React, { memo, useContext } from 'react';
 import { View } from 'react-native';
-import pixivApi from '@/api/PixivApi';
+import { observer } from 'mobx-react-lite'
+
 import { IllustList } from '@/components/IllustList';
 import Home from './Home';
 import { RecommendIllustsStore } from '@/mobx/stores';
 
-const Recommend = memo((props: any) => {
+const Recommend = observer((props: any) => {
 	const store = useContext(RecommendIllustsStore);
 	return (
 		<Home>
 			<View>
-				<IllustList fetchIllusts={() => pixivApi.illustRecommended()} />
+				<RecommendIllustsStore.Provider value={store}>
+					<IllustList store={store} />
+				</RecommendIllustsStore.Provider>
 			</View>
 		</Home>
 

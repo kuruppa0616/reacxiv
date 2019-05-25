@@ -1,14 +1,19 @@
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import { View } from 'react-native';
-import pixivApi from '@/api/PixivApi';
+import { observer } from 'mobx-react-lite'
+
 import { IllustList } from '@/components/IllustList';
 import Home from './Home';
+import { FollowIllustsStore } from '@/mobx/stores';
 
-const New = memo(() => {
+const New = observer((props: any) => {
+	const store = useContext(FollowIllustsStore);
 	return (
 		<Home>
 			<View>
-				<IllustList fetchIllusts={() => pixivApi.illustFollow()} />
+				<FollowIllustsStore.Provider value={store}>
+					<IllustList store={store} />
+				</FollowIllustsStore.Provider>
 			</View>
 		</Home>
 

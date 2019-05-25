@@ -1,47 +1,51 @@
 import React, { memo, useEffect, useState } from 'react';
 
-import { Illust, IllustsResponse } from 'pixiv-api-client';
+import { Illust } from 'pixiv-api-client';
 import { FlatList, Dimensions } from 'react-native';
-import pixivApi from '@/api/PixivApi';
 import { ThumbnailTile } from '../ThumbnailTile';
 import styled from 'styled-components/native';
-import { useIllusts } from '@/hooks';
+import IllustsStore from '@/mobx/stores/IllustsStore';
 
 interface Props {
-	fetchIllusts(options?: any): Promise<IllustsResponse>;
+	store: IllustsStore
 }
 
 const NUM_COLUMNS = 3;
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const IllustList = memo((props: Props) => {
+const IllustList = (props: Props) => {
 
-	const { fetchIllusts } = props;
+	const { store } = props;
+	const { illusts } = store;
 
-	const [illusts, loadInitIllusts, loadNextIllusts] = useIllusts(fetchIllusts)
 	const [isRefreshing, setIsRefreshing] = useState(false);
 
-	const _renderItem = ({ item }: { item: Illust }) => (
-		<ThumbnailTile illust={item} size={SCREEN_WIDTH / NUM_COLUMNS} />
-	);
+	useEffect(() => {
+		store.fetchIllusts();
+	}, [])
 
 	const _keyExtractor = (item: Illust) => (
 		item.id.toString()
 	);
 
 	const _onEndReached = () => {
-		loadNextIllusts();
+		store.loadMoreIllusts();
 	}
 
 	const _onRefresh = () => {
 		setIsRefreshing(true);
-		loadInitIllusts().then(() => {
+		store.reloadIllusts().then(() => {
 			setIsRefreshing(false);
 		})
 	}
 
+	const _renderItem = ({ item }: { item: Illust }) => (
+		<ThumbnailTile illust={item} size={SCREEN_WIDTH / NUM_COLUMNS} />
+	);
+
 	return (
 		<Container>
+			{console.log("called")}
 			<FlatList
 				data={illusts.slice(0, illusts.length - illusts.length % NUM_COLUMNS)}
 				renderItem={_renderItem}
@@ -54,13 +58,12 @@ const IllustList = memo((props: Props) => {
 			/>
 		</Container>
 	);
-});
+};
 
 const Container = styled.View`
 	flex: 1 ;
 	width:100%;
   align-items: center;
-
 `
 
 export default IllustList;

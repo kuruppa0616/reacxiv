@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 interface Props {
 	children: JSX.Element
 }
-const Home = memo((props: Props) => {
+const Home = ((props: Props) => {
 	const { children } = props
 	return (
 		<Container>
