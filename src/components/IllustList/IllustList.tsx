@@ -46,7 +46,6 @@ const IllustList = observer((props: Props) => {
 
 	return (
 		<Container>
-			{console.log("called")}
 			<FlatList
 				data={illusts.slice(0, illusts.length - illusts.length % NUM_COLUMNS)}
 				renderItem={_renderItem}

@@ -1,7 +1,7 @@
-import { createContext } from 'react'
-import { observable, computed, action, decorate } from 'mobx'
-import { Illust, RequestOption, IllustsResponse, PixivApiClient } from 'pixiv-api-client';
+import { observable, action, computed } from 'mobx'
+import { Illust, PixivApiClient } from 'pixiv-api-client';
 import pixivApi from '@/api/PixivApi';
+
 type FetchIllusts = PixivApiClient["illustRecommended"] | PixivApiClient["illustFollow"]
 
 export class IllustsStore {
@@ -12,7 +12,7 @@ export class IllustsStore {
 		this.fetch = fetch
 	}
 
-	@observable.shallow illusts: Illust[] = [];
+	@observable illusts: Illust[] = [];
 	@observable nextUrl: string = "";
 
 	@action setIllusts = (illusts: Illust[]) => {
