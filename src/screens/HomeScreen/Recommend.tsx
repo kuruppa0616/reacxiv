@@ -1,24 +1,21 @@
 import React, { memo, useContext } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { observer } from 'mobx-react-lite'
 
 import { IllustList } from '@/components/IllustList';
 import Home from './Home';
 import { RecommendIllustsStore } from '@/mobx/stores';
 
-const Recommend = observer((props: any) => {
+const Recommend = () => {
 	const store = useContext(RecommendIllustsStore);
 	return (
 		<Home>
 			<View>
-				<RecommendIllustsStore.Provider value={store}>
-					<IllustList store={store} />
-				</RecommendIllustsStore.Provider>
+				<IllustList store={store} />
 			</View>
 		</Home>
-
 	);
-});
+};
 
 
 export default Recommend;

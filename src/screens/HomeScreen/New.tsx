@@ -1,23 +1,18 @@
 import React, { memo, useContext } from 'react';
-import { View } from 'react-native';
-import { observer } from 'mobx-react-lite'
-
+import { View, Text } from 'react-native';
 import { IllustList } from '@/components/IllustList';
 import Home from './Home';
 import { FollowIllustsStore } from '@/mobx/stores';
 
-const New = observer((props: any) => {
+const New = () => {
 	const store = useContext(FollowIllustsStore);
 	return (
 		<Home>
 			<View>
-				<FollowIllustsStore.Provider value={store}>
-					<IllustList store={store} />
-				</FollowIllustsStore.Provider>
+				<IllustList store={store} />
 			</View>
 		</Home>
-
 	);
-});
+};
 
 export default New;

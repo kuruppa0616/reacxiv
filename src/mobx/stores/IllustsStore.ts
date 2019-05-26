@@ -28,21 +28,21 @@ export class IllustsStore {
 		this.illusts = [];
 	}
 
-	@action fetchIllusts = async () => {
+	fetchIllusts = async () => {
 		this.fetch().then(({ illusts, next_url }) => {
 			this.setIllusts(illusts)
 			this.setNextUrl(next_url)
 		})
 	}
 
-	@action loadMoreIllusts = async () => {
+	loadMoreIllusts = async () => {
 		pixivApi.requestUrl(this.nextUrl).then(({ illusts, next_url }) => {
 			this.setIllusts(illusts)
 			this.setNextUrl(next_url)
 		})
 	}
 
-	@action reloadIllusts = async () => {
+	reloadIllusts = async () => {
 		this.clearIllusts();
 		this.fetchIllusts();
 	}

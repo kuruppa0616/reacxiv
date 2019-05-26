@@ -5,6 +5,7 @@ import { FlatList, Dimensions } from 'react-native';
 import { ThumbnailTile } from '../ThumbnailTile';
 import styled from 'styled-components/native';
 import IllustsStore from '@/mobx/stores/IllustsStore';
+import { observer } from 'mobx-react-lite'
 
 interface Props {
 	store: IllustsStore
@@ -13,7 +14,7 @@ interface Props {
 const NUM_COLUMNS = 3;
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const IllustList = (props: Props) => {
+const IllustList = observer((props: Props) => {
 
 	const { store } = props;
 	const { illusts } = store;
@@ -58,7 +59,7 @@ const IllustList = (props: Props) => {
 			/>
 		</Container>
 	);
-};
+});
 
 const Container = styled.View`
 	flex: 1 ;
