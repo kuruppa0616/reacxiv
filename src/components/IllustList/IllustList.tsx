@@ -17,7 +17,9 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const IllustList = observer((props: Props) => {
 
 	const { store } = props;
-	const { N_illusts: illusts } = store;
+	const illusts = store.data;
+	// console.log(illusts);
+
 
 	const [isRefreshing, setIsRefreshing] = useState(false);
 
