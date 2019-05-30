@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState, useContext } from 'react';
 import styled from 'styled-components/native';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -10,6 +10,8 @@ import pixivApi from '@/api/PixivApi';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Screens } from '@/constants';
 
+import { RecommendIllustsStore } from '@/mobx/stores';
+
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -19,18 +21,18 @@ interface Props {
 
 const ThumbnailTile = ((props: Props) => {
 	const { illust, size, navigation } = props
-	const [isBookmarked, setIsBookmarked] = useState(illust.is_bookmarked)
+	const isBookmarked = illust.is_bookmarked;
+	const store = useContext(RecommendIllustsStore);
+
 
 	const _onPressbookmark = () => {
 		const func = isBookmarked ? () => pixivApi.unbookmarkIllust(illust.id) : () => pixivApi.bookmarkIllust(illust.id)
 		func().then(() => {
-			setIsBookmarked((isBookmarked) => (
-				!isBookmarked
-			));
+			store.updateBookmark(illust.id, !isBookmarked)
 		})
 	}
 
-	const _onpressIllustDetail = () =>{
+	const _onpressIllustDetail = () => {
 		navigation.navigate(Screens.IllustDetail, { illust: illust })
 	}
 
