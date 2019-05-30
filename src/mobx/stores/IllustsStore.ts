@@ -66,12 +66,14 @@ export class IllustsStore {
 		this.nextUrl = "";
 	}
 
-	@action updateBookmark = (id: number, isBookmarked: boolean) => {
-		console.log("called");
+	@action public updateBookmark = (id: number, isBookmarked: boolean) => {
+		const toJSIllusts: any = { ...this.illusts };
+		toJSIllusts[id].is_bookmarked = isBookmarked;
+		this.illusts = toJSIllusts;
+	}
 
-		const illusts: Illust = this.toJSIllusts[id];
-		illusts.is_bookmarked = isBookmarked;
-		this.toJSIllusts[id] = illusts
+	@action public updateFollow = (id: number, isBookmarked: boolean) => {
+
 	}
 
 	public fetchIllusts = async () => {
