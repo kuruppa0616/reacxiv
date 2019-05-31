@@ -3,13 +3,11 @@ import PxImage from './PxImage';
 
 interface Props {
 	url: string;
-	size: number
+	size: number;
 }
-const PxThumbnail = ((props: Props) => {
-	const { url, size } = props
-	return (
-		<PxImage url={url} width={size} height={size} style={{ margin: 1 }} />
-	);
-});
+const PxThumbnail = (props: Props) => {
+	const { url, size } = props;
+	return <PxImage url={url} width={size} height={size} style={{ margin: 1 }} />;
+};
 
 export default PxThumbnail;

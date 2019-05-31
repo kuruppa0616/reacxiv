@@ -7,8 +7,8 @@ class ExtendedPixivApi extends PixivApi {
 			refresh_token: refreshToken
 		};
 		this.auth = auth;
-	};
+	}
 }
 
-const pixivApi = new ExtendedPixivApi()
+const pixivApi = new ExtendedPixivApi();
 export default pixivApi;

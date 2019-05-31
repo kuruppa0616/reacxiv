@@ -1,6 +1,5 @@
-import React, { memo, useContext } from 'react';
-import { View, Text } from 'react-native';
-import { observer } from 'mobx-react-lite'
+import React, { useContext } from 'react';
+import { View } from 'react-native';
 
 import { IllustList } from '@/components/IllustList';
 import Home from './Home';
@@ -16,6 +15,5 @@ const Recommend = () => {
 		</Home>
 	);
 };
-
 
 export default Recommend;

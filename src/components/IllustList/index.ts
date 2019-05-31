@@ -1,1 +1,1 @@
-export { default as IllustList } from "./IllustList";
+export { default as IllustList } from './IllustList';

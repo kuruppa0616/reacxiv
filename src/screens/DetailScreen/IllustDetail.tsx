@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { View, Text } from 'react-native';
-import { withNavigation, NavigationScreenProp, ScrollView, FlatList } from 'react-navigation';
+import {
+	withNavigation,
+	NavigationScreenProp,
+	ScrollView,
+	FlatList
+} from 'react-navigation';
 import { Illust, ImageUrls, User } from 'pixiv-api-client';
 import axios from 'axios';
 import HTMLView from 'react-native-htmlview';
@@ -11,12 +16,11 @@ import { PxFitIllust, PxProfileIcon } from '@/components/PxImage';
 import { Button, Text as NbText } from 'native-base';
 import { FollowButton } from '@/components/FollowButton';
 
-
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
 }
 
-const IllustDetail = ((props: Props) => {
+const IllustDetail = (props: Props) => {
 	const { navigation } = props;
 	const illustIdParam: number = navigation.getParam('id', null);
 	const illustParam: Illust | null = navigation.getParam('illust', null);
@@ -25,30 +29,28 @@ const IllustDetail = ((props: Props) => {
 	const [illust, setIllust] = useState(illustParam);
 
 	useEffect(() => {
-		//paramでillustオブジェがわたってきたときはそれをそのまま使う		
+		//paramでillustオブジェがわたってきたときはそれをそのまま使う
 		if (illust) {
-			return
+			return;
 		}
 
 		// TODO:キャンセルできない
-		pixivApi.illustDetail(illustIdParam, { cancelToken: signal.token }).then((res) => {
-			setIllust(res.illust);
-		});
-		return () => (
-			signal.cancel('component is ummounted')
-		);
+		pixivApi
+			.illustDetail(illustIdParam, { cancelToken: signal.token })
+			.then(res => {
+				setIllust(res.illust);
+			});
+		return () => signal.cancel('component is ummounted');
 	}, [illust]);
 
-	const _keyExtractor = (item: ImageUrls) => (
-		item.large
-	);
+	const _keyExtractor = (item: ImageUrls) => item.large;
 
 	const _renderIllust = ({ item: image_urls }: { item: ImageUrls }) => (
 		<PxFitIllust url={image_urls.large} />
 	);
 
-	const _renderIllustList = (meta_pages: Illust["meta_pages"]) => {
-		const image_urls: ImageUrls[] = meta_pages.map((page) => page.image_urls);
+	const _renderIllustList = (meta_pages: Illust['meta_pages']) => {
+		const image_urls: ImageUrls[] = meta_pages.map(page => page.image_urls);
 		return (
 			<View>
 				<FlatList
@@ -58,18 +60,21 @@ const IllustDetail = ((props: Props) => {
 				/>
 			</View>
 		);
-	}
+	};
 
 	const _renderIllustDetail = (illust: Illust) => (
 		<ScrollView>
 			<View>
-				{illust.page_count === 1 ?
-					_renderIllust({ item: illust.image_urls })
+				{illust.page_count === 1
+					? _renderIllust({ item: illust.image_urls })
 					: _renderIllustList(illust.meta_pages)}
 			</View>
 			<Info>
 				<UserWrapper>
-					<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
+					<PxProfileIcon
+						url={illust.user.profile_image_urls.medium}
+						size={40}
+					/>
 					<UserName>
 						<Name>{illust.user.name}</Name>
 						<Text>{illust.user.account}</Text>
@@ -78,7 +83,9 @@ const IllustDetail = ((props: Props) => {
 				</UserWrapper>
 				<Detail>
 					<Title>{illust.title}</Title>
-					<StyledHTMLView value={`<html><body>${illust.caption}</body></html>`} />
+					<StyledHTMLView
+						value={`<html><body>${illust.caption}</body></html>`}
+					/>
 					<Params>
 						<Text>{illust.create_date}</Text>
 						<Text>{illust.total_view}</Text>
@@ -90,55 +97,50 @@ const IllustDetail = ((props: Props) => {
 		</ScrollView>
 	);
 
-	const _renderNowLoading = () => (
-		<Text>Now Loading</Text>
-	)
+	const _renderNowLoading = () => <Text>Now Loading</Text>;
 	return (
 		<Container>
 			{illust ? _renderIllustDetail(illust) : _renderNowLoading()}
 		</Container>
 	);
-});
+};
 
 const Container = styled.View`
 	flex: 1 auto;
-	width:100%;
+	width: 100%;
 	/* justify-content: center; */
-  align-items: center;
-`
+	align-items: center;
+`;
 const UserWrapper = styled.View`
-	display:flex;
+	display: flex;
 	flex-direction: row;
-	align-items:center;
+	align-items: center;
 `;
 const UserName = styled.View`
 	flex-grow: 3;
-	margin-left:10px;
-`
+	margin-left: 10px;
+`;
 const Name = styled.Text`
-	font-weight:bold;
+	font-weight: bold;
 `;
 const Info = styled.View`
-	padding-top:6px;
-	padding-left:10px;
-	padding-right:10px;
+	padding-top: 6px;
+	padding-left: 10px;
+	padding-right: 10px;
 `;
-const Detail = styled.View`
-
-
-`;
+const Detail = styled.View``;
 
 const Params = styled.View`
 	flex-direction: row;
-	align-items:center;
-`
+	align-items: center;
+`;
 
 const StyledHTMLView = styled(HTMLView)`
-	padding-bottom:10;
+	padding-bottom: 10;
 `;
 
 const Title = styled.Text`
-	font-weight:bold;
+	font-weight: bold;
 `;
 
 export default withNavigation(IllustDetail);

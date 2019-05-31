@@ -1,1 +1,1 @@
-export { default as ThumbnailTile } from "./ThumbnailTile";
+export { default as ThumbnailTile } from './ThumbnailTile';
