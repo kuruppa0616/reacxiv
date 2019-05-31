@@ -17,9 +17,9 @@ export class IllustsStore {
 		this.fetch = fetch;
 	}
 
-	@observable.shallow private illusts = observable({});
-	@observable.shallow private users = observable({});
-	@observable.shallow private keys: number[] = observable([]);
+	@observable.shallow private illusts = {};
+	@observable.shallow private users = {};
+	@observable.shallow private keys: number[] = [];
 
 	@computed private get toJSIllusts(): any {
 		return toJS(this.illusts);
@@ -53,17 +53,17 @@ export class IllustsStore {
 		this.nextUrl = url;
 	};
 
-	@action private clearIllusts = () => {
-		this.illusts = observable({});
-		this.users = observable({});
-		this.keys = observable([]);
+	@action private clearData = () => {
+		this.illusts = {};
+		this.users = {};
+		this.keys = [];
 		this.nextUrl = '';
 	};
 
 	@action public updateBookmark = (id: number, isBookmarked: boolean) => {
-		const toJSIllusts: any = { ...this.illusts };
-		toJSIllusts[id].is_bookmarked = isBookmarked;
-		this.illusts = toJSIllusts;
+		const illusts: any = { ...this.illusts };
+		illusts[id].is_bookmarked = isBookmarked;
+		this.illusts = illusts;
 	};
 
 	// @action public updateFollow = (id: number, isBookmarked: boolean) => { };
@@ -83,7 +83,7 @@ export class IllustsStore {
 	};
 
 	public reloadIllusts = async () => {
-		this.clearIllusts();
+		this.clearData();
 		this.fetchIllusts();
 	};
 }

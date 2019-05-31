@@ -7,13 +7,12 @@ import {
 	ScrollView,
 	FlatList
 } from 'react-navigation';
-import { Illust, ImageUrls, User } from 'pixiv-api-client';
+import { Illust, ImageUrls } from 'pixiv-api-client';
 import axios from 'axios';
 import HTMLView from 'react-native-htmlview';
 
 import pixivApi from '@/api/PixivApi';
 import { PxFitIllust, PxProfileIcon } from '@/components/PxImage';
-import { Button, Text as NbText } from 'native-base';
 import { FollowButton } from '@/components/FollowButton';
 
 interface Props {
