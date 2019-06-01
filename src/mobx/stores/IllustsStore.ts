@@ -21,32 +21,20 @@ export class IllustsStore {
 	@observable.shallow private users = {};
 	@observable.shallow private keys: number[] = [];
 
-	@computed private get toJSIllusts(): any {
-		return toJS(this.illusts);
-	}
-
-	@computed private get toJSUsers(): {} {
-		return toJS(this.users);
-	}
-
-	@computed private get toJSKeys(): number[] {
-		return toJS(this.keys);
-	}
-
 	@computed public get data(): Illust[] {
 		const entities = {
-			illusts: this.toJSIllusts,
-			users: this.toJSUsers
+			illusts: this.illusts,
+			users: this.users
 		};
 
-		return denormalize(this.toJSKeys, illustsSchema, entities);
+		return denormalize(this.keys, illustsSchema, entities);
 	}
 
 	@action private setIllusts = (illusts: Illust[]) => {
 		const normalized = normalize(illusts, illustsSchema);
 		this.illusts = { ...this.illusts, ...normalized.entities.illusts };
 		this.users = { ...this.users, ...normalized.entities.users };
-		this.keys = [...this.keys, ...normalized.result];
+		this.keys = [...new Set([...this.keys, ...normalized.result])];
 	};
 
 	@action private setNextUrl = (url: string) => {

@@ -6,34 +6,25 @@ import { Text } from 'react-native';
 
 import { Illust } from 'pixiv-api-client';
 import { PxThumbnail } from '../PxImage';
-import pixivApi from '@/api/PixivApi';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Screens } from '@/constants';
-
-import { RecommendIllustsStore } from '@/mobx/stores';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
 	illust: Illust;
 	size: number;
+	bookmarkIllust: (illust: Illust) => void;
 }
 
 const ThumbnailTile = (props: Props) => {
-	const { illust, size, navigation } = props;
-	const isBookmarked = illust.is_bookmarked;
-	const store = useContext(RecommendIllustsStore);
-
-	const _onPressbookmark = () => {
-		const func = isBookmarked
-			? () => pixivApi.unbookmarkIllust(illust.id)
-			: () => pixivApi.bookmarkIllust(illust.id);
-		func().then(() => {
-			store.updateBookmark(illust.id, !isBookmarked);
-		});
-	};
+	const { illust, size, navigation, bookmarkIllust } = props;
 
 	const _onpressIllustDetail = () => {
 		navigation.navigate(Screens.IllustDetail, { illust: illust });
+	};
+
+	const _onPressBookmark = (illust: Illust) => {
+		return () => bookmarkIllust(illust);
 	};
 
 	return (
@@ -45,11 +36,11 @@ const ThumbnailTile = (props: Props) => {
 				<Text>{illust.page_count}</Text>
 			</NumPages>
 			<ButoonArea>
-				<TouchableArea onPress={_onPressbookmark}>
+				<TouchableArea onPress={_onPressBookmark(illust)}>
 					<Icon
 						size={23}
 						name="heart"
-						color={isBookmarked ? '#e74c3c' : 'white'}
+						color={illust.is_bookmarked ? '#e74c3c' : 'white'}
 					/>
 				</TouchableArea>
 			</ButoonArea>
