@@ -15,7 +15,8 @@
     "isolatedModules": false,
     "jsx": "react",
     "lib": [
-      "es6"
+      "es2017",
+      "dom"
     ],
     "moduleResolution": "node",
     "noEmit": true,

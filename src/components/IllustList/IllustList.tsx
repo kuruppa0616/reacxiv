@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Illust } from 'pixiv-api-client';
 import { FlatList, Dimensions } from 'react-native';
@@ -48,12 +48,6 @@ const IllustList = observer((props: Props) => {
 			bookmarkIllust={bookmarkIllust}
 		/>
 	);
-	const dups = store.data
-		.map(illust => illust.id)
-		.filter((x, _, self) => {
-			return self.indexOf(x) !== self.lastIndexOf(x);
-		});
-	console.log('list:', store.data.length, dups);
 
 	return (
 		<Container>
