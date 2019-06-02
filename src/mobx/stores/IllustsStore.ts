@@ -69,7 +69,7 @@ export class IllustsStore {
 	};
 
 	public reloadIllusts = async (fetch: FetchIllusts): Promise<number[]> => {
-		this.clearData();
+		// this.clearData();
 		const keys = await this.fetchIllusts(fetch);
 		return keys;
 	};

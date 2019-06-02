@@ -14,7 +14,8 @@ const TabNavigator = createBottomTabNavigator(
 		tabBarOptions: {
 			activeTintColor: 'tomato',
 			inactiveTintColor: 'gray'
-		}
+		},
+		initialRouteName: Screens.Top
 	}
 );
 

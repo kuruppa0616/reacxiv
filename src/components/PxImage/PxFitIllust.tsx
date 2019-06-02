@@ -19,6 +19,10 @@ const PxFitIllust = (props: Props) => {
 		const illustWidth = event.nativeEvent.width;
 		const illustHeight = event.nativeEvent.height;
 		const deviceWidth = Device.Width;
+		console.log(illustHeight);
+
+
+		// 画像の高さがn px以上の場合
 
 		// const optimizedWidth =
 		// 	illustWidth > deviceWidth ? deviceWidth : illustWidth;
@@ -29,14 +33,7 @@ const PxFitIllust = (props: Props) => {
 			height: optimizedHeight
 		});
 	};
-	return (
-		<PxImage
-			url={url}
-			width={size.width}
-			height={size.height}
-			onLoad={_onLoad}
-		/>
-	);
+	return <PxImage url={url} width={size.width} height={size.height} onLoad={_onLoad} />;
 };
 
 export default PxFitIllust;

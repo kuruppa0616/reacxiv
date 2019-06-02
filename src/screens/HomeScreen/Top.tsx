@@ -8,10 +8,12 @@ import pixivApi from '@/api/PixivApi';
 
 const Top = () => {
 	const store = useContext(GlobalIllustsStore);
+
+	const _fetch = () => pixivApi.illustRecommended();
 	return (
 		<Home>
 			<View>
-				<IllustList fetch={() => pixivApi.illustRecommended()} store={store} />
+				<IllustList fetch={_fetch} store={store} />
 			</View>
 		</Home>
 	);

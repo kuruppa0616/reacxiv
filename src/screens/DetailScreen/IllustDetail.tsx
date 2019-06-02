@@ -7,14 +7,14 @@ import {
 	ScrollView,
 	FlatList
 } from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import ActionButton from 'react-native-action-button';
 import { observer } from 'mobx-react-lite';
 import HTMLView from 'react-native-htmlview';
 import { Illust, ImageUrls } from 'pixiv-api-client';
 import useBookmark from '@/hooks/useBookmark';
 
 import { PxFitIllust, PxProfileIcon } from '@/components/PxImage';
-import { FollowButton } from '@/components/FollowButton';
+import { FollowButton, BookmarkButton, FloatingBookmarkButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
 import { denormalize } from 'normalizr';
 import { illustsSchema } from '@/mobx/schema';
@@ -34,13 +34,9 @@ const IllustDetail = observer((props: Props) => {
 	useEffect(() => {
 		const illusts: Illust[] = denormalize([illustId], illustsSchema, store.entities);
 		setIllust(illusts[0]);
-	}, [store.illusts, store.users]);
+	}, [store.illusts[illustId].is_bookmarked]);
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
-
-	const _onPressBookmark = (illust: Illust) => {
-		return () => bookmarkIllust(illust);
-	};
 
 	const _renderIllust = ({ item: image_urls }: { item: ImageUrls }) => (
 		<PxFitIllust url={image_urls.large} />
@@ -60,40 +56,39 @@ const IllustDetail = observer((props: Props) => {
 	};
 
 	const _renderIllustDetail = (illust: Illust) => (
-		<ScrollView>
-			<View>
-				{illust.page_count === 1
-					? _renderIllust({ item: illust.image_urls })
-					: _renderIllustList(illust.meta_pages)}
-			</View>
-			<Info>
-				<UserWrapper>
-					<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
-					<UserName>
-						<Name>{illust.user.name}</Name>
-						<Text>{illust.user.account}</Text>
-					</UserName>
-					<TouchableArea onPress={_onPressBookmark(illust)}>
-						<Icon
-							size={23}
-							name="heart"
-							color={illust.is_bookmarked ? '#e74c3c' : 'gray'}
-						/>
-					</TouchableArea>
-					<FollowButton user={illust.user} />
-				</UserWrapper>
-				<Detail>
-					<Title>{illust.title}</Title>
-					<StyledHTMLView value={`<html><body>${illust.caption}</body></html>`} />
-					<Params>
-						<Text>{illust.create_date}</Text>
-						<Text>{illust.total_view}</Text>
-						<Text>{illust.total_bookmarks}</Text>
-					</Params>
-					<Text>{illust.tags.map(val => val.name).join(' ')}</Text>
-				</Detail>
-			</Info>
-		</ScrollView>
+		<View>
+
+			<ScrollWrapper>
+				<View>
+					{illust.page_count === 1
+						? _renderIllust({ item: illust.image_urls })
+						: _renderIllustList(illust.meta_pages)}
+				</View>
+				<Info>
+					<UserWrapper>
+						<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
+						<UserName>
+							<Name>{illust.user.name}</Name>
+							<Text>{illust.user.account}</Text>
+						</UserName>
+						<FollowButton user={illust.user} />
+					</UserWrapper>
+					<Detail>
+						<Title>{illust.title}</Title>
+						<StyledHTMLView value={`<html><body>${illust.caption}</body></html>`} />
+						<Params>
+							<Text>{illust.create_date}</Text>
+							<Text>{illust.total_view}</Text>
+							<Text>{illust.total_bookmarks}</Text>
+						</Params>
+						<Text>{illust.tags.map(val => val.name).join(' ')}</Text>
+					</Detail>
+				</Info>
+			</ScrollWrapper>
+			<FloatingArea>
+				<FloatingBookmarkButton illust={illust} bookmarkFunc={bookmarkIllust} />
+			</FloatingArea>
+		</View>
 	);
 
 	const _renderNowLoading = () => <Text>Now Loading</Text>;
@@ -106,8 +101,12 @@ const IllustDetail = observer((props: Props) => {
 const Container = styled.View`
 	flex: 1 auto;
 	width: 100%;
-	/* justify-content: center; */
 	align-items: center;
+`;
+
+const ScrollWrapper = styled.ScrollView`
+	position: relative;
+	height: 100%;
 `;
 const UserWrapper = styled.View`
 	display: flex;
@@ -128,6 +127,14 @@ const Info = styled.View`
 `;
 const Detail = styled.View``;
 
+const FloatingArea = styled.View`
+	position: absolute;
+	bottom: 0%;
+	right: 0%;
+	margin-right: 40px;
+	margin-bottom: 30px;
+`;
+
 const Params = styled.View`
 	flex-direction: row;
 	align-items: center;
@@ -139,18 +146,6 @@ const StyledHTMLView = styled(HTMLView)`
 
 const Title = styled.Text`
 	font-weight: bold;
-`;
-
-const TouchableArea = styled.TouchableWithoutFeedback`
-	width: 20px;
-	height: 20px;
-	border-width: 1;
-	border-radius: 2;
-	border-color: #ddd;
-	border-bottom-width: 0;
-	margin-left: 5;
-	margin-right: 5;
-	margin-top: 10;
 `;
 
 export default withNavigation(IllustDetail);

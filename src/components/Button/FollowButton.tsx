@@ -36,9 +36,7 @@ const FollowButton = (props: Props) => {
 	);
 	return (
 		<View>
-			{isFollowing
-				? _renderUnFollowButton(user.id)
-				: _renderFollowButton(user.id)}
+			{isFollowing ? _renderUnFollowButton(user.id) : _renderFollowButton(user.id)}
 		</View>
 	);
 };

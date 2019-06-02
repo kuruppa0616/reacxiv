@@ -7,10 +7,11 @@ import pixivApi from '@/api/PixivApi';
 
 const New = () => {
 	const store = useContext(GlobalIllustsStore);
+	const _fetch = () => pixivApi.illustFollow();
 	return (
 		<Home>
 			<View>
-				<IllustList fetch={() => pixivApi.illustFollow()} store={store} />
+				<IllustList fetch={_fetch} store={store} />
 			</View>
 		</Home>
 	);
