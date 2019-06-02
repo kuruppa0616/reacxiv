@@ -10,7 +10,7 @@ import useBookmark from '@/hooks/useBookmark';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
 import { denormalize } from 'normalizr';
 import { illustsSchema } from '@/mobx/schema';
-import useIllustKeys from '@/hooks/useIllusts';
+import useIllustKeys from '@/hooks/useIllustKeys';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -61,7 +61,6 @@ const IllustList = observer((props: Props) => {
 	);
 
 	const _data = (): Illust[] => {
-		console.log(keys);
 		const illusts: Illust[] = denormalize([...keys], illustsSchema, store.entities);
 		return illusts.slice(0, illusts.length - (illusts.length % NUM_COLUMNS));
 	};

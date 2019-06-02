@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components/native';
 import { View, Text } from 'react-native';
 import {
@@ -8,13 +8,16 @@ import {
 	FlatList
 } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-import { Illust, ImageUrls } from 'pixiv-api-client';
+import { observer } from 'mobx-react-lite';
 import HTMLView from 'react-native-htmlview';
+import { Illust, ImageUrls } from 'pixiv-api-client';
+import useBookmark from '@/hooks/useBookmark';
 
 import { PxFitIllust, PxProfileIcon } from '@/components/PxImage';
 import { FollowButton } from '@/components/FollowButton';
-import { observer } from 'mobx-react-lite';
+import { GlobalIllustsStore } from '@/mobx/stores';
+import { denormalize } from 'normalizr';
+import { illustsSchema } from '@/mobx/schema';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -23,11 +26,20 @@ interface Props {
 const IllustDetail = observer((props: Props) => {
 	const { navigation } = props;
 	const illustId: number = navigation.state.params.illustId;
+	const store = useContext(GlobalIllustsStore);
+	const [illust, setIllust] = useState<Illust>();
+	const [bookmarkIllust] = useBookmark(store);
+
+	// entitiesが変わったら発火。illustを更新
+	useEffect(() => {
+		const illusts: Illust[] = denormalize([illustId], illustsSchema, store.entities);
+		setIllust(illusts[0]);
+	}, [store.illusts, store.users]);
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
 
 	const _onPressBookmark = (illust: Illust) => {
-		return () => console.log();
+		return () => bookmarkIllust(illust);
 	};
 
 	const _renderIllust = ({ item: image_urls }: { item: ImageUrls }) => (
@@ -85,6 +97,7 @@ const IllustDetail = observer((props: Props) => {
 	);
 
 	const _renderNowLoading = () => <Text>Now Loading</Text>;
+
 	return (
 		<Container>{illust ? _renderIllustDetail(illust) : _renderNowLoading()}</Container>
 	);
