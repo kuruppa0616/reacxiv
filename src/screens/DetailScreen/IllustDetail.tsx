@@ -1,20 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components/native';
 import { View, Text } from 'react-native';
-import {
-	withNavigation,
-	NavigationScreenProp,
-	ScrollView,
-	FlatList
-} from 'react-navigation';
-import ActionButton from 'react-native-action-button';
+import { withNavigation, NavigationScreenProp, FlatList } from 'react-navigation';
 import { observer } from 'mobx-react-lite';
 import HTMLView from 'react-native-htmlview';
 import { Illust, ImageUrls } from 'pixiv-api-client';
 import useBookmark from '@/hooks/useBookmark';
 
 import { PxFitIllust, PxProfileIcon } from '@/components/PxImage';
-import { FollowButton, BookmarkButton, FloatingBookmarkButton } from '@/components/Button';
+import { FollowButton, FloatingBookmarkButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
 import { denormalize } from 'normalizr';
 import { illustsSchema } from '@/mobx/schema';
@@ -57,7 +51,6 @@ const IllustDetail = observer((props: Props) => {
 
 	const _renderIllustDetail = (illust: Illust) => (
 		<View>
-
 			<ScrollWrapper>
 				<View>
 					{illust.page_count === 1

@@ -1,1 +1,1 @@
-export { default as useIllustKeyss } from './useIllusts';
+export { default as useIllustKeyss } from './useIllustKeys';
