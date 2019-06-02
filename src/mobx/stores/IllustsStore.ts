@@ -1,42 +1,36 @@
 import { observable, action, computed } from 'mobx';
-import { Illust, PixivApiClient, User } from 'pixiv-api-client';
+import { Illust, PixivApiClient, User, IllustsResponse } from 'pixiv-api-client';
 import { normalize, denormalize } from 'normalizr';
 
 import pixivApi from '@/api/PixivApi';
 import { illustsSchema } from '@/mobx/schema';
 
-type FetchIllusts = PixivApiClient['illustRecommended'] | PixivApiClient['illustFollow'];
+type FetchIllusts = () => Promise<IllustsResponse>;
 
 interface NormalizedIllust extends Omit<Illust, 'user'> {
 	user: number;
 }
 
 export class IllustsStore {
-	private fetch: FetchIllusts;
 	private nextUrl: string = '';
 
-	constructor(fetch: FetchIllusts) {
-		this.fetch = fetch;
-	}
+	@observable.shallow illusts: { [index: number]: NormalizedIllust } = {};
+	@observable.shallow users: { [index: number]: User } = {};
+	private keys: Set<number> = new Set();
 
-	@observable.shallow private illusts: { [index: number]: NormalizedIllust } = {};
-	@observable.shallow private users: { [index: number]: User } = {};
-	@observable.shallow private keys: Set<number> = new Set();
-
-	@computed public get data(): Illust[] {
-		const entities = {
+	@computed public get entities() {
+		return {
 			illusts: this.illusts,
 			users: this.users
 		};
-
-		return denormalize([...this.keys], illustsSchema, entities);
 	}
 
-	@action private setIllusts = (illusts: Illust[]) => {
+	@action private setIllusts = (illusts: Illust[]): number[] => {
 		const normalized = normalize(illusts, illustsSchema);
 		this.illusts = { ...this.illusts, ...normalized.entities.illusts };
 		this.users = { ...this.users, ...normalized.entities.users };
 		this.keys = new Set([...this.keys, ...normalized.result]);
+		return normalized.result;
 	};
 
 	@action private setNextUrl = (url: string) => {
@@ -62,23 +56,22 @@ export class IllustsStore {
 		this.users = users;
 	};
 
-	public fetchIllusts = async () => {
-		await this.fetch().then(({ illusts, next_url }) => {
-			this.setIllusts(illusts);
-			this.setNextUrl(next_url);
-		});
+	public fetchIllusts = async (fetch: FetchIllusts): Promise<number[]> => {
+		const res = await fetch();
+		const keys = this.setIllusts(res.illusts);
+		this.setNextUrl(res.next_url);
+		return keys;
 	};
 
-	public loadMoreIllusts = async () => {
-		await pixivApi.requestUrl(this.nextUrl).then(({ illusts, next_url }) => {
-			this.setIllusts(illusts);
-			this.setNextUrl(next_url);
-		});
+	public loadMoreIllusts = async (): Promise<number[]> => {
+		const keys = await this.fetchIllusts(() => pixivApi.requestUrl(this.nextUrl));
+		return keys;
 	};
 
-	public reloadIllusts = async () => {
+	public reloadIllusts = async (fetch: FetchIllusts): Promise<number[]> => {
 		this.clearData();
-		await this.fetchIllusts();
+		const keys = await this.fetchIllusts(fetch);
+		return keys;
 	};
 }
 

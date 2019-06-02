@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Illust } from 'pixiv-api-client';
+import { Illust, IllustsResponse } from 'pixiv-api-client';
 import { FlatList, Dimensions } from 'react-native';
 import { ThumbnailTile } from '../ThumbnailTile';
 import styled from 'styled-components/native';
@@ -8,35 +8,46 @@ import IllustsStore from '@/mobx/stores/IllustsStore';
 import { observer } from 'mobx-react-lite';
 import useBookmark from '@/hooks/useBookmark';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
+import { denormalize } from 'normalizr';
+import { illustsSchema } from '@/mobx/schema';
+import useIllustKeys from '@/hooks/useIllusts';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
 	store: IllustsStore;
+	fetch: () => Promise<IllustsResponse>;
 }
 
 const NUM_COLUMNS = 3;
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const IllustList = observer((props: Props) => {
-	const { store, navigation } = props;
-	const illusts = store.data;
+	const { navigation, fetch } = props;
+	const store = props.store;
 
 	const [isRefreshing, setIsRefreshing] = useState(false);
+	const { keys, addKeys, clearKeys } = useIllustKeys();
 	const [bookmarkIllust] = useBookmark(store);
 
 	useEffect(() => {
-		store.fetchIllusts();
+		store.fetchIllusts(fetch).then(newKeys => {
+			addKeys(newKeys);
+		});
 	}, []);
 
 	const _keyExtractor = (item: Illust) => item.id.toString();
 
 	const _onEndReached = () => {
-		store.loadMoreIllusts();
+		store.loadMoreIllusts().then(newKeys => {
+			addKeys(newKeys);
+		});
 	};
 
 	const _onRefresh = () => {
 		setIsRefreshing(true);
-		store.reloadIllusts().then(() => {
+		clearKeys();
+		store.reloadIllusts(fetch).then(res => {
+			addKeys(res);
 			setIsRefreshing(false);
 		});
 	};
@@ -49,10 +60,16 @@ const IllustList = observer((props: Props) => {
 		/>
 	);
 
+	const _data = (): Illust[] => {
+		console.log(keys);
+		const illusts: Illust[] = denormalize([...keys], illustsSchema, store.entities);
+		return illusts.slice(0, illusts.length - (illusts.length % NUM_COLUMNS));
+	};
+
 	return (
 		<Container>
 			<FlatList
-				data={illusts.slice(0, illusts.length - (illusts.length % NUM_COLUMNS))}
+				data={_data()}
 				renderItem={_renderItem}
 				keyExtractor={_keyExtractor}
 				listKey={navigation.state.key + 'listview'}

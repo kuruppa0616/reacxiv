@@ -7,42 +7,28 @@ import {
 	ScrollView,
 	FlatList
 } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { Illust, ImageUrls } from 'pixiv-api-client';
-import axios from 'axios';
 import HTMLView from 'react-native-htmlview';
 
-import pixivApi from '@/api/PixivApi';
 import { PxFitIllust, PxProfileIcon } from '@/components/PxImage';
 import { FollowButton } from '@/components/FollowButton';
+import { observer } from 'mobx-react-lite';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
 }
 
-const IllustDetail = (props: Props) => {
+const IllustDetail = observer((props: Props) => {
 	const { navigation } = props;
-	const illustIdParam: number = navigation.getParam('id', null);
-	const illustParam: Illust | null = navigation.getParam('illust', null);
-
-	const signal = axios.CancelToken.source();
-	const [illust, setIllust] = useState(illustParam);
-
-	useEffect(() => {
-		//paramでillustオブジェがわたってきたときはそれをそのまま使う
-		if (illust) {
-			return;
-		}
-
-		// TODO:キャンセルできない
-		pixivApi
-			.illustDetail(illustIdParam, { cancelToken: signal.token })
-			.then(res => {
-				setIllust(res.illust);
-			});
-		return () => signal.cancel('component is ummounted');
-	}, [illust]);
+	const illustId: number = navigation.state.params.illustId;
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
+
+	const _onPressBookmark = (illust: Illust) => {
+		return () => console.log();
+	};
 
 	const _renderIllust = ({ item: image_urls }: { item: ImageUrls }) => (
 		<PxFitIllust url={image_urls.large} />
@@ -70,21 +56,23 @@ const IllustDetail = (props: Props) => {
 			</View>
 			<Info>
 				<UserWrapper>
-					<PxProfileIcon
-						url={illust.user.profile_image_urls.medium}
-						size={40}
-					/>
+					<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
 					<UserName>
 						<Name>{illust.user.name}</Name>
 						<Text>{illust.user.account}</Text>
 					</UserName>
+					<TouchableArea onPress={_onPressBookmark(illust)}>
+						<Icon
+							size={23}
+							name="heart"
+							color={illust.is_bookmarked ? '#e74c3c' : 'gray'}
+						/>
+					</TouchableArea>
 					<FollowButton user={illust.user} />
 				</UserWrapper>
 				<Detail>
 					<Title>{illust.title}</Title>
-					<StyledHTMLView
-						value={`<html><body>${illust.caption}</body></html>`}
-					/>
+					<StyledHTMLView value={`<html><body>${illust.caption}</body></html>`} />
 					<Params>
 						<Text>{illust.create_date}</Text>
 						<Text>{illust.total_view}</Text>
@@ -98,11 +86,9 @@ const IllustDetail = (props: Props) => {
 
 	const _renderNowLoading = () => <Text>Now Loading</Text>;
 	return (
-		<Container>
-			{illust ? _renderIllustDetail(illust) : _renderNowLoading()}
-		</Container>
+		<Container>{illust ? _renderIllustDetail(illust) : _renderNowLoading()}</Container>
 	);
-};
+});
 
 const Container = styled.View`
 	flex: 1 auto;
@@ -140,6 +126,18 @@ const StyledHTMLView = styled(HTMLView)`
 
 const Title = styled.Text`
 	font-weight: bold;
+`;
+
+const TouchableArea = styled.TouchableWithoutFeedback`
+	width: 20px;
+	height: 20px;
+	border-width: 1;
+	border-radius: 2;
+	border-color: #ddd;
+	border-bottom-width: 0;
+	margin-left: 5;
+	margin-right: 5;
+	margin-top: 10;
 `;
 
 export default withNavigation(IllustDetail);

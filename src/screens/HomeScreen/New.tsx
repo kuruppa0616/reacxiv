@@ -2,14 +2,15 @@ import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { IllustList } from '@/components/IllustList';
 import Home from './Home';
-import { FollowIllustsStore } from '@/mobx/stores';
+import { GlobalIllustsStore } from '@/mobx/stores';
+import pixivApi from '@/api/PixivApi';
 
 const New = () => {
-	const store = useContext(FollowIllustsStore);
+	const store = useContext(GlobalIllustsStore);
 	return (
 		<Home>
 			<View>
-				<IllustList store={store} />
+				<IllustList fetch={() => pixivApi.illustFollow()} store={store} />
 			</View>
 		</Home>
 	);

@@ -20,7 +20,9 @@ const ThumbnailTile = (props: Props) => {
 	const { illust, size, navigation, bookmarkIllust } = props;
 
 	const _onpressIllustDetail = () => {
-		navigation.navigate(Screens.IllustDetail, { illust: illust });
+		navigation.navigate(Screens.IllustDetail, {
+			illustId: illust.id,
+		});
 	};
 
 	const _onPressBookmark = (illust: Illust) => {
