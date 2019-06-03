@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Illust } from 'pixiv-api-client';
-import { BookmarkButton } from '.';
+import BookmarkButton  from './BookmarkButton';
 
 interface Props {
 	illust: Illust;
