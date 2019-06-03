@@ -18,8 +18,8 @@ interface Props {
 
 const ThumbnailTile = (props: Props) => {
 	const { size, navigation, bookmarkIllust } = props;
-	
-	const IllustMemo = useMemo(()=>	props.illust,[props.illust.is_bookmarked])
+
+	const IllustMemo = useMemo(() => props.illust, [props.illust.is_bookmarked])
 
 	const _onpressIllustDetail = () => {
 		navigation.navigate(Screens.IllustDetail, {
@@ -33,7 +33,7 @@ const ThumbnailTile = (props: Props) => {
 				<PxThumbnail url={IllustMemo.image_urls.square_medium} size={size} />
 			</TouchableHighlight>
 			<NumPages>
-				<Text>{IllustMemo.page_count}</Text>
+				{/* <Text>{IllustMemo.page_count}</Text> */}
 			</NumPages>
 			<ButoonArea>
 				<BookmarkButton illust={IllustMemo} size={24} bookmarkFunc={bookmarkIllust} />

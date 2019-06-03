@@ -12,6 +12,8 @@ import { FollowButton, FloatingBookmarkButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
 import { denormalize } from 'normalizr';
 import { illustsSchema } from '@/mobx/schema';
+import IllustMeta from '@/components/IllustMeta';
+import IllustTags from '@/components/IllustTags';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -23,10 +25,10 @@ const IllustDetail = observer((props: Props) => {
 	const store = useContext(GlobalIllustsStore);
 	const [bookmarkIllust] = useBookmark(store);
 
-	const illustMemo = useMemo(()=>{		
+	const illustMemo = useMemo(() => {
 		const illusts: Illust[] = denormalize([illustId], illustsSchema, store.entities);
-		return illusts[0]
-	},[store.illusts[illustId].is_bookmarked,illustId])
+		return illusts[0];
+	}, [store.illusts[illustId].is_bookmarked, illustId]);
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
 
@@ -56,23 +58,19 @@ const IllustDetail = observer((props: Props) => {
 						: _renderIllustList(illust.meta_pages)}
 				</View>
 				<Info>
-					<UserWrapper>
-						<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
-						<UserName>
-							<Name>{illust.user.name}</Name>
-							<Text>{illust.user.account}</Text>
-						</UserName>
-						<FollowButton user={illust.user} />
-					</UserWrapper>
 					<Detail>
 						<Title>{illust.title}</Title>
+						<UserWrapper>
+							<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
+							<UserName>
+								<Name>{illust.user.name}</Name>
+								<Text>{illust.user.account}</Text>
+							</UserName>
+							<FollowButton user={illust.user} />
+						</UserWrapper>
 						<StyledHTMLView value={`<html><body>${illust.caption}</body></html>`} />
-						<Params>
-							<Text>{illust.create_date}</Text>
-							<Text>{illust.total_view}</Text>
-							<Text>{illust.total_bookmarks}</Text>
-						</Params>
-						<Text>{illust.tags.map(val => val.name).join(' ')}</Text>
+						<IllustMeta illust={illust} />
+						<IllustTags illust={illust} />
 					</Detail>
 				</Info>
 			</ScrollWrapper>
@@ -85,7 +83,9 @@ const IllustDetail = observer((props: Props) => {
 	const _renderNowLoading = () => <Text>Now Loading</Text>;
 
 	return (
-		<Container>{illustMemo ? _renderIllustDetail(illustMemo) : _renderNowLoading()}</Container>
+		<Container>
+			{illustMemo ? _renderIllustDetail(illustMemo) : _renderNowLoading()}
+		</Container>
 	);
 });
 
@@ -113,9 +113,10 @@ const Name = styled.Text`
 `;
 const Info = styled.View`
 	padding-top: 6px;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
 `;
+
 const Detail = styled.View``;
 
 const FloatingArea = styled.View`
@@ -126,10 +127,6 @@ const FloatingArea = styled.View`
 	margin-bottom: 30px;
 `;
 
-const Params = styled.View`
-	flex-direction: row;
-	align-items: center;
-`;
 
 const StyledHTMLView = styled(HTMLView)`
 	padding-bottom: 10;
@@ -137,6 +134,7 @@ const StyledHTMLView = styled(HTMLView)`
 
 const Title = styled.Text`
 	font-weight: bold;
+	font-size: 20px;
 `;
 
 export default withNavigation(IllustDetail);
