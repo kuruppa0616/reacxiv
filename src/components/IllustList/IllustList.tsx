@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 
 import { Illust, IllustsResponse } from 'pixiv-api-client';
 import { FlatList, Dimensions } from 'react-native';
@@ -35,6 +35,11 @@ const IllustList = observer((props: Props) => {
 		});
 	}, []);
 
+	const illustMemo = useMemo(()=>{				
+		const illusts: Illust[] = denormalize([...keys], illustsSchema, store.entities);
+		return illusts.slice(0, illusts.length - (illusts.length % NUM_COLUMNS));
+	},[store.illusts, store.users, keys]);
+
 	const _keyExtractor = (item: Illust) => item.id.toString();
 
 	const _onEndReached = () => {
@@ -60,15 +65,10 @@ const IllustList = observer((props: Props) => {
 		/>
 	);
 
-	const _data = (): Illust[] => {
-		const illusts: Illust[] = denormalize([...keys], illustsSchema, store.entities);
-		return illusts.slice(0, illusts.length - (illusts.length % NUM_COLUMNS));
-	};
-
 	return (
 		<Container>
 			<FlatList
-				data={_data()}
+				data={illustMemo}
 				renderItem={_renderItem}
 				keyExtractor={_keyExtractor}
 				listKey={navigation.state.key + 'listview'}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import styled from 'styled-components/native';
 import { View, Text } from 'react-native';
 import { withNavigation, NavigationScreenProp, FlatList } from 'react-navigation';
@@ -21,14 +21,12 @@ const IllustDetail = observer((props: Props) => {
 	const { navigation } = props;
 	const illustId: number = navigation.state.params.illustId;
 	const store = useContext(GlobalIllustsStore);
-	const [illust, setIllust] = useState<Illust>();
 	const [bookmarkIllust] = useBookmark(store);
 
-	// entitiesが変わったら発火。illustを更新
-	useEffect(() => {
+	const illustMemo = useMemo(()=>{		
 		const illusts: Illust[] = denormalize([illustId], illustsSchema, store.entities);
-		setIllust(illusts[0]);
-	}, [store.illusts[illustId].is_bookmarked]);
+		return illusts[0]
+	},[store.illusts[illustId].is_bookmarked,illustId])
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
 
@@ -87,7 +85,7 @@ const IllustDetail = observer((props: Props) => {
 	const _renderNowLoading = () => <Text>Now Loading</Text>;
 
 	return (
-		<Container>{illust ? _renderIllustDetail(illust) : _renderNowLoading()}</Container>
+		<Container>{illustMemo ? _renderIllustDetail(illustMemo) : _renderNowLoading()}</Container>
 	);
 });
 
