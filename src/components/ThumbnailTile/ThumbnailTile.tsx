@@ -33,7 +33,7 @@ const ThumbnailTile = (props: Props) => {
 				<PxThumbnail url={IllustMemo.image_urls.square_medium} size={size} />
 			</TouchableHighlight>
 			<NumPages>
-				{/* <Text>{IllustMemo.page_count}</Text> */}
+				<Text>{IllustMemo.page_count}</Text>
 			</NumPages>
 			<ButoonArea>
 				<BookmarkButton illust={IllustMemo} size={24} bookmarkFunc={bookmarkIllust} />

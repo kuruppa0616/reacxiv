@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from 'native-base';
-import { Text } from 'react-native';
+import { Button, Text } from 'native-base';
+import { } from 'react-native';
 import { Illust } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 
@@ -12,9 +12,9 @@ const IllustTags = (props: Props) => {
 	const { illust } = props;
 
 	const _rendrTag = (name: string) => (
-		<Button key={name} small={true} info={true} bordered={true} rounded={true}>
+		<TagButton key={name} small={true} info={true} bordered={true} rounded={true}>
 			<Tagtext>{name}</Tagtext>
-		</Button>
+		</TagButton>
 	);
 
 	return <Tags>{illust.tags.map(val => _rendrTag(val.name))}</Tags>;
@@ -25,12 +25,19 @@ const Tags = styled.View`
 	flex-wrap: wrap;
 `;
 
-const Tagtext = styled.Text`
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 0px;
-	padding-bottom: 0px;
+const TagButton = styled(Button)`
+	margin-right: 6px;
+	margin-top: 5px;
+	padding: 0 !important; 
+	/* padding-left: 5px;
+	padding-right: 5px;
+	padding-top: -30px; */
+	/* padding-bottom: -10px; */
+`;
+
+const Tagtext = styled(Text)`
 	font-size: 10;
+	color: black;
 `;
 
 export default IllustTags;

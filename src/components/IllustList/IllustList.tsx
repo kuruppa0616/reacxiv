@@ -35,10 +35,10 @@ const IllustList = observer((props: Props) => {
 		});
 	}, []);
 
-	const illustMemo = useMemo(()=>{				
+	const illustMemo = useMemo(() => {
 		const illusts: Illust[] = denormalize([...keys], illustsSchema, store.entities);
 		return illusts.slice(0, illusts.length - (illusts.length % NUM_COLUMNS));
-	},[store.illusts, store.users, keys]);
+	}, [store.illusts, store.users, keys]);
 
 	const _keyExtractor = (item: Illust) => item.id.toString();
 

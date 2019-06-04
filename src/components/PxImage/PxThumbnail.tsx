@@ -7,7 +7,7 @@ interface Props {
 }
 const PxThumbnail = (props: Props) => {
 	const { url, size } = props;
-	return <PxImage url={url} width={size} height={size} style={{ margin: 1 }} />;
+	return <PxImage url={url} width={size} height={size} />;
 };
 
 export default PxThumbnail;

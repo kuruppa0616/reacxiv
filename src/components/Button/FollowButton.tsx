@@ -48,7 +48,7 @@ const FollowText = styled(Text)`
 `;
 
 const FollowingText = styled(FollowText)`
-	color:white;
+	color: white;
 `;
 
 export default FollowButton;

@@ -40,4 +40,4 @@ const App = () => {
 	return <AppContainer />;
 };
 
-export default App;
+export default AppContainer;
