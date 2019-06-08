@@ -25,15 +25,15 @@ const FollowButton = (props: Props) => {
 	};
 
 	const _renderFollowButton = (id: number) => (
-		<Button onPress={() => _onFollow(id)} small={true} info={true} bordered={true}>
+		<StyledButton onPress={() => _onFollow(id)} small={true} info={true} bordered={true}>
 			<FollowText uppercase={false}>Follow</FollowText>
-		</Button>
+		</StyledButton>
 	);
 
 	const _renderUnFollowButton = (id: number) => (
-		<Button onPress={() => _onUnFollow(id)} small={true} info={true}>
+		<StyledButton onPress={() => _onUnFollow(id)} small={true} info={true}>
 			<FollowingText uppercase={false}>Following</FollowingText>
-		</Button>
+		</StyledButton>
 	);
 
 	return (
@@ -43,8 +43,17 @@ const FollowButton = (props: Props) => {
 	);
 };
 
+const StyledButton = styled(Button)`
+	border-radius: 20;
+	width:90px;
+	display:flex;
+	justify-content:center;
+`;
+
 const FollowText = styled(Text)`
 	padding: 10px;
+	color: #40AAEF;
+
 `;
 
 const FollowingText = styled(FollowText)`
