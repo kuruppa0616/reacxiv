@@ -8,7 +8,7 @@ interface Props {
 }
 const initSize = {
 	width: Device.Width,
-	height: Device.Height * 0.7
+	height: Device.Height * 0.65
 };
 const PxFitIllust = (props: Props) => {
 	const { url } = props;

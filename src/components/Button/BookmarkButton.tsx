@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { User, Illust } from 'pixiv-api-client';
-import { View, TouchableWithoutFeedback } from 'react-native';
+import React from 'react';
+import { Illust } from 'pixiv-api-client';
+import { TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components/native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';

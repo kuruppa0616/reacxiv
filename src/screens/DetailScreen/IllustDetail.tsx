@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import styled from 'styled-components/native';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';;
+import { Text} from 'native-base'
 import { withNavigation, NavigationScreenProp, FlatList } from 'react-navigation';
 import { observer } from 'mobx-react-lite';
 import HTMLView from 'react-native-htmlview';
@@ -14,6 +15,7 @@ import { denormalize } from 'normalizr';
 import { illustsSchema } from '@/mobx/schema';
 import IllustMeta from '@/components/IllustMeta';
 import IllustTags from '@/components/IllustTags';
+import useFollow from '@/hooks/useFollow';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -23,12 +25,14 @@ const IllustDetail = observer((props: Props) => {
 	const { navigation } = props;
 	const illustId: number = navigation.state.params.illustId;
 	const store = useContext(GlobalIllustsStore);
+	const userID = store.illusts[illustId].user;
 	const [bookmarkIllust] = useBookmark(store);
+	const [followUser] = useFollow(store);
 
 	const illustMemo = useMemo(() => {
 		const illusts: Illust[] = denormalize([illustId], illustsSchema, store.entities);
 		return illusts[0];
-	}, [store.illusts[illustId].is_bookmarked, illustId]);
+	}, [store.illusts, store.users, illustId]);
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
 
@@ -62,11 +66,11 @@ const IllustDetail = observer((props: Props) => {
 						<Title>{illust.title}</Title>
 						<UserWrapper>
 							<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
-							<UserName>
-								<Name>{illust.user.name}</Name>
-								<Text>{illust.user.account}</Text>
-							</UserName>
-							<FollowButton user={illust.user} />
+							<UserNameWrapper>
+								<UserName>{illust.user.name}</UserName>
+								<UserId>{illust.user.account}</UserId>
+							</UserNameWrapper>
+							<FollowButton user={illust.user} followFunc={followUser} />
 						</UserWrapper>
 						<StyledHTMLView value={`<html><body>${illust.caption}</body></html>`} />
 						<IllustMeta illust={illust} />
@@ -104,12 +108,16 @@ const UserWrapper = styled.View`
 	flex-direction: row;
 	align-items: center;
 `;
-const UserName = styled.View`
+const UserNameWrapper = styled.View`
 	flex-grow: 3;
 	margin-left: 10px;
 `;
-const Name = styled.Text`
+const UserName = styled(Text)`
 	font-weight: bold;
+	font-size: 17px;
+`;
+const UserId = styled(Text)`
+	font-size: 11px;
 `;
 const Info = styled.View`
 	padding-top: 6px;
@@ -126,7 +134,6 @@ const FloatingArea = styled.View`
 	margin-right: 40px;
 	margin-bottom: 30px;
 `;
-
 
 const StyledHTMLView = styled(HTMLView)`
 	padding-bottom: 10;

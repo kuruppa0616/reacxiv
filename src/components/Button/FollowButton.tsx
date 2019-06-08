@@ -2,58 +2,50 @@ import React, { useState } from 'react';
 import { Text, Button } from 'native-base';
 import { User } from 'pixiv-api-client';
 import { View } from 'react-native';
-import pixivApi from '@/api/PixivApi';
 import styled from 'styled-components/native';
 
 interface Props {
 	user: User;
+	followFunc: (user: User) => void;
 }
 const FollowButton = (props: Props) => {
-	const { user } = props;
-	const [isFollowing, setIsFollowing] = useState(user.is_followed);
+	const { user, followFunc } = props;
 
-	const _onFollow = (id: number) => {
-		pixivApi.followUser(id).then(() => {
-			setIsFollowing(true);
-		});
+	const _onPress = (user: User) => {
+		return () => followFunc(user);
 	};
 
-	const _onUnFollow = (id: number) => {
-		pixivApi.unfollowUser(id).then(() => {
-			setIsFollowing(false);
-		});
-	};
-
-	const _renderFollowButton = (id: number) => (
-		<StyledButton onPress={() => _onFollow(id)} small={true} info={true} bordered={true}>
+	const _renderFollowButton = (user: User) => (
+		<StyledButton onPress={_onPress(user)} small={true} info={true} bordered={true}>
 			<FollowText uppercase={false}>Follow</FollowText>
 		</StyledButton>
 	);
 
-	const _renderUnFollowButton = (id: number) => (
-		<StyledButton onPress={() => _onUnFollow(id)} small={true} info={true}>
+	const _renderUnFollowButton = (user: User) => (
+		<StyledButton onPress={_onPress(user)} small={true} info={true}>
 			<FollowingText uppercase={false}>Following</FollowingText>
 		</StyledButton>
 	);
 
 	return (
 		<View>
-			{isFollowing ? _renderUnFollowButton(user.id) : _renderFollowButton(user.id)}
+			{user.is_followed ? _renderUnFollowButton(user) : _renderFollowButton(user)}
 		</View>
 	);
 };
 
 const StyledButton = styled(Button)`
 	border-radius: 20;
-	width:90px;
-	display:flex;
-	justify-content:center;
+	width: 90px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
 `;
 
 const FollowText = styled(Text)`
 	padding: 10px;
-	color: #40AAEF;
-
+	font-size: 15px;
+	color: #40aaef;
 `;
 
 const FollowingText = styled(FollowText)`
