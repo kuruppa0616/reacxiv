@@ -1,7 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import styled from 'styled-components/native';
-import { View } from 'react-native';;
-import { Text} from 'native-base'
+import { View,Text } from 'native-base';
 import { withNavigation, NavigationScreenProp, FlatList } from 'react-navigation';
 import { observer } from 'mobx-react-lite';
 import HTMLView from 'react-native-htmlview';
@@ -16,6 +15,7 @@ import { illustsSchema } from '@/mobx/schema';
 import IllustMeta from '@/components/IllustMeta';
 import IllustTags from '@/components/IllustTags';
 import useFollow from '@/hooks/useFollow';
+import { JpText, JpCaptionText } from '@/components/JpText';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -25,7 +25,6 @@ const IllustDetail = observer((props: Props) => {
 	const { navigation } = props;
 	const illustId: number = navigation.state.params.illustId;
 	const store = useContext(GlobalIllustsStore);
-	const userID = store.illusts[illustId].user;
 	const [bookmarkIllust] = useBookmark(store);
 	const [followUser] = useFollow(store);
 
@@ -52,6 +51,7 @@ const IllustDetail = observer((props: Props) => {
 			</View>
 		);
 	};
+	console.log(illustMemo.caption);
 
 	const _renderIllustDetail = (illust: Illust) => (
 		<View>
@@ -62,20 +62,24 @@ const IllustDetail = observer((props: Props) => {
 						: _renderIllustList(illust.meta_pages)}
 				</View>
 				<Info>
-					<Detail>
-						<Title>{illust.title}</Title>
-						<UserWrapper>
-							<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
-							<UserNameWrapper>
-								<UserName>{illust.user.name}</UserName>
-								<UserId>{illust.user.account}</UserId>
-							</UserNameWrapper>
-							<FollowButton user={illust.user} followFunc={followUser} />
-						</UserWrapper>
-						<StyledHTMLView value={`<html><body>${illust.caption}</body></html>`} />
-						<IllustMeta illust={illust} />
-						<IllustTags illust={illust} />
-					</Detail>
+					<Title size={18} weight={'bold'}>
+						{illust.title}
+					</Title>
+					<UserWrapper>
+						<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
+						<UserNameWrapper>
+							<JpText size={12}>{illust.user.name}</JpText>
+							<JpText size={10}>{illust.user.account}</JpText>
+						</UserNameWrapper>
+						<FollowButton user={illust.user} followFunc={followUser} />
+					</UserWrapper>
+					<StyledHTMLView
+						value={`<html><body>${illust.caption}</body></html>`}
+						TextComponent={JpCaptionText}
+						RootComponent={View}
+					/>
+					<IllustMeta illust={illust} />
+					<IllustTags illust={illust} />
 				</Info>
 			</ScrollWrapper>
 			<FloatingArea>
@@ -84,7 +88,7 @@ const IllustDetail = observer((props: Props) => {
 		</View>
 	);
 
-	const _renderNowLoading = () => <Text>Now Loading</Text>;
+	const _renderNowLoading = () => <JpText>Now Loading</JpText>;
 
 	return (
 		<Container>
@@ -93,7 +97,7 @@ const IllustDetail = observer((props: Props) => {
 	);
 });
 
-const Container = styled.View`
+const Container = styled(View)`
 	flex: 1 auto;
 	width: 100%;
 	align-items: center;
@@ -103,31 +107,23 @@ const ScrollWrapper = styled.ScrollView`
 	position: relative;
 	height: 100%;
 `;
-const UserWrapper = styled.View`
+const UserWrapper = styled(View)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin: 2px 0px;
 `;
-const UserNameWrapper = styled.View`
+const UserNameWrapper = styled(View)`
 	flex-grow: 3;
 	margin-left: 10px;
 `;
-const UserName = styled(Text)`
-	font-weight: bold;
-	font-size: 17px;
-`;
-const UserId = styled(Text)`
-	font-size: 11px;
-`;
-const Info = styled.View`
+const Info = styled(View)`
 	padding-top: 6px;
 	padding-left: 15px;
 	padding-right: 15px;
 `;
 
-const Detail = styled.View``;
-
-const FloatingArea = styled.View`
+const FloatingArea = styled(View)`
 	position: absolute;
 	bottom: 0%;
 	right: 0%;
@@ -137,11 +133,10 @@ const FloatingArea = styled.View`
 
 const StyledHTMLView = styled(HTMLView)`
 	padding-bottom: 10;
+	margin: 2px 0px;
 `;
 
-const Title = styled.Text`
+const Title = styled(JpText)`
 	font-weight: bold;
-	font-size: 20px;
 `;
-
 export default withNavigation(IllustDetail);

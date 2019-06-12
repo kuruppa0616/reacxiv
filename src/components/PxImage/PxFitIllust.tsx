@@ -19,7 +19,7 @@ const PxFitIllust = (props: Props) => {
 		const illustWidth = event.nativeEvent.width;
 		const illustHeight = event.nativeEvent.height;
 		const deviceWidth = Device.Width;
-		const limitHeight = Device.Height * 0.7;
+		const limitHeight = Device.Height * 0.65;
 
 		// 画面の横幅に画像の高さを合わせる
 		const optimizedHeight = (deviceWidth * illustHeight) / illustWidth;
