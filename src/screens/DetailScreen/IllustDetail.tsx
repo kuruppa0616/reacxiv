@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import styled from 'styled-components/native';
-import { View,Text } from 'native-base';
+import { View, Text } from 'native-base';
 import { withNavigation, NavigationScreenProp, FlatList } from 'react-navigation';
 import { observer } from 'mobx-react-lite';
 import HTMLView from 'react-native-htmlview';
