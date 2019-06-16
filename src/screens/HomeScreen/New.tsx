@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
-import { View } from 'react-native';
+import { View ,Image} from 'react-native';
 import { IllustList } from '@/components/IllustList';
+import Lightbox from 'react-native-lightbox';
+
 import Home from './Home';
 import { GlobalIllustsStore } from '@/mobx/stores';
 import pixivApi from '@/api/PixivApi';

@@ -5587,6 +5587,13 @@ react-native-keyboard-aware-scroll-view@0.8.0:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
+react-native-lightbox@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/react-native-lightbox/-/react-native-lightbox-0.8.0.tgz#d132e9df458936bae6ae912c309775dce301fffc"
+  integrity sha512-qiPx8ordPiDuyBNIfR0pxxNERSIeOSU0P40bpPSEMyuQ6xsI4JDghyuRFD+onRjIpNnuOolsLCbsTTjeVwAB5g==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-safe-area-view@^0.14.1:
   version "0.14.4"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.4.tgz#1647fa74fd452cb8cee4f47bd08de3829451bf5d"

@@ -34,6 +34,7 @@
     "react-native-fast-image": "^6.0.3",
     "react-native-gesture-handler": "^1.3.0",
     "react-native-htmlview": "^0.14.0",
+    "react-native-lightbox": "^0.8.0",
     "react-native-svg": "^9.5.1",
     "react-native-typography": "^1.4.0",
     "react-native-vector-icons": "^6.5.0",

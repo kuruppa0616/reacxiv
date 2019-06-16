@@ -6,6 +6,7 @@ import { withNavigation, NavigationScreenProp, FlatList } from 'react-navigation
 import { observer } from 'mobx-react-lite';
 import HTMLView, { HTMLViewNode } from 'react-native-htmlview';
 import { Illust, ImageUrls } from 'pixiv-api-client';
+import Lightbox from 'react-native-lightbox';
 
 import useBookmark from '@/hooks/useBookmark';
 import { PxFitIllust, PxProfileIcon } from '@/components/PxImage';
@@ -50,7 +51,7 @@ const IllustDetail = observer((props: Props) => {
 				/>
 			</View>
 		);
-	};	
+	};
 
 	const _renderNode = (node: HTMLViewNode, index: number): React.ReactNode => {
 		return node.type == 'text' ? (
