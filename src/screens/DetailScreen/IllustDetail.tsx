@@ -1,12 +1,13 @@
 import React, { useContext, useMemo } from 'react';
 import styled from 'styled-components/native';
 import { View, Text } from 'native-base';
+import { human } from 'react-native-typography';
 import { withNavigation, NavigationScreenProp, FlatList } from 'react-navigation';
 import { observer } from 'mobx-react-lite';
-import HTMLView from 'react-native-htmlview';
+import HTMLView, { HTMLViewNode } from 'react-native-htmlview';
 import { Illust, ImageUrls } from 'pixiv-api-client';
-import useBookmark from '@/hooks/useBookmark';
 
+import useBookmark from '@/hooks/useBookmark';
 import { PxFitIllust, PxProfileIcon } from '@/components/PxImage';
 import { FollowButton, FloatingBookmarkButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
@@ -15,7 +16,6 @@ import { illustsSchema } from '@/mobx/schema';
 import IllustMeta from '@/components/IllustMeta';
 import IllustTags from '@/components/IllustTags';
 import useFollow from '@/hooks/useFollow';
-import { JpText, JpCaptionText } from '@/components/JpText';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -50,8 +50,15 @@ const IllustDetail = observer((props: Props) => {
 				/>
 			</View>
 		);
+	};	
+
+	const _renderNode = (node: HTMLViewNode, index: number): React.ReactNode => {
+		return node.type == 'text' ? (
+			<CaptionText key={index}>{node.data}</CaptionText>
+		) : (
+			undefined
+		);
 	};
-	console.log(illustMemo.caption);
 
 	const _renderIllustDetail = (illust: Illust) => (
 		<View>
@@ -62,20 +69,18 @@ const IllustDetail = observer((props: Props) => {
 						: _renderIllustList(illust.meta_pages)}
 				</View>
 				<Info>
-					<Title size={18} weight={'bold'}>
-						{illust.title}
-					</Title>
+					<TitleText>{illust.title}</TitleText>
 					<UserWrapper>
 						<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
 						<UserNameWrapper>
-							<JpText size={12}>{illust.user.name}</JpText>
-							<JpText size={10}>{illust.user.account}</JpText>
+							<Text>{illust.user.name}</Text>
+							<Text>{illust.user.account}</Text>
 						</UserNameWrapper>
 						<FollowButton user={illust.user} followFunc={followUser} />
 					</UserWrapper>
 					<StyledHTMLView
 						value={`<html><body>${illust.caption}</body></html>`}
-						TextComponent={JpCaptionText}
+						renderNode={_renderNode}
 						RootComponent={View}
 					/>
 					<IllustMeta illust={illust} />
@@ -88,7 +93,7 @@ const IllustDetail = observer((props: Props) => {
 		</View>
 	);
 
-	const _renderNowLoading = () => <JpText>Now Loading</JpText>;
+	const _renderNowLoading = () => <Text>Now Loading</Text>;
 
 	return (
 		<Container>
@@ -136,7 +141,14 @@ const StyledHTMLView = styled(HTMLView)`
 	margin: 2px 0px;
 `;
 
-const Title = styled(JpText)`
-	font-weight: bold;
+const TitleText = styled(Text)`
+	${human.title3Object as any};
+	line-height: ${(human.title3Object.fontSize as number) * 1.5};
 `;
+
+const CaptionText = styled(Text)`
+	${human.bodyObject as any};
+	line-height: ${(human.bodyObject.fontSize as number) * 1.5};
+`;
+
 export default withNavigation(IllustDetail);

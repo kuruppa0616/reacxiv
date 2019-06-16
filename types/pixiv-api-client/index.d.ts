@@ -22,7 +22,7 @@ export interface Illust {
 		original_image_url: string;
 	};
 	meta_pages: {
-		image_urls: ImageUrls;
+		image_urls: ImageUrlsWithOrig;
 	}[];
 	total_view: number;
 	total_bookmarks: number;
