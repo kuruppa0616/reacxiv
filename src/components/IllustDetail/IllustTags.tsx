@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Text } from 'native-base';
-import { } from 'react-native';
+import { human } from 'react-native-typography';
 import { Illust } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 
@@ -26,18 +26,14 @@ const Tags = styled.View`
 `;
 
 const TagButton = styled(Button)`
-	margin-right: 6px;
-	margin-top: 5px;
-	padding: 0 !important; 
-	/* padding-left: 5px;
-	padding-right: 5px;
-	padding-top: -30px; */
-	/* padding-bottom: -10px; */
+	margin-right: 4px;
+	margin-top: 4px;
+	padding: 0 !important;
 `;
 
 const Tagtext = styled(Text)`
-	font-size: 10;
-	color: black;
+	${human.caption1Object as any};
+	line-height: ${(human.caption1Object.fontSize as number) * 1.5};
 `;
 
 export default IllustTags;

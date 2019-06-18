@@ -1,6 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { Text } from 'react-native';
+import { Text } from 'native-base';
+import { human } from 'react-native-typography';
 import { Illust } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -32,7 +33,9 @@ const Meta = styled.View`
 	flex-direction: row;
 	align-items: center;
 `;
-const MetaText = styled.Text`
+const MetaText = styled(Text)`
+	${human.footnoteObject as any};
+	line-height: ${(human.footnoteObject.fontSize as number) * 1.5};
 	margin-right: 15px;
 `;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Illust } from 'pixiv-api-client';
-import BookmarkButton  from './BookmarkButton';
+import BookmarkButton from './BookmarkButton';
 
 interface Props {
 	illust: Illust;
@@ -19,7 +19,7 @@ const floatingBookmarkButton = (props: Props) => {
 const Container = styled.View`
 	width: 60px;
 	height: 60px;
-	background-color: #40AAEF;
+	background-color: #40aaef;
 	display: flex;
 	justify-content: center;
 	align-items: center;

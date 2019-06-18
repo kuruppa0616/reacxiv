@@ -14,8 +14,7 @@ import { FollowButton, FloatingBookmarkButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
 import { denormalize } from 'normalizr';
 import { illustsSchema } from '@/mobx/schema';
-import IllustMeta from '@/components/IllustMeta';
-import IllustTags from '@/components/IllustTags';
+import { IllustMeta, IllustTags, IllustCaption } from '@/components/IllustDetail';
 import useFollow from '@/hooks/useFollow';
 
 interface Props {
@@ -53,14 +52,6 @@ const IllustDetail = observer((props: Props) => {
 		);
 	};
 
-	const _renderNode = (node: HTMLViewNode, index: number): React.ReactNode => {
-		return node.type == 'text' ? (
-			<CaptionText key={index}>{node.data}</CaptionText>
-		) : (
-			undefined
-		);
-	};
-
 	const _renderIllustDetail = (illust: Illust) => (
 		<View>
 			<ScrollWrapper>
@@ -74,16 +65,12 @@ const IllustDetail = observer((props: Props) => {
 					<UserWrapper>
 						<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
 						<UserNameWrapper>
-							<Text>{illust.user.name}</Text>
-							<Text>{illust.user.account}</Text>
+							<UserNameText>{illust.user.name}</UserNameText>
+							<UserIdText>{illust.user.account}</UserIdText>
 						</UserNameWrapper>
 						<FollowButton user={illust.user} followFunc={followUser} />
 					</UserWrapper>
-					<StyledHTMLView
-						value={`<html><body>${illust.caption}</body></html>`}
-						renderNode={_renderNode}
-						RootComponent={View}
-					/>
+					<IllustCaption illust={illust} />
 					<IllustMeta illust={illust} />
 					<IllustTags illust={illust} />
 				</Info>
@@ -137,19 +124,18 @@ const FloatingArea = styled(View)`
 	margin-bottom: 30px;
 `;
 
-const StyledHTMLView = styled(HTMLView)`
-	padding-bottom: 10;
-	margin: 2px 0px;
-`;
-
 const TitleText = styled(Text)`
 	${human.title3Object as any};
 	line-height: ${(human.title3Object.fontSize as number) * 1.5};
 `;
 
-const CaptionText = styled(Text)`
-	${human.bodyObject as any};
-	line-height: ${(human.bodyObject.fontSize as number) * 1.5};
+const UserNameText = styled(Text)`
+	${human.headlineObject as any};
+	line-height: ${(human.headlineObject.fontSize as number) * 1.5};
 `;
 
+const UserIdText = styled(Text)`
+	${human.subheadObject as any};
+	line-height: ${(human.subheadObject.fontSize as number) * 1.5};
+`;
 export default withNavigation(IllustDetail);
