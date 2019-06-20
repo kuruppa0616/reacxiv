@@ -13,8 +13,6 @@ const IllustCaption = (props: Props) => {
 	const { illust } = props;
 
 	const _renderNode = (node: HTMLViewNode, index: number): React.ReactNode => {
-		console.log(node);
-
 		if (node.type !== 'text') {
 			return undefined;
 		}

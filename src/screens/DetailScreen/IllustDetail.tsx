@@ -14,6 +14,8 @@ import { GlobalIllustsStore } from '@/mobx/stores';
 import { illustsSchema } from '@/mobx/schema';
 import { IllustMeta, IllustTags, IllustCaption } from '@/components/IllustDetail';
 import useFollow from '@/hooks/useFollow';
+import pixivApi from '@/api/PixivApi';
+import { IllustList } from '@/components/IllustList';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -49,7 +51,6 @@ const IllustDetail = observer((props: Props) => {
 			</View>
 		);
 	};
-
 	const _renderIllustDetail = (illust: Illust) => (
 		<View>
 			<ScrollWrapper>
@@ -71,6 +72,9 @@ const IllustDetail = observer((props: Props) => {
 					<IllustCaption illust={illust} />
 					<IllustMeta illust={illust} />
 					<IllustTags illust={illust} />
+					<View>
+						<IllustList fetch={() => pixivApi.illustRelated(illustMemo.id)} />
+					</View>
 				</Info>
 			</ScrollWrapper>
 			<FloatingArea>
@@ -125,7 +129,7 @@ const FloatingArea = styled(View)`
 const TitleText = styled(Text)`
 	${human.title3Object as any};
 	line-height: ${(human.title3Object.fontSize as number) * 1.5};
-	font-weight:bold;
+	font-weight: bold;
 `;
 
 const UserNameText = styled(Text)`

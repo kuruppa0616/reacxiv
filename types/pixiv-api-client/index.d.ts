@@ -80,10 +80,8 @@ export interface Credential {
 }
 
 export interface IllustsResponse {
-	// contest_exists: boolean
 	illusts: Illust[]
 	next_url: string
-	// privacy_policy: {}
 }
 
 type Restrict = "public " | "private ";
@@ -127,7 +125,7 @@ export declare class PixivApiClient {
 	illustNew(options?: RequestOption): Promise<any>;
 	illustRanking(options?: RequestOption): Promise<any>;
 	illustRecommended(options?: RequestOption): Promise<IllustsResponse>;
-	illustRelated(id: number, options?: RequestOption): Promise<any>;
+	illustRelated(id: number, options?: RequestOption): Promise<IllustsResponse>;
 	illustWalkthrough(): Promise<any>;
 	login(username: string, password: string, rememberPassword?: boolean): Promise<Credential>
 	logout(): Promise<void>;
