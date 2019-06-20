@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useContext } from 'react';
 
 import { Illust, IllustsResponse } from 'pixiv-api-client';
 import { FlatList, Dimensions } from 'react-native';
@@ -11,10 +11,11 @@ import { withNavigation, NavigationScreenProp } from 'react-navigation';
 import { denormalize } from 'normalizr';
 import { illustsSchema } from '@/mobx/schema';
 import useIllustKeys from '@/hooks/useIllustKeys';
+import { GlobalIllustsStore } from '@/mobx/stores';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
-	store: IllustsStore;
+	store?: IllustsStore;
 	fetch: () => Promise<IllustsResponse>;
 }
 
@@ -23,7 +24,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const IllustList = observer((props: Props) => {
 	const { navigation, fetch } = props;
-	const store = props.store;
+	const store = props.store ? props.store : useContext(GlobalIllustsStore);
 
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const { keys, addKeys, clearKeys } = useIllustKeys();
