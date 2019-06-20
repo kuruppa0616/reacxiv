@@ -4,6 +4,8 @@ import {
 	createAppContainer,
 	createSwitchNavigator
 } from 'react-navigation';
+import { useScreens } from 'react-native-screens';
+useScreens();
 
 import { Login, AuthLoading, HomeScreen } from './screens';
 import { Screens } from '@/constants';

@@ -32,6 +32,8 @@ const IllustList = observer((props: Props) => {
 
 	useEffect(() => {
 		store.fetchIllusts(fetch).then(newKeys => {
+			console.log(newKeys);
+			
 			addKeys(newKeys);
 		});
 	}, []);
