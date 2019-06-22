@@ -7,7 +7,9 @@ import { FollowButton } from '@/components/Button';
 import { TouchableWithoutFeedback } from 'react-native';
 import { PxProfileIcon } from '@/components/PxImage';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
+import { User } from 'pixiv-api-client';
 import { Screens } from '@/constants';
+
 interface Props {
 	illust: Illust;
 	navigation: NavigationScreenProp<any, any>;
@@ -22,7 +24,7 @@ const UserProfileBar = (props: Props) => {
 		});
 	};
 	return (
-		<User>
+		<Container>
 			<TouchableWithoutFeedback onPress={_onPressUserInfo}>
 				<UserProfile>
 					<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
@@ -33,13 +35,13 @@ const UserProfileBar = (props: Props) => {
 				</UserProfile>
 			</TouchableWithoutFeedback>
 			<FollowButton user={illust.user} followFunc={followUser} />
-		</User>
+		</Container>
 	);
 };
 
 export default withNavigation(UserProfileBar);
 
-const User = styled(View)`
+const Container = styled(View)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
