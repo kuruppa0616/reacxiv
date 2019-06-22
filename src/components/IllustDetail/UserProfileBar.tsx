@@ -19,7 +19,7 @@ const UserProfileBar = (props: Props) => {
 	const { illust, navigation, followUser } = props;
 
 	const _onPressUserInfo = () => {
-		navigation.push(Screens.UserDetail, {
+		navigation.navigate(Screens.UserDetail, {
 			userId: illust.user.id
 		});
 	};

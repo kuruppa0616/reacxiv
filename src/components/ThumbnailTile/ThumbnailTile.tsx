@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components/native';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
 import { Text } from 'react-native';
@@ -19,24 +19,24 @@ interface Props {
 const ThumbnailTile = (props: Props) => {
 	const { size, navigation, bookmarkIllust } = props;
 
-	const IllustMemo = useMemo(() => props.illust, [props.illust.is_bookmarked])
+	const illustMemo = useMemo(() => props.illust, [props.illust.is_bookmarked])
 
 	const _onpressIllustDetail = () => {
 		navigation.push(Screens.IllustDetail, {
-			illustId: IllustMemo.id
+			illustId: illustMemo.id
 		});
 	};
 
 	return (
 		<Container>
 			<TouchableHighlight onPress={_onpressIllustDetail}>
-				<PxThumbnail url={IllustMemo.image_urls.square_medium} size={size} />
+				<PxThumbnail url={illustMemo.image_urls.square_medium} size={size} />
 			</TouchableHighlight>
 			<NumPages>
-				<Text>{IllustMemo.page_count}</Text>
+				<Text>{illustMemo.page_count}</Text>
 			</NumPages>
 			<ButoonArea>
-				<BookmarkButton illust={IllustMemo} size={24} bookmarkFunc={bookmarkIllust} />
+				<BookmarkButton illust={illustMemo} size={24} bookmarkFunc={bookmarkIllust} />
 			</ButoonArea>
 		</Container>
 	);
