@@ -6,12 +6,11 @@ import { useState } from 'react';
 import { UserResponse } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 import { Loading } from '@/components/Loading';
-import { PxProfileIcon, PxImage, PxHeader } from '@/components/PxImage';
+import { PxProfileIcon, PxHeader } from '@/components/PxImage';
 import { human } from 'react-native-typography';
 import { FollowButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
 import useFollow from '@/hooks/useFollow';
-import { BlurView, VibrancyView } from '@react-native-community/blur';
 import { Row } from '@/components/OverrideNativeBase';
 
 interface Props {

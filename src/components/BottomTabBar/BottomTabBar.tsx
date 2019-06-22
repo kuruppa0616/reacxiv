@@ -8,16 +8,17 @@ interface Props {
 
 const BottomTabBar = (props: Props) => {
 	const { navigation } = props;
+	const _onPress = (route: string) => () => navigation.navigate(route);
 	return (
 		<Footer>
 			<FooterTab>
-				<Button onPress={() => navigation.navigate('Home')}>
+				<Button onPress={_onPress('Home')}>
 					<Text uppercase={false}>Home</Text>
 				</Button>
-				<Button onPress={() => navigation.navigate('Recommend')}>
+				<Button onPress={_onPress('Recommend')}>
 					<Text uppercase={false}>Reccomend</Text>
 				</Button>
-				<Button onPress={() => navigation.navigate('New')}>
+				<Button onPress={_onPress('New')}>
 					<Text uppercase={false}>New</Text>
 				</Button>
 				<Button>

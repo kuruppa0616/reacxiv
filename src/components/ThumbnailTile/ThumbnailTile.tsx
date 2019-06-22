@@ -19,7 +19,7 @@ interface Props {
 const ThumbnailTile = (props: Props) => {
 	const { size, navigation, bookmarkIllust } = props;
 
-	const illustMemo = useMemo(() => props.illust, [props.illust.is_bookmarked])
+	const illustMemo = useMemo(() => props.illust, [props.illust.is_bookmarked]);
 
 	const _onpressIllustDetail = () => {
 		navigation.push(Screens.IllustDetail, {

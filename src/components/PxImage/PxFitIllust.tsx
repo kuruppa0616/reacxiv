@@ -26,7 +26,7 @@ const PxFitIllust = (props: Props) => {
 		setSize({
 			width: deviceWidth,
 			// 画面高さの7割以上を上限にする
-			height: optimizedHeight > limitHeight ? limitHeight : optimizedHeight,
+			height: optimizedHeight > limitHeight ? limitHeight : optimizedHeight
 		});
 	};
 	return <PxImage url={url} width={size.width} height={size.height} onLoad={_onLoad} />;

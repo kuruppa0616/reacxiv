@@ -9,10 +9,11 @@ interface Props {
 	illust: Illust;
 }
 const RelatedIllusts = (props: Props) => {
+	const _fetch = (id: number) => () => pixivApi.illustRelated(id);
 	return (
 		<Container>
 			<StyledText>RelatedIllusts</StyledText>
-			<IllustList fetch={() => pixivApi.illustRelated(props.illust.id)} />
+			<IllustList fetch={_fetch(props.illust.id)} />
 		</Container>
 	);
 };

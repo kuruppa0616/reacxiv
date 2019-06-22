@@ -1,6 +1,6 @@
-import React, { memo, useEffect, useState } from 'react';
+import React from 'react';
 import FastImage, { ImageStyle, OnLoadEvent } from 'react-native-fast-image';
-import { StyleProp, StyleSheet } from 'react-native';
+import { StyleProp } from 'react-native';
 
 interface Props {
 	url: string;
