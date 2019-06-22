@@ -79,9 +79,72 @@ export interface Credential {
 	device_token: string;
 }
 
+export interface UserWithComment extends User {
+	comment: string;
+}
+
+export interface Profile {
+	webpage: string;
+	gender: string;
+	birth: string;
+	birth_day: string;
+	birth_year: number;
+	region: string;
+	address_id: number;
+	country_code: string;
+	job: string;
+	job_id: number;
+	total_follow_users: number;
+	total_mypixiv_users: number;
+	total_illusts: number;
+	total_manga: number;
+	total_novels: number;
+	total_illust_bookmarks_public: number;
+	total_illust_series: number;
+	total_novel_series: number;
+	background_image_url?: any;
+	twitter_account: string;
+	twitter_url: string;
+	pawoo_url?: any;
+	is_premium: boolean;
+	is_using_custom_profile_image: boolean;
+}
+
+export interface ProfilePublicity {
+	gender: string;
+	region: string;
+	birth_day: string;
+	birth_year: string;
+	job: string;
+	pawoo: boolean;
+}
+
+export interface Workspace {
+	pc: string;
+	monitor: string;
+	tool: string;
+	scanner: string;
+	tablet: string;
+	mouse: string;
+	printer: string;
+	desktop: string;
+	music: string;
+	desk: string;
+	chair: string;
+	comment: string;
+	workspace_image_url?: any;
+}
+
 export interface IllustsResponse {
 	illusts: Illust[]
 	next_url: string
+}
+
+export interface UserResponse {
+	user: UserWithComment;
+	profile: Profile;
+	profile_publicity: ProfilePublicity;
+	workspace:Workspace
 }
 
 type Restrict = "public " | "private ";
@@ -170,7 +233,7 @@ export declare class PixivApiClient {
 	userBookmarkNovelTags(options?: RequestOption): Promise<any>;
 	userBookmarksIllust(id: number, options?: RequestOption): Promise<any>;
 	userBookmarksNovel(id: number, options?: RequestOption): Promise<any>;
-	userDetail(id: number, options?: RequestOption): Promise<any>;
+	userDetail(id: number, options?: RequestOption): Promise<UserResponse>;
 	userFollowDetail(id: number): Promise<any>;
 	userFollower(id: number, options?: RequestOption): Promise<any>;
 	userFollowing(id: number, options?: RequestOption): Promise<any>;
