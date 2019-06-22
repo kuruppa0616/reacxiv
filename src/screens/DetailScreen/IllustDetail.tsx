@@ -53,29 +53,31 @@ const IllustDetail = observer((props: Props) => {
 	};
 	const _renderIllustDetail = (illust: Illust) => (
 		<View>
-			<ScrollWrapper>
+			<ScrollWrapper removeClippedSubviews nestedScrollEnabled={true}>
 				<View>
-					{illust.page_count === 1
-						? _renderIllust({ item: illust.image_urls })
-						: _renderIllustList(illust.meta_pages)}
-				</View>
-				<Info>
-					<TitleText>{illust.title}</TitleText>
-					<UserWrapper>
-						<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
-						<UserNameWrapper>
-							<UserNameText>{illust.user.name}</UserNameText>
-							<UserIdText>{illust.user.account}</UserIdText>
-						</UserNameWrapper>
-						<FollowButton user={illust.user} followFunc={followUser} />
-					</UserWrapper>
-					<IllustCaption illust={illust} />
-					<IllustMeta illust={illust} />
-					<IllustTags illust={illust} />
 					<View>
-						<IllustList fetch={() => pixivApi.illustRelated(illustMemo.id)} />
+						{illust.page_count === 1
+							? _renderIllust({ item: illust.image_urls })
+							: _renderIllustList(illust.meta_pages)}
 					</View>
-				</Info>
+					<Info>
+						<TitleText>{illust.title}</TitleText>
+						<UserWrapper>
+							<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
+							<UserNameWrapper>
+								<UserNameText>{illust.user.name}</UserNameText>
+								<UserIdText>{illust.user.account}</UserIdText>
+							</UserNameWrapper>
+							<FollowButton user={illust.user} followFunc={followUser} />
+						</UserWrapper>
+						<IllustCaption illust={illust} />
+						<IllustMeta illust={illust} />
+						<IllustTags illust={illust} />
+					</Info>
+				</View>
+				<RelatedIllusts>
+					<IllustList fetch={() => pixivApi.illustRelated(illustMemo.id)} />
+				</RelatedIllusts>
 			</ScrollWrapper>
 			<FloatingArea>
 				<FloatingBookmarkButton illust={illust} bookmarkFunc={bookmarkIllust} />
@@ -116,6 +118,12 @@ const Info = styled(View)`
 	padding-top: 6px;
 	padding-left: 15px;
 	padding-right: 15px;
+`;
+
+const RelatedIllusts = styled(View)`
+	flex: 1;
+	height: 100%;
+	margin-top: 20px;
 `;
 
 const FloatingArea = styled(View)`

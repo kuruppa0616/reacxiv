@@ -22,7 +22,7 @@ const ThumbnailTile = (props: Props) => {
 	const IllustMemo = useMemo(() => props.illust, [props.illust.is_bookmarked])
 
 	const _onpressIllustDetail = () => {
-		navigation.navigate(Screens.IllustDetail, {
+		navigation.push(Screens.IllustDetail, {
 			illustId: IllustMemo.id
 		});
 	};

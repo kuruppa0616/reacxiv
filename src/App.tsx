@@ -5,11 +5,11 @@ import {
 	createSwitchNavigator
 } from 'react-navigation';
 import { useScreens } from 'react-native-screens';
-useScreens();
-
 import { Login, AuthLoading, HomeScreen } from './screens';
 import { Screens } from '@/constants';
 import { IllustDetail } from './screens/DetailScreen';
+
+useScreens();
 
 const AuthNavigator = createStackNavigator({
 	Login: Login
@@ -42,4 +42,4 @@ const App = () => {
 	return <AppContainer />;
 };
 
-export default AppContainer;
+export default App;

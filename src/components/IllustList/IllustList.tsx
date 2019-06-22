@@ -27,14 +27,14 @@ const IllustList = observer((props: Props) => {
 	const store = props.store ? props.store : useContext(GlobalIllustsStore);
 
 	const [isRefreshing, setIsRefreshing] = useState(false);
+	const [nextUrl, setNextUrl] = useState<string>();
 	const { keys, addKeys, clearKeys } = useIllustKeys();
 	const [bookmarkIllust] = useBookmark(store);
 
 	useEffect(() => {
-		store.fetchIllusts(fetch).then(newKeys => {
-			console.log(newKeys);
-			
-			addKeys(newKeys);
+		store.fetchIllusts(fetch).then(([keys, nextUrl]) => {
+			addKeys(keys);
+			setNextUrl(nextUrl);
 		});
 	}, []);
 
@@ -46,16 +46,20 @@ const IllustList = observer((props: Props) => {
 	const _keyExtractor = (item: Illust) => item.id.toString();
 
 	const _onEndReached = () => {
-		store.loadMoreIllusts().then(newKeys => {
-			addKeys(newKeys);
-		});
+		console.log(nextUrl);
+		nextUrl &&
+			store.loadMoreIllusts(nextUrl).then(([keys, nextUrl]) => {
+				addKeys(keys);
+				setNextUrl(nextUrl);
+			});
 	};
 
 	const _onRefresh = () => {
 		setIsRefreshing(true);
 		clearKeys();
-		store.reloadIllusts(fetch).then(res => {
-			addKeys(res);
+		store.reloadIllusts(fetch).then(([keys, nextUrl]) => {
+			addKeys(keys);
+			setNextUrl(nextUrl);
 			setIsRefreshing(false);
 		});
 	};
@@ -77,9 +81,10 @@ const IllustList = observer((props: Props) => {
 				listKey={navigation.state.key + 'listview'}
 				numColumns={NUM_COLUMNS}
 				onEndReached={_onEndReached}
-				onEndReachedThreshold={0.2}
+				onEndReachedThreshold={0.4}
 				onRefresh={_onRefresh}
 				refreshing={isRefreshing}
+				nestedScrollEnabled={true}
 			/>
 		</Container>
 	);
