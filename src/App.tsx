@@ -7,7 +7,7 @@ import {
 import { useScreens } from 'react-native-screens';
 import { Login, AuthLoading, HomeScreen } from './screens';
 import { Screens } from '@/constants';
-import { IllustDetail } from './screens/DetailScreen';
+import { IllustDetail, UserDetail } from './screens/DetailScreen';
 
 useScreens();
 
@@ -18,7 +18,8 @@ const AuthNavigator = createStackNavigator({
 const AppNavigator = createStackNavigator(
 	{
 		[Screens.Home]: HomeScreen,
-		[Screens.IllustDetail]: IllustDetail
+		[Screens.IllustDetail]: IllustDetail,
+		[Screens.UserDetail]: UserDetail
 	},
 	{
 		initialRouteName: Screens.Home

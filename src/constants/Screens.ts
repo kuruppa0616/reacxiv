@@ -6,7 +6,8 @@ enum Screens {
 	Top = 'Top',
 	Recommend = 'Recommend',
 	New = 'New',
-	IllustDetail = 'IllustDetail'
+	IllustDetail = 'IllustDetail',
+	UserDetail = 'UserDetail'
 }
 
 export default Screens;

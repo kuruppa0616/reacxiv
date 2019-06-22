@@ -19,6 +19,8 @@ import {
 	RelatedIllusts
 } from '@/components/IllustDetail';
 import useFollow from '@/hooks/useFollow';
+import { Screens } from '@/constants';
+import { TouchableHighlight,TouchableWithoutFeedback } from 'react-native';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -35,6 +37,12 @@ const IllustDetail = observer((props: Props) => {
 		const illusts: Illust[] = denormalize([illustId], illustsSchema, store.entities);
 		return illusts[0];
 	}, [store.illusts, store.users, illustId]);
+
+	const _onPressUserInfo = () => {
+		navigation.push(Screens.UserDetail, {
+			userId: illustMemo.user.id
+		});
+	};
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
 
@@ -65,14 +73,18 @@ const IllustDetail = observer((props: Props) => {
 					</View>
 					<Info>
 						<TitleText>{illust.title}</TitleText>
-						<UserWrapper>
-							<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
-							<UserNameWrapper>
-								<UserNameText>{illust.user.name}</UserNameText>
-								<UserIdText>{illust.user.account}</UserIdText>
-							</UserNameWrapper>
+						<User>
+							<TouchableWithoutFeedback onPress={_onPressUserInfo}>
+								<UserProfile>
+									<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
+									<UserName>
+										<UserNameText>{illust.user.name}</UserNameText>
+										<UserIdText>{illust.user.account}</UserIdText>
+									</UserName>
+								</UserProfile>
+							</TouchableWithoutFeedback>
 							<FollowButton user={illust.user} followFunc={followUser} />
-						</UserWrapper>
+						</User>
 						<IllustCaption illust={illust} />
 						<IllustMeta illust={illust} />
 						<IllustTags illust={illust} />
@@ -105,14 +117,19 @@ const ScrollWrapper = styled.ScrollView`
 	position: relative;
 	height: 100%;
 `;
-const UserWrapper = styled(View)`
+const User = styled(View)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content:space-between;
 	margin: 2px 0px;
 `;
-const UserNameWrapper = styled(View)`
-	flex-grow: 3;
+const UserProfile = styled(View)`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+`;
+const UserName = styled(View)`
 	margin-left: 10px;
 `;
 const Info = styled(View)`
