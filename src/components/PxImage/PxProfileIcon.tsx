@@ -7,14 +7,7 @@ interface Props {
 }
 const PxProfileIcon = (props: Props) => {
 	const { url, size } = props;
-	return (
-		<PxImage
-			url={url}
-			width={size}
-			height={size}
-			style={{ borderRadius: 50 }}
-		/>
-	);
+	return <PxImage url={url} width={size} height={size} style={{ borderRadius: 50 }} />;
 };
 
 export default PxProfileIcon;

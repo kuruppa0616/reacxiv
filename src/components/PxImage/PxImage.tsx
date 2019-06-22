@@ -8,10 +8,11 @@ interface Props {
 	height: number;
 	style?: StyleProp<ImageStyle>;
 	onLoad?(event: OnLoadEvent): void;
+	resizeMode?: FastImage.ResizeMode;
 }
 
 const PxImage = (props: Props) => {
-	const { url, width, height, style, onLoad } = props;
+	const { url, width, height, style, onLoad, resizeMode } = props;
 	return (
 		<FastImage
 			style={[{ width: width, height: height }, style]}
@@ -24,7 +25,7 @@ const PxImage = (props: Props) => {
 				priority: FastImage.priority.normal
 			}}
 			onLoad={onLoad}
-			resizeMode={FastImage.resizeMode.contain}
+			resizeMode={resizeMode ? resizeMode : FastImage.resizeMode.contain}
 		/>
 	);
 };

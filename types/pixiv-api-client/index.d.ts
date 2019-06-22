@@ -102,7 +102,7 @@ export interface Profile {
 	total_illust_bookmarks_public: number;
 	total_illust_series: number;
 	total_novel_series: number;
-	background_image_url?: any;
+	background_image_url: string;
 	twitter_account: string;
 	twitter_url: string;
 	pawoo_url?: any;

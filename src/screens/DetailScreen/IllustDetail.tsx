@@ -20,6 +20,7 @@ import {
 	UserProfileBar
 } from '@/components/IllustDetail';
 import useFollow from '@/hooks/useFollow';
+import { Loading } from '@/components/Loading';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -80,12 +81,8 @@ const IllustDetail = observer((props: Props) => {
 		</View>
 	);
 
-	const _renderNowLoading = () => <Text>Now Loading</Text>;
-
 	return (
-		<Container>
-			{illustMemo ? _renderIllustDetail(illustMemo) : _renderNowLoading()}
-		</Container>
+		<Container>{illustMemo ? _renderIllustDetail(illustMemo) : <Loading />}</Container>
 	);
 });
 
