@@ -11,7 +11,7 @@ import { human } from 'react-native-typography';
 import { FollowButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
 import useFollow from '@/hooks/useFollow';
-import { Device } from '@/constants';
+import { BlurView, VibrancyView } from '@react-native-community/blur';
 import { Row } from '@/components/OverrideNativeBase';
 
 interface Props {
@@ -36,7 +36,11 @@ const UserDetail = (props: Props) => {
 			<View>
 				<Row>
 					<UserStatus>
-						<PxHeader url={user.user.profile_image_urls.medium} />
+						<PxHeader
+							url={user.user.profile_image_urls.medium}
+							height={150}
+							blurRadius={1}
+						/>
 						<PxProfileIcon url={user.user.profile_image_urls.medium} size={80} />
 						<UserNameText>{user.user.name}</UserNameText>
 						<UserIdText>{user.user.account}</UserIdText>
