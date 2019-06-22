@@ -12,10 +12,13 @@ import { PxFitIllust, PxProfileIcon } from '@/components/PxImage';
 import { FollowButton, FloatingBookmarkButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
 import { illustsSchema } from '@/mobx/schema';
-import { IllustMeta, IllustTags, IllustCaption } from '@/components/IllustDetail';
+import {
+	IllustMeta,
+	IllustTags,
+	IllustCaption,
+	RelatedIllusts
+} from '@/components/IllustDetail';
 import useFollow from '@/hooks/useFollow';
-import pixivApi from '@/api/PixivApi';
-import { IllustList } from '@/components/IllustList';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -53,7 +56,7 @@ const IllustDetail = observer((props: Props) => {
 	};
 	const _renderIllustDetail = (illust: Illust) => (
 		<View>
-			<ScrollWrapper removeClippedSubviews nestedScrollEnabled={true}>
+			<ScrollWrapper nestedScrollEnabled={true}>
 				<View>
 					<View>
 						{illust.page_count === 1
@@ -75,9 +78,7 @@ const IllustDetail = observer((props: Props) => {
 						<IllustTags illust={illust} />
 					</Info>
 				</View>
-				<RelatedIllusts>
-					<IllustList fetch={() => pixivApi.illustRelated(illustMemo.id)} />
-				</RelatedIllusts>
+				<RelatedIllusts illust={illustMemo} />
 			</ScrollWrapper>
 			<FloatingArea>
 				<FloatingBookmarkButton illust={illust} bookmarkFunc={bookmarkIllust} />
@@ -118,12 +119,6 @@ const Info = styled(View)`
 	padding-top: 6px;
 	padding-left: 15px;
 	padding-right: 15px;
-`;
-
-const RelatedIllusts = styled(View)`
-	flex: 1;
-	height: 100%;
-	margin-top: 20px;
 `;
 
 const FloatingArea = styled(View)`
