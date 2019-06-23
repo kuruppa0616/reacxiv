@@ -68,7 +68,7 @@ const IllustDetail = observer((props: Props) => {
 					<Info>
 						<TitleText>{illust.title}</TitleText>
 						<UserProfileBar illust={illustMemo} followUser={followUser} />
-						<IllustCaption illust={illust} />
+						<IllustCaption text={illust.caption} />
 						<IllustMeta illust={illust} />
 						<IllustTags illust={illust} />
 					</Info>
@@ -99,8 +99,8 @@ const ScrollWrapper = styled.ScrollView`
 
 const Info = styled(View)`
 	padding-top: 6px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
 `;
 
 const FloatingArea = styled(View)`

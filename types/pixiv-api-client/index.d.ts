@@ -84,7 +84,7 @@ export interface UserWithComment extends User {
 }
 
 export interface Profile {
-	webpage: string;
+	webpage?: string;
 	gender: string;
 	birth: string;
 	birth_day: string;
@@ -104,7 +104,7 @@ export interface Profile {
 	total_novel_series: number;
 	background_image_url: string;
 	twitter_account: string;
-	twitter_url: string;
+	twitter_url?: string;
 	pawoo_url?: any;
 	is_premium: boolean;
 	is_using_custom_profile_image: boolean;

@@ -6,11 +6,11 @@ import styled from 'styled-components/native';
 import HTMLView, { HTMLViewNode } from 'react-native-htmlview';
 
 interface Props {
-	illust: Illust;
+	text: string;
 }
 
 const IllustCaption = (props: Props) => {
-	const { illust } = props;
+	const { text } = props;
 
 	const _renderNode = (node: HTMLViewNode, index: number): React.ReactNode => {
 		if (node.type !== 'text') {
@@ -26,7 +26,7 @@ const IllustCaption = (props: Props) => {
 
 	return (
 		<StyledHTMLView
-			value={`<html><body>${illust.caption}</body></html>`}
+			value={`<html><body>${text}</body></html>`}
 			renderNode={_renderNode}
 			RootComponent={View}
 		/>

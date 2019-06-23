@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { View, Text, Container } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
 import pixivApi from '@/api/PixivApi';
 import { useState } from 'react';
@@ -12,6 +13,7 @@ import { FollowButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
 import useFollow from '@/hooks/useFollow';
 import { Row } from '@/components/OverrideNativeBase';
+import { IllustCaption } from '@/components/IllustDetail';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -31,29 +33,48 @@ const UserDetail = (props: Props) => {
 	}, []);
 
 	const _renderUserDetail = (user: UserResponse) => {
+		const webpage = user.profile.webpage;
+		const domain: string | undefined = webpage
+			? (webpage.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/) as any)[1]
+			: undefined;
 		return (
 			<View>
-				<Row>
-					<UserStatus>
+				<Profile>
+					<HeaderImage>
 						<PxHeader
 							url={user.user.profile_image_urls.medium}
 							height={150}
 							blurRadius={1}
 						/>
-						<PxProfileIcon url={user.user.profile_image_urls.medium} size={80} />
-						<UserNameText>{user.user.name}</UserNameText>
-						<UserIdText>{user.user.account}</UserIdText>
+					</HeaderImage>
+					<UserStatus>
+						<UserStatusRow>
+							<View style={{ flex: 4 }}>
+								<PxProfileIcon url={user.user.profile_image_urls.medium} size={80} />
+								<UserNameText>{user.user.name}</UserNameText>
+							</View>
+							<View style={{ flex: 1 }}>
+								<FollowButton user={user.user} followFunc={followUser} />
+							</View>
+						</UserStatusRow>
+						<Text>{user.profile.total_follow_users} following</Text>
 						<Row>
-							<Text>Web:{user.profile.webpage}</Text>
-							<Text>Twitter:{user.profile.twitter_account}</Text>
+							{domain && (
+								<UrlRow>
+									<Icon name="home" size={20} />
+									<Text>{domain}</Text>
+								</UrlRow>
+							)}
+							{user.profile.twitter_account && (
+								<UrlRow>
+									<Icon name="twitter" size={20} />
+									<Text>@{user.profile.twitter_account}</Text>
+								</UrlRow>
+							)}
 						</Row>
-						<Row>
-							<Text>{user.profile.total_follow_users}follow</Text>
-							<Text>{user.profile.total_mypixiv_users}mypixiv</Text>
-						</Row>
+						<IllustCaption text={user.user.comment} />
 					</UserStatus>
-					<FollowButton user={user.user} followFunc={followUser} />
-				</Row>
+				</Profile>
 			</View>
 		);
 	};
@@ -61,18 +82,40 @@ const UserDetail = (props: Props) => {
 	return <Container>{user ? _renderUserDetail(user) : <Loading />}</Container>;
 };
 
+const Profile = styled(View)`
+	position: relative;
+`;
+
+const HeaderImage = styled(View)`
+	position: absolute;
+`;
+
 const UserStatus = styled(View)`
-	height: 100%;
+	position: absolute;
+	width: 100%;
+	top: 115px;
+	padding-left: 10px;
+	padding-right: 10px;
+`;
+
+const UserStatusRow = styled(Row)`
+	justify-content: space-between;
+`;
+
+const UrlRow = styled(Row)`
+	max-width: 200px;
+	margin-right: 10px;
 `;
 
 const UserNameText = styled(Text)`
-	${human.calloutObject as any};
-	line-height: ${(human.calloutObject.fontSize as number) * 1.5};
+	${human.title2Object as any};
+	line-height: ${(human.title2Object.fontSize as number) * 1.5};
+	font-weight: bold;
 `;
 
 const UserIdText = styled(Text)`
-	${human.footnoteObject as any};
-	line-height: ${(human.footnoteObject.fontSize as number) * 1.5};
+	${human.bodyObject as any};
+	line-height: ${(human.bodyObject.fontSize as number) * 1.5};
 `;
 
 export default withNavigation(UserDetail);

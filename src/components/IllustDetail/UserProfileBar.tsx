@@ -30,7 +30,6 @@ const UserProfileBar = (props: Props) => {
 					<PxProfileIcon url={illust.user.profile_image_urls.medium} size={40} />
 					<UserName>
 						<UserNameText>{illust.user.name}</UserNameText>
-						<UserIdText>{illust.user.account}</UserIdText>
 					</UserName>
 				</UserProfile>
 			</TouchableWithoutFeedback>
