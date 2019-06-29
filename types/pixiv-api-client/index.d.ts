@@ -185,7 +185,7 @@ export declare class PixivApiClient {
 	illustDetail(id: number, options?: RequestOption): Promise<{ illust: Illust }>;
 	illustFollow(options?: WorksFollowRequestOption): Promise<IllustsResponse>;
 	illustMyPixiv(): Promise<any>;
-	illustNew(options?: RequestOption): Promise<any>;
+	illustNew(options?: RequestOption): Promise<IllustsResponse>;
 	illustRanking(options?: RequestOption): Promise<any>;
 	illustRecommended(options?: RequestOption): Promise<IllustsResponse>;
 	illustRelated(id: number, options?: RequestOption): Promise<IllustsResponse>;
@@ -237,7 +237,7 @@ export declare class PixivApiClient {
 	userFollowDetail(id: number): Promise<any>;
 	userFollower(id: number, options?: RequestOption): Promise<any>;
 	userFollowing(id: number, options?: RequestOption): Promise<any>;
-	userIllusts(id: number, options?: RequestOption): Promise<any>;
+	userIllusts(id: number, options?: RequestOption): Promise<IllustsResponse>;
 	userMyPixiv(id: number): Promise<any>;
 	userNovels(id: number, options?: RequestOption): Promise<any>;
 	userRecommended(options?: RequestOption): Promise<any>;

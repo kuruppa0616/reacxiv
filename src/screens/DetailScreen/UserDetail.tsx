@@ -1,7 +1,7 @@
-import React, { useEffect, useContext } from 'react';
-import { View, Text, Container } from 'native-base';
+import React, { useEffect, useContext, useMemo } from 'react';
+import { View, Text } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { withNavigation, NavigationScreenProp } from 'react-navigation';
+import { withNavigation, NavigationScreenProp, ScrollView } from 'react-navigation';
 import pixivApi from '@/api/PixivApi';
 import { useState } from 'react';
 import { UserResponse } from 'pixiv-api-client';
@@ -14,12 +14,15 @@ import { GlobalIllustsStore } from '@/mobx/stores';
 import useFollow from '@/hooks/useFollow';
 import { Row } from '@/components/OverrideNativeBase';
 import { IllustCaption } from '@/components/IllustDetail';
+import { observer } from 'mobx-react-lite';
+import { Linking } from 'react-native';
+import { IllustList } from '@/components/IllustList';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
 }
 
-const UserDetail = (props: Props) => {
+const UserDetail = observer((props: Props) => {
 	const { navigation } = props;
 	const userId: number = navigation.state.params.userId;
 	const store = useContext(GlobalIllustsStore);
@@ -32,68 +35,94 @@ const UserDetail = (props: Props) => {
 		});
 	}, []);
 
+	const storedUserMemo = useMemo(() => {
+		const users = store.users;
+		return users[userId];
+	}, [store.users]);
+
+	const _openURL = (url: string) => () => Linking.openURL(url);
+	const _fetchIllustWorks = (id: number) => () => pixivApi.userIllusts(id);
+
 	const _renderUserDetail = (user: UserResponse) => {
-		const webpage = user.profile.webpage;
-		const domain: string | undefined = webpage
-			? (webpage.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/) as any)[1]
-			: undefined;
 		return (
 			<View>
-				<Profile>
-					<HeaderImage>
-						<PxHeader
-							url={user.user.profile_image_urls.medium}
-							height={150}
-							blurRadius={1}
-						/>
-					</HeaderImage>
-					<UserStatus>
-						<UserStatusRow>
-							<View style={{ flex: 4 }}>
-								<PxProfileIcon url={user.user.profile_image_urls.medium} size={80} />
-								<UserNameText>{user.user.name}</UserNameText>
-							</View>
-							<View style={{ flex: 1 }}>
-								<FollowButton user={user.user} followFunc={followUser} />
-							</View>
-						</UserStatusRow>
-						<Text>{user.profile.total_follow_users} following</Text>
-						<Row>
-							{domain && (
-								<UrlRow>
-									<Icon name="home" size={20} />
-									<Text>{domain}</Text>
-								</UrlRow>
-							)}
-							{user.profile.twitter_account && (
-								<UrlRow>
-									<Icon name="twitter" size={20} />
-									<Text>@{user.profile.twitter_account}</Text>
-								</UrlRow>
-							)}
-						</Row>
-						<IllustCaption text={user.user.comment} />
-					</UserStatus>
-				</Profile>
+				<ScrollWrapper>
+					<Profile>
+						<HeaderImage>
+							<PxHeader
+								url={user.user.profile_image_urls.medium}
+								height={150}
+								blurRadius={1}
+							/>
+						</HeaderImage>
+						<UserStatus>
+							<UserStatusRow>
+								<View style={{ flex: 4 }}>
+									<PxProfileIcon url={user.user.profile_image_urls.medium} size={80} />
+									<UserNameText>{user.user.name}</UserNameText>
+								</View>
+								<View style={{ flex: 1 }}>
+									<FollowButton user={storedUserMemo} followFunc={followUser} />
+								</View>
+							</UserStatusRow>
+							<Text>{user.profile.total_follow_users} following</Text>
+							<Row>
+								{user.profile.webpage && (
+									<UrlRow>
+										<Icon
+											onPress={_openURL(user.profile.webpage)}
+											name="home"
+											size={30}
+										/>
+									</UrlRow>
+								)}
+								{user.profile.twitter_account && (
+									<UrlRow>
+										<Icon
+											onPress={_openURL(
+												'https://twitter.com/' + user.profile.twitter_account
+											)}
+											name="twitter"
+											size={30}
+										/>
+									</UrlRow>
+								)}
+							</Row>
+							<IllustCaption text={user.user.comment} />
+							<IllustList fetch={_fetchIllustWorks(user.user.id)} />
+						</UserStatus>
+					</Profile>
+				</ScrollWrapper>
 			</View>
 		);
 	};
 
-	return <Container>{user ? _renderUserDetail(user) : <Loading />}</Container>;
-};
+	return <S_Container>{user ? _renderUserDetail(user) : <Loading />}</S_Container>;
+});
+
+const S_Container = styled(View)`
+	flex: 1 auto;
+	width: 100%;
+`;
+
+const ScrollWrapper = styled.ScrollView`
+	height: 100%;
+`;
 
 const Profile = styled(View)`
-	position: relative;
+	/* position: relative; */
+	flex: 1;
 `;
 
 const HeaderImage = styled(View)`
-	position: absolute;
+
 `;
 
 const UserStatus = styled(View)`
-	position: absolute;
+	/* position: absolute; */
 	width: 100%;
-	top: 115px;
+	height: 100%;
+	/* top: 115px; */
 	padding-left: 10px;
 	padding-right: 10px;
 `;
@@ -111,11 +140,6 @@ const UserNameText = styled(Text)`
 	${human.title2Object as any};
 	line-height: ${(human.title2Object.fontSize as number) * 1.5};
 	font-weight: bold;
-`;
-
-const UserIdText = styled(Text)`
-	${human.bodyObject as any};
-	line-height: ${(human.bodyObject.fontSize as number) * 1.5};
 `;
 
 export default withNavigation(UserDetail);

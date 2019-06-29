@@ -41,6 +41,10 @@ export class IllustsStore {
 		this.users = users;
 	};
 
+	@action public setUser = (user: User) => {
+		this.users = { ...this.users, [user.id]: user };
+	};
+
 	public fetchIllusts = async (fetch: FetchIllusts): Promise<[number[], string]> => {
 		const res = await fetch();
 		const normalized = normalize(res.illusts, illustsSchema);

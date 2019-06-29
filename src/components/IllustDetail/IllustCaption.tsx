@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text } from 'native-base';
 import { human } from 'react-native-typography';
 import { Illust } from 'pixiv-api-client';
@@ -11,6 +11,7 @@ interface Props {
 
 const IllustCaption = (props: Props) => {
 	const { text } = props;
+	const [collapsed, setCollapsed] = useState(true);
 
 	const _renderNode = (node: HTMLViewNode, index: number): React.ReactNode => {
 		if (node.type !== 'text') {
@@ -23,7 +24,7 @@ const IllustCaption = (props: Props) => {
 
 		return <CaptionText key={index}>{node.data}</CaptionText>;
 	};
-
+	// const collapsedText = collapsed ? text.slice(0, 50) + "..." : text;
 	return (
 		<StyledHTMLView
 			value={`<html><body>${text}</body></html>`}
