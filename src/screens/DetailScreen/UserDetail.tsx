@@ -55,42 +55,45 @@ const UserDetail = observer((props: Props) => {
 								blurRadius={1}
 							/>
 						</HeaderImage>
-						<UserStatus>
-							<UserStatusRow>
-								<View style={{ flex: 4 }}>
-									<PxProfileIcon url={user.user.profile_image_urls.medium} size={80} />
-									<UserNameText>{user.user.name}</UserNameText>
-								</View>
-								<View style={{ flex: 1 }}>
-									<FollowButton user={storedUserMemo} followFunc={followUser} />
-								</View>
-							</UserStatusRow>
-							<Text>{user.profile.total_follow_users} following</Text>
-							<Row>
-								{user.profile.webpage && (
-									<UrlRow>
-										<Icon
-											onPress={_openURL(user.profile.webpage)}
-											name="home"
-											size={30}
-										/>
-									</UrlRow>
-								)}
-								{user.profile.twitter_account && (
-									<UrlRow>
-										<Icon
-											onPress={_openURL(
-												'https://twitter.com/' + user.profile.twitter_account
-											)}
-											name="twitter"
-											size={30}
-										/>
-									</UrlRow>
-								)}
-							</Row>
-							<IllustCaption text={user.user.comment} />
+						<DetailBody>
+							<PaddingBody>
+								<UserStatusRow>
+									<View style={{ flex: 4 }}>
+										<PxProfileIcon url={user.user.profile_image_urls.medium} size={80} />
+										<UserNameText>{user.user.name}</UserNameText>
+									</View>
+									<View style={{ flex: 1 }}>
+										<FollowButton user={storedUserMemo} followFunc={followUser} />
+									</View>
+								</UserStatusRow>
+								<Text>{user.profile.total_follow_users} following</Text>
+								<Row>
+									{user.profile.webpage && (
+										<UrlRow>
+											<Icon
+												onPress={_openURL(user.profile.webpage)}
+												name="home"
+												size={30}
+											/>
+										</UrlRow>
+									)}
+									{user.profile.twitter_account && (
+										<UrlRow>
+											<Icon
+												onPress={_openURL(
+													'https://twitter.com/' + user.profile.twitter_account
+												)}
+												name="twitter"
+												size={30}
+											/>
+										</UrlRow>
+									)}
+								</Row>
+								<IllustCaption text={user.user.comment} />
+							</PaddingBody>
+							<StyledText>Illust Works</StyledText>
 							<IllustList fetch={_fetchIllustWorks(user.user.id)} />
-						</UserStatus>
+						</DetailBody>
 					</Profile>
 				</ScrollWrapper>
 			</View>
@@ -114,18 +117,20 @@ const Profile = styled(View)`
 	flex: 1;
 `;
 
-const HeaderImage = styled(View)`
+const HeaderImage = styled(View)``;
 
-`;
-
-const UserStatus = styled(View)`
+const DetailBody = styled(View)`
 	/* position: absolute; */
 	width: 100%;
 	height: 100%;
 	/* top: 115px; */
+
+`;
+
+const PaddingBody = styled(View)`
 	padding-left: 10px;
 	padding-right: 10px;
-`;
+`
 
 const UserStatusRow = styled(Row)`
 	justify-content: space-between;
@@ -141,5 +146,13 @@ const UserNameText = styled(Text)`
 	line-height: ${(human.title2Object.fontSize as number) * 1.5};
 	font-weight: bold;
 `;
+
+const StyledText = styled(Text)`
+	${human.calloutObject as any};
+	line-height: ${(human.calloutObject.fontSize as number) * 1.5};
+	text-align: center;
+	margin-bottom: 10px;
+`;
+
 
 export default withNavigation(UserDetail);
