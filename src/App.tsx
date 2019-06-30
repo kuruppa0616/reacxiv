@@ -22,7 +22,13 @@ const AppNavigator = createStackNavigator(
 		[Screens.UserDetail]: UserDetail
 	},
 	{
-		initialRouteName: Screens.Home
+		initialRouteName: Screens.Home,
+		defaultNavigationOptions: () => ({
+			headerTransparent: true,
+			headerStyle: {
+				borderBottomWidth: 0
+			}
+		})
 	}
 );
 
