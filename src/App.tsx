@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	createStackNavigator,
 	createAppContainer,
-	createSwitchNavigator
+	createSwitchNavigator,
 } from 'react-navigation';
 import { useScreens } from 'react-native-screens';
 import { Login, AuthLoading, HomeScreen } from './screens';
