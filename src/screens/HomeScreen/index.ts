@@ -1,21 +1,27 @@
+import React from 'react';
 import Top from './Top';
 import Recommend from './Recommend';
 import New from './New';
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator, BottomTabBar } from 'react-navigation';
 import { Screens } from '@/constants';
 
 const TabNavigator = createBottomTabNavigator(
 	{
 		[Screens.Top]: Top,
 		[Screens.Recommend]: Recommend,
-		[Screens.New]: New
+		[Screens.New]: New,
 	},
 	{
 		tabBarOptions: {
-			activeTintColor: 'tomato',
+			activeTintColor: 'blue',
 			inactiveTintColor: 'gray'
 		},
-		initialRouteName: Screens.New
+		initialRouteName: Screens.New,
+		defaultNavigationOptions: ({ navigation }) => ({}),
+		// header非表示
+		navigationOptions: () => ({
+			header: null
+		})
 	}
 );
 
