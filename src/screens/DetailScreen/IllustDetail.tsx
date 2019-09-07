@@ -113,7 +113,6 @@ const FloatingArea = styled(View)`
 
 const TitleText = styled(Text)`
 	${human.title3Object as any};
-	line-height: ${(human.title3Object.fontSize as number) * 1.5};
 	font-weight: bold;
 `;
 

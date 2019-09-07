@@ -50,7 +50,6 @@ const IconView = styled(View)`
 `;
 const MetaText = styled(Text)`
 	${human.footnoteObject as any};
-	line-height: ${(human.footnoteObject.fontSize as number) * 1.5};
 `;
 
 export default IllustMeta;

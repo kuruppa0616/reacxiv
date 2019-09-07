@@ -58,10 +58,4 @@ const UserName = styled(View)`
 
 const UserNameText = styled(Text)`
 	${human.calloutObject as any};
-	line-height: ${(human.calloutObject.fontSize as number) * 1.5};
-`;
-
-const UserIdText = styled(Text)`
-	${human.footnoteObject as any};
-	line-height: ${(human.footnoteObject.fontSize as number) * 1.5};
 `;

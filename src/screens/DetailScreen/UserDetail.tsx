@@ -143,13 +143,11 @@ const UrlRow = styled(Row)`
 
 const UserNameText = styled(Text)`
 	${human.title2Object as any};
-	line-height: ${(human.title2Object.fontSize as number) * 1.5};
 	font-weight: bold;
 `;
 
 const StyledText = styled(Text)`
 	${human.calloutObject as any};
-	line-height: ${(human.calloutObject.fontSize as number) * 1.5};
 	text-align: center;
 	margin-bottom: 10px;
 `;

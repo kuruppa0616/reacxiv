@@ -33,7 +33,6 @@ const TagButton = styled(Button)`
 
 const Tagtext = styled(Text)`
 	${human.caption1Object as any};
-	line-height: ${(human.caption1Object.fontSize as number) * 1.5};
 `;
 
 export default IllustTags;

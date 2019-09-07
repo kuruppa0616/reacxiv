@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text } from 'native-base';
 import { human } from 'react-native-typography';
-import { Illust } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 import HTMLView, { HTMLViewNode } from 'react-native-htmlview';
 
@@ -41,7 +40,6 @@ const StyledHTMLView = styled(HTMLView)`
 
 const CaptionText = styled(Text)`
 	${human.subheadObject as any};
-	line-height: ${(human.subheadObject.fontSize as number) * 1.5};
 `;
 
 const CaptionURL = styled(CaptionText)`

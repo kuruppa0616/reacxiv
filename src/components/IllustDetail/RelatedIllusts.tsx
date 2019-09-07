@@ -28,7 +28,6 @@ const Container = styled(View)`
 
 const StyledText = styled(Text)`
 	${human.calloutObject as any};
-	line-height: ${(human.calloutObject.fontSize as number) * 1.5};
 	text-align: center;
 	margin-bottom: 10px;
 `;
