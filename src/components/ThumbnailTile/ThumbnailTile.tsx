@@ -1,11 +1,13 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components/native';
 import { withNavigation, NavigationScreenProp } from 'react-navigation';
-import { Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 import { Illust } from 'pixiv-api-client';
 import { PxThumbnail } from '../PxImage';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+
+// not working RN0.60(2019/09/07)
+// import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Screens } from '@/constants';
 import { BookmarkButton } from '../Button';
 
@@ -29,9 +31,9 @@ const ThumbnailTile = (props: Props) => {
 
 	return (
 		<Container>
-			<TouchableHighlight onPress={_onpressIllustDetail}>
+			<TouchableOpacity onPress={_onpressIllustDetail} activeOpacity={0.8}>
 				<PxThumbnail url={illustMemo.image_urls.square_medium} size={size} />
-			</TouchableHighlight>
+			</TouchableOpacity>
 			<NumPages>
 				<Text>{illustMemo.page_count}</Text>
 			</NumPages>
