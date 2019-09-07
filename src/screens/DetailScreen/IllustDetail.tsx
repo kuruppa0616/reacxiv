@@ -112,8 +112,10 @@ const FloatingArea = styled(View)`
 `;
 
 const TitleText = styled(Text)`
-	${human.title3Object as any};
+	${human.title2Object as any};
 	font-weight: bold;
+	padding-top: 5px;
+	padding-bottom: 5px;
 `;
 
 export default withNavigation(IllustDetail);

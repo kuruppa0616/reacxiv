@@ -6,6 +6,7 @@ import pixivApi from '@/api/PixivApi';
 import { useState } from 'react';
 import { UserResponse } from 'pixiv-api-client';
 import styled from 'styled-components/native';
+import * as types from 'styled-components/cssprop';
 import { Loading } from '@/components/Loading';
 import { PxProfileIcon, PxHeader } from '@/components/PxImage';
 import { human } from 'react-native-typography';
@@ -46,7 +47,7 @@ const UserDetail = observer((props: Props) => {
 	const _renderUserDetail = (user: UserResponse) => {
 		return (
 			<View>
-				<ScrollWrapper>
+				<ScrollView css="height: 100%;">
 					<Profile>
 						<HeaderImage>
 							<PxHeader
@@ -95,7 +96,7 @@ const UserDetail = observer((props: Props) => {
 							<IllustList fetch={_fetchIllustWorks(user.user.id)} />
 						</DetailBody>
 					</Profile>
-				</ScrollWrapper>
+				</ScrollView>
 			</View>
 		);
 	};
@@ -124,13 +125,12 @@ const DetailBody = styled(View)`
 	width: 100%;
 	height: 100%;
 	/* top: 115px; */
-
 `;
 
 const PaddingBody = styled(View)`
 	padding-left: 10px;
 	padding-right: 10px;
-`
+`;
 
 const UserStatusRow = styled(Row)`
 	justify-content: space-between;
@@ -151,6 +151,5 @@ const StyledText = styled(Text)`
 	text-align: center;
 	margin-bottom: 10px;
 `;
-
 
 export default withNavigation(UserDetail);
