@@ -2,7 +2,11 @@ import React from 'react';
 import Top from './Top';
 import Recommend from './Recommend';
 import New from './New';
-import { createBottomTabNavigator, BottomTabBar, BottomTabBarProps } from 'react-navigation';
+import {
+	createBottomTabNavigator,
+	BottomTabBar,
+	BottomTabBarProps
+} from 'react-navigation-tabs';
 import { Screens } from '@/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
