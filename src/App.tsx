@@ -1,6 +1,5 @@
 import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer, createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import { useScreens } from 'react-native-screens';
 import { Login, AuthLoading, HomeScreen } from './screens';
 import { Screens } from '@/constants';
