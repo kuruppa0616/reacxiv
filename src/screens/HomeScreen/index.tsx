@@ -2,14 +2,9 @@ import React from 'react';
 import Top from './Top';
 import Recommend from './Recommend';
 import New from './New';
-import {
-	createBottomTabNavigator,
-	BottomTabBar,
-	BottomTabBarProps
-} from 'react-navigation';
+import { createBottomTabNavigator, BottomTabBar, BottomTabBarProps } from 'react-navigation-tabs';
 import { Screens } from '@/constants';
-import { View } from 'react-native';
-import Icon  from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const TabBarComponent = (props: BottomTabBarProps) => <BottomTabBar {...props} />;
 
@@ -35,14 +30,14 @@ const TabNavigator = createBottomTabNavigator(
 		defaultNavigationOptions: ({ navigation }) => ({
 			tabBarIcon: () => {
 				const { routeName } = navigation.state;
-				const IconName = getIconByRouteName(routeName)
+				const IconName = getIconByRouteName(routeName);
 				return <Icon name={IconName} size={25} />;
 			}
 		})
 	}
 );
 
-const getIconByRouteName = (routeName:string) => {
+const getIconByRouteName = (routeName: string) => {
 	switch (routeName) {
 		case Screens.Top:
 			return 'home';
@@ -51,6 +46,6 @@ const getIconByRouteName = (routeName:string) => {
 		default:
 			return 'feed';
 	}
-}
+};
 
 export default TabNavigator;
