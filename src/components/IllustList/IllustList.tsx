@@ -28,7 +28,7 @@ const IllustList = observer((props: Props) => {
 
 	const [isRefreshing, setIsRefreshing] = useState(false);
 	const [nextUrl, setNextUrl] = useState<string>();
-	const { keys, addKeys, clearKeys } = useIllustKeys();
+	const [keys, addKeys, clearKeys] = useIllustKeys();
 	const [bookmarkIllust] = useBookmark(store);
 
 	useEffect(() => {

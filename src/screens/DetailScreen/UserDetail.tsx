@@ -7,28 +7,23 @@ import { useState } from 'react';
 import { UserResponse } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 import * as types from 'styled-components/cssprop';
+import { useNavigationParam } from 'react-navigation-hooks';
 import { Loading } from '@/components/Loading';
 import { PxProfileIcon, PxHeader } from '@/components/PxImage';
 import { human } from 'react-native-typography';
 import { FollowButton } from '@/components/Button';
 import { GlobalIllustsStore } from '@/mobx/stores';
-import useFollow from '@/hooks/useFollow';
+import {useFollow} from '@/hooks';
 import { Row } from '@/components/OverrideNativeBase';
 import { IllustCaption } from '@/components/IllustDetail';
 import { observer } from 'mobx-react-lite';
 import { Linking } from 'react-native';
 import { IllustList } from '@/components/IllustList';
 
-interface Props {
-	navigation: NavigationScreenProp<any, any>;
-}
-
-const UserDetail = observer((props: Props) => {
-	const { navigation } = props;
-	const userId: number = navigation.state.params.userId;
+const UserDetail = observer(() => {
+	const userId: number = useNavigationParam('userId');
 	const store = useContext(GlobalIllustsStore);
 	const [user, setUser] = useState<UserResponse>();
-	const [followUser] = useFollow(store);
 
 	useEffect(() => {
 		pixivApi.userDetail(userId).then(res => {
@@ -36,6 +31,7 @@ const UserDetail = observer((props: Props) => {
 		});
 	}, []);
 
+	const [followUser] = useFollow(store);
 	const storedUserMemo = useMemo(() => {
 		const users = store.users;
 		return users[userId];
@@ -78,12 +74,10 @@ const UserDetail = observer((props: Props) => {
 											/>
 										</UrlRow>
 									)}
-									{user.profile.twitter_account && (
+									{user.profile.twitter_url && (
 										<UrlRow>
 											<Icon
-												onPress={_openURL(
-													'https://twitter.com/' + user.profile.twitter_account
-												)}
+												onPress={_openURL(user.profile.twitter_url)}
 												name="twitter"
 												size={30}
 											/>

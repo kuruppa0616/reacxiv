@@ -30,6 +30,7 @@
     "react-native-typography": "^1.4.1",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.0",
+    "react-navigation-hooks": "^1.0.3",
     "react-navigation-stack": "^1.5.3",
     "react-navigation-tabs": "^2.4.0",
     "styled-components": "^4.3.2"
