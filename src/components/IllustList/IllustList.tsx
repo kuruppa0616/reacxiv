@@ -46,7 +46,6 @@ const IllustList = observer((props: Props) => {
 	const _keyExtractor = (item: Illust) => item.id.toString();
 
 	const _onEndReached = () => {
-		console.log(nextUrl);
 		nextUrl &&
 			store.loadMoreIllusts(nextUrl).then(([keys, nextUrl]) => {
 				addKeys(keys);

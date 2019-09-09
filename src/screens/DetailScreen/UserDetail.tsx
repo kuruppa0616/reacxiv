@@ -1,102 +1,109 @@
-import React, { useEffect, useContext, useMemo } from 'react';
-import { View, Text } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { withNavigation, NavigationScreenProp, ScrollView } from 'react-navigation';
-import pixivApi from '@/api/PixivApi';
-import { useState } from 'react';
-import { UserResponse } from 'pixiv-api-client';
-import styled from 'styled-components/native';
-import * as types from 'styled-components/cssprop';
-import { useNavigationParam } from 'react-navigation-hooks';
-import { Loading } from '@/components/Loading';
-import { PxProfileIcon, PxHeader } from '@/components/PxImage';
-import { human } from 'react-native-typography';
-import { FollowButton } from '@/components/Button';
-import { GlobalIllustsStore } from '@/mobx/stores';
-import {useFollow} from '@/hooks';
-import { Row } from '@/components/OverrideNativeBase';
-import { IllustCaption } from '@/components/IllustDetail';
-import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { Linking } from 'react-native';
+import { human } from 'react-native-typography';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { ScrollView, withNavigation } from 'react-navigation';
+
+import { observer } from 'mobx-react-lite';
+import { Text, View } from 'native-base';
+import { User, UserResponse } from 'pixiv-api-client';
+import * as types from 'styled-components/cssprop';
+import styled from 'styled-components/native';
+
+import pixivApi from '@/api/PixivApi';
+import { FollowButton } from '@/components/Button';
+import { IllustCaption } from '@/components/IllustDetail';
 import { IllustList } from '@/components/IllustList';
+import { Loading } from '@/components/Loading';
+import { Row } from '@/components/OverrideNativeBase';
+import { PxHeader, PxProfileIcon } from '@/components/PxImage';
+import { useUserDetail } from '@/hooks';
+import { userAction } from '@/hooks/useUserDetail';
 
-const UserDetail = observer(() => {
-	const userId: number = useNavigationParam('userId');
-	const store = useContext(GlobalIllustsStore);
-	const [user, setUser] = useState<UserResponse>();
+const UserDetailContainer = observer(() => {
+	const [userDetail, userOverviewMemo, userAction] = useUserDetail();
 
-	useEffect(() => {
-		pixivApi.userDetail(userId).then(res => {
-			setUser(res);
-		});
-	}, []);
+	return (
+		<S_Container>
+			{userDetail ? (
+				<UserDetail {...{ userDetail, userOverviewMemo, userAction }} />
+			) : (
+				<Loading />
+			)}
+		</S_Container>
+	);
+});
 
-	const [followUser] = useFollow(store);
-	const storedUserMemo = useMemo(() => {
-		const users = store.users;
-		return users[userId];
-	}, [store.users]);
+interface UserDetailProps {
+	userDetail: UserResponse;
+	userOverviewMemo: User;
+	userAction: userAction;
+}
 
+const UserDetail = (props: UserDetailProps) => {
+	const { userDetail, userOverviewMemo, userAction } = props;
 	const _openURL = (url: string) => () => Linking.openURL(url);
 	const _fetchIllustWorks = (id: number) => () => pixivApi.userIllusts(id);
 
-	const _renderUserDetail = (user: UserResponse) => {
-		return (
-			<View>
-				<ScrollView css="height: 100%;">
-					<Profile>
-						<HeaderImage>
-							<PxHeader
-								url={user.user.profile_image_urls.medium}
-								height={150}
-								blurRadius={1}
-							/>
-						</HeaderImage>
-						<DetailBody>
-							<PaddingBody>
-								<UserStatusRow>
-									<View style={{ flex: 4 }}>
-										<PxProfileIcon url={user.user.profile_image_urls.medium} size={80} />
-										<UserNameText>{user.user.name}</UserNameText>
-									</View>
-									<View style={{ flex: 1 }}>
-										<FollowButton user={storedUserMemo} followFunc={followUser} />
-									</View>
-								</UserStatusRow>
-								<Text>{user.profile.total_follow_users} following</Text>
-								<Row>
-									{user.profile.webpage && (
-										<UrlRow>
-											<Icon
-												onPress={_openURL(user.profile.webpage)}
-												name="home"
-												size={30}
-											/>
-										</UrlRow>
-									)}
-									{user.profile.twitter_url && (
-										<UrlRow>
-											<Icon
-												onPress={_openURL(user.profile.twitter_url)}
-												name="twitter"
-												size={30}
-											/>
-										</UrlRow>
-									)}
-								</Row>
-								<IllustCaption text={user.user.comment} />
-							</PaddingBody>
-							<StyledText>Illust Works</StyledText>
-							<IllustList fetch={_fetchIllustWorks(user.user.id)} />
-						</DetailBody>
-					</Profile>
-				</ScrollView>
-			</View>
-		);
-	};
-
-	return <S_Container>{user ? _renderUserDetail(user) : <Loading />}</S_Container>;
-});
+	return (
+		<View>
+			<ScrollView css="height: 100%;">
+				<Profile>
+					<HeaderImage>
+						<PxHeader
+							url={userDetail.user.profile_image_urls.medium}
+							height={150}
+							blurRadius={1}
+						/>
+					</HeaderImage>
+					<DetailBody>
+						<PaddingBody>
+							<UserStatusRow>
+								<View style={{ flex: 4 }}>
+									<PxProfileIcon
+										url={userDetail.user.profile_image_urls.medium}
+										size={80}
+									/>
+									<UserNameText>{userDetail.user.name}</UserNameText>
+								</View>
+								<View style={{ flex: 1 }}>
+									<FollowButton
+										user={userOverviewMemo}
+										followFunc={userAction.followUser}
+									/>
+								</View>
+							</UserStatusRow>
+							<Text>{userDetail.profile.total_follow_users} following</Text>
+							<Row>
+								{userDetail.profile.webpage && (
+									<UrlRow>
+										<Icon
+											onPress={_openURL(userDetail.profile.webpage)}
+											name="home"
+											size={30}
+										/>
+									</UrlRow>
+								)}
+								{userDetail.profile.twitter_url && (
+									<UrlRow>
+										<Icon
+											onPress={_openURL(userDetail.profile.twitter_url)}
+											name="twitter"
+											size={30}
+										/>
+									</UrlRow>
+								)}
+							</Row>
+							<IllustCaption text={userDetail.user.comment} />
+						</PaddingBody>
+						<StyledText>Illust Works</StyledText>
+						<IllustList fetch={_fetchIllustWorks(userDetail.user.id)} />
+					</DetailBody>
+				</Profile>
+			</ScrollView>
+		</View>
+	);
+};
 
 const S_Container = styled(View)`
 	flex: 1 auto;
@@ -146,4 +153,4 @@ const StyledText = styled(Text)`
 	margin-bottom: 10px;
 `;
 
-export default withNavigation(UserDetail);
+export default withNavigation(UserDetailContainer);
