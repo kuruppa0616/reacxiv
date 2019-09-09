@@ -1,15 +1,19 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components/native';
-import { withNavigation, NavigationScreenProp } from 'react-navigation';
 import { Text, TouchableOpacity } from 'react-native';
+import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import { Illust } from 'pixiv-api-client';
+import styled from 'styled-components/native';
+
+import { Screens } from '@/constants';
+
+import { BookmarkButton } from '../Button';
 import { PxThumbnail } from '../PxImage';
 
 // not working RN0.60(2019/09/07)
 // import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { Screens } from '@/constants';
-import { BookmarkButton } from '../Button';
+
+
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;

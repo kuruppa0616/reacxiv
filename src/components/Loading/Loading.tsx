@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import { Text, Spinner } from 'native-base';
 import { View } from 'react-native';
+
+import { Spinner, Text } from 'native-base';
+import styled from 'styled-components/native';
 
 const Loading = () => (
 	<Container>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Text, Button } from 'native-base';
-import { User } from 'pixiv-api-client';
 import { View } from 'react-native';
+
+import { Button, Text } from 'native-base';
+import { User } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 
 interface Props {

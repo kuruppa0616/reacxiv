@@ -1,7 +1,9 @@
 import React from 'react';
 import { Image } from 'react-native';
-import PxImage from './PxImage';
+
 import { Device } from '@/constants';
+
+import PxImage from './PxImage';
 
 interface Props {
 	url: string;

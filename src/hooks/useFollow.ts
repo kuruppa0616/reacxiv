@@ -1,4 +1,5 @@
 import { User } from 'pixiv-api-client';
+
 import pixivApi from '@/api/PixivApi';
 import IllustsStore from '@/mobx/stores/IllustsStore';
 

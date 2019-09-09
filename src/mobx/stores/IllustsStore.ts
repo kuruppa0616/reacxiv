@@ -1,6 +1,6 @@
-import { observable, action, computed } from 'mobx';
-import { Illust, User, IllustsResponse } from 'pixiv-api-client';
-import { normalize, NormalizedSchema } from 'normalizr';
+import { action, computed, observable } from 'mobx';
+import { NormalizedSchema, normalize } from 'normalizr';
+import { Illust, IllustsResponse, User } from 'pixiv-api-client';
 
 import pixivApi from '@/api/PixivApi';
 import { illustsSchema } from '@/mobx/schema';

@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
-import { Footer, FooterTab, Button, Text } from 'native-base';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
+
+import { Button, Footer, FooterTab, Text } from 'native-base';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;

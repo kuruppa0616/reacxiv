@@ -1,11 +1,12 @@
 import React from 'react';
-import dayjs from 'dayjs';
-import { Text, View } from 'native-base';
 import { human } from 'react-native-typography';
-import { Illust } from 'pixiv-api-client';
-import styled from 'styled-components/native';
 import Fa5Icon from 'react-native-vector-icons/FontAwesome5';
 import FaIcon from 'react-native-vector-icons/FontAwesome5';
+
+import dayjs from 'dayjs';
+import { Text, View } from 'native-base';
+import { Illust } from 'pixiv-api-client';
+import styled from 'styled-components/native';
 
 interface Props {
 	illust: Illust;

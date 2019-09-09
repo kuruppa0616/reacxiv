@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native';
+
 const window = Dimensions.get('window');
 const Device = {
 	Width: Math.floor(window.width),

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Text } from 'native-base';
 import { human } from 'react-native-typography';
+
+import { Button, Text } from 'native-base';
 import { Illust } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 

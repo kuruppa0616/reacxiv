@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text } from 'native-base';
-import { human } from 'react-native-typography';
-import styled from 'styled-components/native';
 import HTMLView, { HTMLViewNode } from 'react-native-htmlview';
+import { human } from 'react-native-typography';
+
+import { Text, View } from 'native-base';
+import styled from 'styled-components/native';
 
 interface Props {
 	text: string;

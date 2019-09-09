@@ -1,9 +1,9 @@
 import React from 'react';
-import { Illust } from 'pixiv-api-client';
 import { TouchableWithoutFeedback } from 'react-native';
-import styled from 'styled-components/native';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { Illust } from 'pixiv-api-client';
+import styled from 'styled-components/native';
 
 interface Props {
 	illust: Illust;

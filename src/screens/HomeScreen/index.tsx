@@ -1,14 +1,16 @@
 import React from 'react';
-import Top from './Top';
-import Recommend from './Recommend';
-import New from './New';
-import {
-	createBottomTabNavigator,
-	BottomTabBar,
-	BottomTabBarProps
-} from 'react-navigation-tabs';
-import { Screens } from '@/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+	BottomTabBar,
+	BottomTabBarProps,
+	createBottomTabNavigator
+} from 'react-navigation-tabs';
+
+import { Screens } from '@/constants';
+
+import New from './New';
+import Recommend from './Recommend';
+import Top from './Top';
 
 const TabBarComponent = (props: BottomTabBarProps) => <BottomTabBar {...props} />;
 

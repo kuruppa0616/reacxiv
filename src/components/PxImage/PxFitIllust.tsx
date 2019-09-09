@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { OnLoadEvent } from 'react-native-fast-image';
-import PxImage from './PxImage';
+
 import { Device } from '@/constants';
+
+import PxImage from './PxImage';
 
 interface Props {
 	url: string;

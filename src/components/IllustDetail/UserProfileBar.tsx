@@ -1,13 +1,15 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import { View, Text } from 'native-base';
-import { Illust } from 'pixiv-api-client';
-import { human } from 'react-native-typography';
-import { FollowButton } from '@/components/Button';
 import { TouchableWithoutFeedback } from 'react-native';
-import { PxProfileIcon } from '@/components/PxImage';
-import { withNavigation, NavigationScreenProp } from 'react-navigation';
+import { human } from 'react-native-typography';
+import { NavigationScreenProp, withNavigation } from 'react-navigation';
+
+import { Text, View } from 'native-base';
+import { Illust } from 'pixiv-api-client';
 import { User } from 'pixiv-api-client';
+import styled from 'styled-components/native';
+
+import { FollowButton } from '@/components/Button';
+import { PxProfileIcon } from '@/components/PxImage';
 import { Screens } from '@/constants';
 
 interface Props {

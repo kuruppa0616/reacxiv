@@ -1,9 +1,11 @@
-import { useState, useContext, useEffect, useMemo } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useNavigationParam } from 'react-navigation-hooks';
-import { UserResponse, User } from 'pixiv-api-client';
 
-import { GlobalIllustsStore } from '@/mobx/stores';
+import { User, UserResponse } from 'pixiv-api-client';
+
 import pixivApi from '@/api/PixivApi';
+import { GlobalIllustsStore } from '@/mobx/stores';
+
 import { useFollow } from '.';
 
 export interface userAction {

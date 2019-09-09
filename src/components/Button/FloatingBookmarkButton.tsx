@@ -1,8 +1,10 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import { Illust } from 'pixiv-api-client';
-import BookmarkButton from './BookmarkButton';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import { Illust } from 'pixiv-api-client';
+import styled from 'styled-components/native';
+
+import BookmarkButton from './BookmarkButton';
 
 interface Props {
 	illust: Illust;

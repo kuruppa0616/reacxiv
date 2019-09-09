@@ -1,10 +1,14 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import { View, Text } from 'native-base';
-import { IllustList } from '../IllustList';
-import pixivApi from '@/api/PixivApi';
-import { Illust } from 'pixiv-api-client';
 import { human } from 'react-native-typography';
+
+import { Text, View } from 'native-base';
+import { Illust } from 'pixiv-api-client';
+import styled from 'styled-components/native';
+
+import pixivApi from '@/api/PixivApi';
+
+import { IllustList } from '../IllustList';
+
 interface Props {
 	illust: Illust;
 }

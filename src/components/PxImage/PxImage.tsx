@@ -1,6 +1,6 @@
 import React from 'react';
-import FastImage, { ImageStyle, OnLoadEvent } from 'react-native-fast-image';
 import { StyleProp } from 'react-native';
+import FastImage, { ImageStyle, OnLoadEvent } from 'react-native-fast-image';
 
 interface Props {
 	url: string;

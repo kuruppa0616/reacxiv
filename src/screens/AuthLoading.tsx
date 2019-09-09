@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import pixivApi from '@/api/PixivApi';
 import { MAIL, PASSWORD } from 'react-native-dotenv';
-import { withNavigation, NavigationScreenProp } from 'react-navigation';
+import { NavigationScreenProp, withNavigation } from 'react-navigation';
+
+import styled from 'styled-components/native';
+
+import pixivApi from '@/api/PixivApi';
 import { Screens } from '@/constants';
 
 interface Props {

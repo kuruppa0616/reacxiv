@@ -1,26 +1,27 @@
 import React, { useContext, useMemo } from 'react';
-import styled from 'styled-components/native';
-import { View, Text } from 'native-base';
 import { human } from 'react-native-typography';
-import { withNavigation, NavigationScreenProp, FlatList } from 'react-navigation';
-import { observer } from 'mobx-react-lite';
-import { Illust, ImageUrls } from 'pixiv-api-client';
-import { denormalize } from 'normalizr';
+import { FlatList, NavigationScreenProp, withNavigation } from 'react-navigation';
 
-import useBookmark from '@/hooks/useBookmark';
-import { PxFitIllust } from '@/components/PxImage';
+import { observer } from 'mobx-react-lite';
+import { Text, View } from 'native-base';
+import { denormalize } from 'normalizr';
+import { Illust, ImageUrls } from 'pixiv-api-client';
+import styled from 'styled-components/native';
+
 import { FloatingBookmarkButton } from '@/components/Button';
-import { GlobalIllustsStore } from '@/mobx/stores';
-import { illustsSchema } from '@/mobx/schema';
 import {
+	IllustCaption,
 	IllustMeta,
 	IllustTags,
-	IllustCaption,
 	RelatedIllusts,
 	UserProfileBar
 } from '@/components/IllustDetail';
-import useFollow from '@/hooks/useFollow';
 import { Loading } from '@/components/Loading';
+import { PxFitIllust } from '@/components/PxImage';
+import useBookmark from '@/hooks/useBookmark';
+import useFollow from '@/hooks/useFollow';
+import { illustsSchema } from '@/mobx/schema';
+import { GlobalIllustsStore } from '@/mobx/stores';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
