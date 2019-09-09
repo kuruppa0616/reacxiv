@@ -4,7 +4,6 @@ import { FlatList, NavigationScreenProp, withNavigation } from 'react-navigation
 
 import { observer } from 'mobx-react-lite';
 import { Text, View } from 'native-base';
-import { denormalize } from 'normalizr';
 import { Illust, ImageUrls } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 
@@ -18,29 +17,28 @@ import {
 } from '@/components/IllustDetail';
 import { Loading } from '@/components/Loading';
 import { PxFitIllust } from '@/components/PxImage';
-import useBookmark from '@/hooks/useBookmark';
-import useFollow from '@/hooks/useFollow';
-import { illustsSchema } from '@/mobx/schema';
-import { GlobalIllustsStore } from '@/mobx/stores';
+import { useIllustDetail } from '@/hooks';
+import { IllustActions } from '@/hooks/useIllustDetail';
 
-interface Props {
-	navigation: NavigationScreenProp<any, any>;
+const IllustDetailContainer = observer(() => {
+	const [illust, illustActions] = useIllustDetail();
+
+	return (
+		<Container>
+			{illust ? <IllustDetail {...{ illust, illustActions }} /> : <Loading />}
+		</Container>
+	);
+});
+
+interface IllustDetailProps {
+	illust: Illust;
+	illustActions: IllustActions;
 }
 
-const IllustDetail = observer((props: Props) => {
-	const { navigation } = props;
-	const illustId: number = navigation.state.params.illustId;
-	const store = useContext(GlobalIllustsStore);
-	const [bookmarkIllust] = useBookmark(store);
-	const [followUser] = useFollow(store);
-
-	const illustMemo = useMemo(() => {
-		const illusts: Illust[] = denormalize([illustId], illustsSchema, store.entities);
-		return illusts[0];
-	}, [store.illusts, store.users, illustId]);
+const IllustDetail = observer((props: IllustDetailProps) => {
+	const { illust, illustActions } = props;
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
-
 	const _renderIllust = ({ item: image_urls }: { item: ImageUrls }) => (
 		<PxFitIllust url={image_urls.large} />
 	);
@@ -57,7 +55,7 @@ const IllustDetail = observer((props: Props) => {
 			</View>
 		);
 	};
-	const _renderIllustDetail = (illust: Illust) => (
+	return (
 		<View>
 			<ScrollWrapper nestedScrollEnabled={true}>
 				<View>
@@ -68,22 +66,21 @@ const IllustDetail = observer((props: Props) => {
 					</View>
 					<Info>
 						<TitleText>{illust.title}</TitleText>
-						<UserProfileBar illust={illustMemo} followUser={followUser} />
+						<UserProfileBar illust={illust} followUser={illustActions.followUser} />
 						<IllustCaption text={illust.caption} />
 						<IllustMeta illust={illust} />
 						<IllustTags illust={illust} />
 					</Info>
 				</View>
-				<RelatedIllusts illust={illustMemo} />
+				<RelatedIllusts illust={illust} />
 			</ScrollWrapper>
 			<FloatingArea>
-				<FloatingBookmarkButton illust={illust} bookmarkFunc={bookmarkIllust} />
+				<FloatingBookmarkButton
+					illust={illust}
+					bookmarkFunc={illustActions.bookmarkIllust}
+				/>
 			</FloatingArea>
 		</View>
-	);
-
-	return (
-		<Container>{illustMemo ? _renderIllustDetail(illustMemo) : <Loading />}</Container>
 	);
 });
 
@@ -119,4 +116,4 @@ const TitleText = styled(Text)`
 	padding-bottom: 5px;
 `;
 
-export default withNavigation(IllustDetail);
+export default withNavigation(IllustDetailContainer);
