@@ -28,11 +28,9 @@ const IllustList = observer((props: Props) => {
 	const { navigation, fetch } = props;
 	const store = props.store ? props.store : useContext(GlobalIllustsStore);
 
-	const [isRefreshing, setIsRefreshing] = useState(false);
 	const [nextUrl, setNextUrl] = useState<string>();
 	const [keys, addKeys, clearKeys] = useIllustKeys();
 	const [bookmarkIllust] = useBookmark(store);
-
 	useEffect(() => {
 		store.fetchIllusts(fetch).then(([keys, nextUrl]) => {
 			addKeys(keys);
@@ -45,6 +43,7 @@ const IllustList = observer((props: Props) => {
 		return illusts.slice(0, illusts.length - (illusts.length % NUM_COLUMNS));
 	}, [store.illusts, store.users, keys]);
 
+	const [isRefreshing, setIsRefreshing] = useState(false);
 	const _keyExtractor = (item: Illust) => item.id.toString();
 
 	const _onEndReached = () => {

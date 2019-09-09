@@ -13,8 +13,6 @@ import { PxThumbnail } from '../PxImage';
 // not working RN0.60(2019/09/07)
 // import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-
-
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
 	illust: Illust;
