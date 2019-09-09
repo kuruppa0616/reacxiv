@@ -24,13 +24,13 @@ const UserDetailContainer = observer(() => {
 	const [userDetail, userOverviewMemo, userAction] = useUserDetail();
 
 	return (
-		<S_Container>
+		<View>
 			{userDetail ? (
 				<UserDetail {...{ userDetail, userOverviewMemo, userAction }} />
 			) : (
 				<Loading />
 			)}
-		</S_Container>
+		</View>
 	);
 });
 
@@ -48,96 +48,69 @@ const UserDetail = (props: UserDetailProps) => {
 	return (
 		<View>
 			<ScrollView css="height: 100%;">
-				<Profile>
-					<HeaderImage>
+				<View>
+					<View>
 						<PxHeader
 							url={userDetail.user.profile_image_urls.medium}
 							height={150}
 							blurRadius={1}
 						/>
-					</HeaderImage>
-					<DetailBody>
+					</View>
+					<View>
 						<PaddingBody>
-							<UserStatusRow>
-								<View style={{ flex: 4 }}>
+							<Row css="justify-content: space-between;">
+								<View css="flex: 4">
 									<PxProfileIcon
 										url={userDetail.user.profile_image_urls.medium}
 										size={80}
 									/>
 									<UserNameText>{userDetail.user.name}</UserNameText>
 								</View>
-								<View style={{ flex: 1 }}>
+								<View css="flex: 1">
 									<FollowButton
 										user={userOverviewMemo}
 										followFunc={userAction.followUser}
 									/>
 								</View>
-							</UserStatusRow>
+							</Row>
 							<Text>{userDetail.profile.total_follow_users} following</Text>
 							<Row>
 								{userDetail.profile.webpage && (
-									<UrlRow>
+									<LinkRow>
 										<Icon
 											onPress={_openURL(userDetail.profile.webpage)}
 											name="home"
 											size={30}
 										/>
-									</UrlRow>
+									</LinkRow>
 								)}
 								{userDetail.profile.twitter_url && (
-									<UrlRow>
+									<LinkRow>
 										<Icon
 											onPress={_openURL(userDetail.profile.twitter_url)}
 											name="twitter"
 											size={30}
 										/>
-									</UrlRow>
+									</LinkRow>
 								)}
 							</Row>
 							<IllustCaption text={userDetail.user.comment} />
 						</PaddingBody>
 						<StyledText>Illust Works</StyledText>
 						<IllustList fetch={_fetchIllustWorks(userDetail.user.id)} />
-					</DetailBody>
-				</Profile>
+					</View>
+				</View>
 			</ScrollView>
 		</View>
 	);
 };
-
-const S_Container = styled(View)`
-	flex: 1 auto;
-	width: 100%;
-`;
-
-const ScrollWrapper = styled.ScrollView`
-	height: 100%;
-`;
-
-const Profile = styled(View)`
-	/* position: relative; */
-	flex: 1;
-`;
-
-const HeaderImage = styled(View)``;
-
-const DetailBody = styled(View)`
-	/* position: absolute; */
-	width: 100%;
-	height: 100%;
-	/* top: 115px; */
-`;
 
 const PaddingBody = styled(View)`
 	padding-left: 10px;
 	padding-right: 10px;
 `;
 
-const UserStatusRow = styled(Row)`
-	justify-content: space-between;
-`;
-
-const UrlRow = styled(Row)`
+const LinkRow = styled(Row)`
 	max-width: 200px;
 	margin-right: 10px;
 `;
