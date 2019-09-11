@@ -1,5 +1,5 @@
 enum Screens {
-	AuthLoading = 'AuthLoading',
+	AuthCheck = 'AuthCheck',
 	App = 'App',
 	Auth = 'Auth',
 	Home = 'Home',

@@ -1,3 +1,3 @@
 export { default as Login } from './Login';
-export { default as AuthLoading } from './AuthLoading';
+export { default as AuthCheck } from './AuthCheck';
 export { default as HomeScreen } from './HomeScreen';

@@ -2,7 +2,7 @@ import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { useScreens } from 'react-native-screens';
-import { Login, AuthLoading, HomeScreen } from './screens';
+import { Login, AuthCheck, HomeScreen } from './screens';
 import { Screens } from '@/constants';
 import { IllustDetail, UserDetail } from './screens/DetailScreen';
 
@@ -32,12 +32,12 @@ const AppNavigator = createStackNavigator(
 const AppContainer = createAppContainer(
 	createSwitchNavigator(
 		{
-			[Screens.AuthLoading]: AuthLoading,
+			[Screens.AuthCheck]: AuthCheck,
 			[Screens.App]: AppNavigator,
 			[Screens.Auth]: AuthNavigator
 		},
 		{
-			initialRouteName: Screens.AuthLoading
+			initialRouteName: Screens.AuthCheck
 		}
 	)
 );

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Text } from 'react-native';
-import { MAIL, PASSWORD } from 'react-native-dotenv';
+// import { MAIL, PASSWORD } from 'react-native-dotenv';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import styled from 'styled-components/native';
@@ -12,16 +12,17 @@ interface Props {
 	navigation: NavigationScreenProp<any, any>;
 }
 
-const AuthLoading = (props: Props) => {
+const AuthCheck = (props: Props) => {
 	useEffect(() => {
-		pixivApi
-			.login(MAIL, PASSWORD)
-			.then(() => {
-				props.navigation.navigate(Screens.App);
-			})
-			.catch(() => {
-				props.navigation.navigate(Screens.Auth);
-			});
+		props.navigation.navigate(Screens.Auth);
+		// pixivApi
+		// 	.login(MAIL, PASSWORD)
+		// 	.then(() => {
+		// 		props.navigation.navigate(Screens.App);
+		// 	})
+		// 	.catch(() => {
+		// 		props.navigation.navigate(Screens.Auth);
+		// 	});
 	}, []);
 
 	return (
@@ -38,4 +39,4 @@ const Container = styled.View`
 	align-items: center;
 `;
 
-export default withNavigation(AuthLoading);
+export default withNavigation(AuthCheck);
