@@ -1,7 +1,8 @@
 import { useNavigationParam } from 'react-navigation-hooks';
 import { useContext, useMemo } from 'react';
 import { GlobalIllustsStore } from '@/mobx/stores';
-import { useBookmark, useFollow } from '.';
+import useBookmark from './useBookmark';
+import useFollow from './useFollow';
 import { denormalize } from 'normalizr';
 import { illustsSchema } from '@/mobx/schema';
 import { Illust, User } from 'pixiv-api-client';

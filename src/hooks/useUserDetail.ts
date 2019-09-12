@@ -6,7 +6,7 @@ import { User, UserResponse } from 'pixiv-api-client';
 import pixivApi from '@/api/PixivApi';
 import { GlobalIllustsStore } from '@/mobx/stores';
 
-import { useFollow } from '.';
+import useFollow from './useFollow';
 
 export interface userAction {
 	followUser: (user: User) => void;
