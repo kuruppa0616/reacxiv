@@ -5,6 +5,7 @@ import { useScreens } from 'react-native-screens';
 import { Login, AuthCheck, HomeScreen } from './screens';
 import { Screens } from '@/constants';
 import { IllustDetail, UserDetail } from './screens/DetailScreen';
+import { Root } from 'native-base';
 
 useScreens();
 
@@ -43,7 +44,11 @@ const AppContainer = createAppContainer(
 );
 
 const App = () => {
-	return <AppContainer />;
+	return (
+		<Root>
+			<AppContainer />
+		</Root>
+	);
 };
 
 export default App;

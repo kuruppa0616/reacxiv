@@ -14,15 +14,15 @@ interface Props {
 
 const AuthCheck = (props: Props) => {
 	useEffect(() => {
-		pixivApi
-		.login(MAIL, PASSWORD)
-		.then(() => {
-			props.navigation.navigate(Screens.App);
-		})
-		.catch(() => {
-			props.navigation.navigate(Screens.Auth);
-		});
-		// props.navigation.navigate(Screens.Auth);
+		// pixivApi
+		// .login(MAIL, PASSWORD)
+		// .then(() => {
+		// 	props.navigation.navigate(Screens.App);
+		// })
+		// .catch(() => {
+		// 	props.navigation.navigate(Screens.Auth);
+		// });
+		props.navigation.navigate(Screens.Auth);
 	}, []);
 
 	return (

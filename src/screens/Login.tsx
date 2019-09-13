@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Container, Text, Item, Input, Label, Button, View } from 'native-base';
+import { Container, Text, Item, Input, Label, Button, View, Content, Toast } from 'native-base';
 import styled from 'styled-components/native';
 import pixivApi from '@/api/PixivApi';
 import { useNavigation } from 'react-navigation-hooks';
@@ -12,43 +12,55 @@ const Login = () => {
 	const { navigate } = useNavigation();
 
 	const onLogin = () => {
-		console.log("clicked");
-		
 		pixivApi
 			.login(username, password)
 			.then(() => {
 				navigate(Screens.App);
+				Toast.show({
+					text: 'login success!',
+					buttonText: 'OK',
+					type: 'success',
+					duration: 3000
+				});
 			})
-			.catch((err) => {
-				// navigate(Screens.Auth);
-				console.log(err.message);
+			.catch((err: Error) => {
+				Toast.show({
+					text: err.message,
+					buttonText: 'OK',
+					type: 'warning',
+					duration: 5000
+				});
 			});
 	};
 
 	return (
-		<StyledContainer>
-			<FormItem>
-				<Item floatingLabel={true}>
-					<Label>Username</Label>
-					<Input value={username} onChangeText={setUsername} />
-				</Item>
-			</FormItem>
-			<FormItem>
-				<Item floatingLabel={true}>
-					<Label>Password</Label>
-					<Input value={password} onChangeText={setPassword} secureTextEntry={true} />
-				</Item>
-			</FormItem>
-			<FormItem>
-				<LoginButton onPress={onLogin}>
-					<Text>Login</Text>
-				</LoginButton>
-			</FormItem>
-		</StyledContainer>
+		<Container>
+			<Content>
+				<FormBody>
+					<FormItem>
+						<Item floatingLabel={true}>
+							<Label>Username</Label>
+							<Input value={username} onChangeText={setUsername} />
+						</Item>
+					</FormItem>
+					<FormItem>
+						<Item floatingLabel={true}>
+							<Label>Password</Label>
+							<Input value={password} onChangeText={setPassword} secureTextEntry={true} />
+						</Item>
+					</FormItem>
+					<FormItem>
+						<LoginButton onPress={onLogin}>
+							<Text>Login</Text>
+						</LoginButton>
+					</FormItem>
+				</FormBody>
+			</Content>
+		</Container>
 	);
 };
 
-const StyledContainer = styled(Container)`
+const FormBody = styled(View)`
 	margin: 0 auto;
 	width: 80%;
 `;
