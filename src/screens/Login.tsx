@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { Container, Text, Form, Item, Input, Label, Button, View, Toast } from 'native-base';
+import { Container, Text, Item, Input, Label, Button, View } from 'native-base';
 import styled from 'styled-components/native';
 import pixivApi from '@/api/PixivApi';
 import { useNavigation } from 'react-navigation-hooks';

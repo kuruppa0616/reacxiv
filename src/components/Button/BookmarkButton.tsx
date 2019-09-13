@@ -19,22 +19,13 @@ const BookmarkButton = (props: Props) => {
 
 	return (
 		<TouchableWithoutFeedback onPress={_onPress(illust)}>
-			<Container>
-				<Icon
-					size={size}
-					name="heart"
-					color={illust.is_bookmarked ? '#F26964' : '#F5F5F5'}
-				/>
-			</Container>
+			<Icon
+				size={size}
+				name="heart"
+				color={illust.is_bookmarked ? '#F26964' : '#F5F5F5'}
+			/>
 		</TouchableWithoutFeedback>
 	);
 };
-const Container = styled.View`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
 
 export default BookmarkButton;

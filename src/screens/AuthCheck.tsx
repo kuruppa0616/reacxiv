@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Text } from 'react-native';
-// import { MAIL, PASSWORD } from 'react-native-dotenv';
+import { MAIL, PASSWORD } from 'react-native-dotenv';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import styled from 'styled-components/native';
@@ -14,15 +14,15 @@ interface Props {
 
 const AuthCheck = (props: Props) => {
 	useEffect(() => {
-		props.navigation.navigate(Screens.Auth);
-		// pixivApi
-		// 	.login(MAIL, PASSWORD)
-		// 	.then(() => {
-		// 		props.navigation.navigate(Screens.App);
-		// 	})
-		// 	.catch(() => {
-		// 		props.navigation.navigate(Screens.Auth);
-		// 	});
+		pixivApi
+		.login(MAIL, PASSWORD)
+		.then(() => {
+			props.navigation.navigate(Screens.App);
+		})
+		.catch(() => {
+			props.navigation.navigate(Screens.Auth);
+		});
+		// props.navigation.navigate(Screens.Auth);
 	}, []);
 
 	return (

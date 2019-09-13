@@ -1,19 +1,16 @@
 import React from 'react';
-import { View } from 'react-native';
-
 import pixivApi from '@/api/PixivApi';
 import { IllustList } from '@/components/IllustList';
-
-import Home from './Home';
+import { Container, Content } from 'native-base';
 
 const Recommend = () => {
 	const _fetch = () => pixivApi.illustRecommended();
 	return (
-		<Home>
-			<View>
+		<Container>
+			<Content>
 				<IllustList fetch={_fetch} />
-			</View>
-		</Home>
+			</Content>
+		</Container>
 	);
 };
 

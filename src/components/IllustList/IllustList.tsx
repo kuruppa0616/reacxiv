@@ -5,7 +5,6 @@ import { NavigationScreenProp, withNavigation } from 'react-navigation';
 import { observer } from 'mobx-react-lite';
 import { denormalize } from 'normalizr';
 import { Illust, IllustsResponse } from 'pixiv-api-client';
-import styled from 'styled-components/native';
 
 import useBookmark from '@/hooks/useBookmark';
 import useIllustKeys from '@/hooks/useIllustKeys';
@@ -73,27 +72,19 @@ const IllustList = observer((props: Props) => {
 	);
 
 	return (
-		<Container>
-			<FlatList
-				data={illustMemo}
-				renderItem={_renderItem}
-				keyExtractor={_keyExtractor}
-				listKey={navigation.state.key + 'listview'}
-				numColumns={NUM_COLUMNS}
-				onEndReached={_onEndReached}
-				onEndReachedThreshold={0.4}
-				onRefresh={_onRefresh}
-				refreshing={isRefreshing}
-				nestedScrollEnabled={true}
-			/>
-		</Container>
+		<FlatList
+			data={illustMemo}
+			renderItem={_renderItem}
+			keyExtractor={_keyExtractor}
+			listKey={navigation.state.key + 'listview'}
+			numColumns={NUM_COLUMNS}
+			onEndReached={_onEndReached}
+			onEndReachedThreshold={0.4}
+			onRefresh={_onRefresh}
+			refreshing={isRefreshing}
+			nestedScrollEnabled={true}
+		/>
 	);
 });
-
-const Container = styled.View`
-	flex: 1;
-	width: 100%;
-	align-items: center;
-`;
 
 export default withNavigation(IllustList);

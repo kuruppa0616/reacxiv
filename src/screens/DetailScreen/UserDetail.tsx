@@ -2,10 +2,10 @@ import React from 'react';
 import { Linking } from 'react-native';
 import { human } from 'react-native-typography';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { ScrollView, withNavigation } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 
 import { observer } from 'mobx-react-lite';
-import { Text, View } from 'native-base';
+import { Text, View, Container, Content } from 'native-base';
 import { User, UserResponse } from 'pixiv-api-client';
 import * as types from 'styled-components/cssprop';
 import styled from 'styled-components/native';
@@ -24,13 +24,13 @@ const UserDetailContainer = observer(() => {
 	const [userDetail, userOverviewMemo, userAction] = useUserDetail();
 
 	return (
-		<View>
+		<Container>
 			{userDetail ? (
 				<UserDetail {...{ userDetail, userOverviewMemo, userAction }} />
 			) : (
 				<Loading />
 			)}
-		</View>
+		</Container>
 	);
 });
 
@@ -46,62 +46,52 @@ const UserDetail = (props: UserDetailProps) => {
 	const _fetchIllustWorks = (id: number) => () => pixivApi.userIllusts(id);
 
 	return (
-		<View>
-			<ScrollView css="height: 100%;">
-				<View>
-					<View>
-						<PxHeader
-							url={userDetail.user.profile_image_urls.medium}
-							height={150}
-							blurRadius={1}
-						/>
-					</View>
-					<View>
-						<PaddingBody>
-							<Row css="justify-content: space-between;">
-								<View css="flex: 4">
-									<PxProfileIcon
-										url={userDetail.user.profile_image_urls.medium}
-										size={80}
-									/>
-									<UserNameText>{userDetail.user.name}</UserNameText>
-								</View>
-								<View css="flex: 1">
-									<FollowButton
-										user={userOverviewMemo}
-										followFunc={userAction.followUser}
-									/>
-								</View>
-							</Row>
-							<Text>{userDetail.profile.total_follow_users} following</Text>
-							<Row>
-								{userDetail.profile.webpage && (
-									<LinkRow>
-										<Icon
-											onPress={_openURL(userDetail.profile.webpage)}
-											name="home"
-											size={30}
-										/>
-									</LinkRow>
-								)}
-								{userDetail.profile.twitter_url && (
-									<LinkRow>
-										<Icon
-											onPress={_openURL(userDetail.profile.twitter_url)}
-											name="twitter"
-											size={30}
-										/>
-									</LinkRow>
-								)}
-							</Row>
-							<IllustCaption text={userDetail.user.comment} />
-						</PaddingBody>
-						<StyledText>Illust Works</StyledText>
-						<IllustList fetch={_fetchIllustWorks(userDetail.user.id)} />
-					</View>
-				</View>
-			</ScrollView>
-		</View>
+		<Content>
+			<View>
+				<PxHeader
+					url={userDetail.user.profile_image_urls.medium}
+					height={150}
+					blurRadius={1}
+				/>
+			</View>
+			<View>
+				<PaddingBody>
+					<Row css="justify-content: space-between;">
+						<View css="flex: 4">
+							<PxProfileIcon url={userDetail.user.profile_image_urls.medium} size={80} />
+							<UserNameText>{userDetail.user.name}</UserNameText>
+						</View>
+						<View css="flex: 1">
+							<FollowButton user={userOverviewMemo} followFunc={userAction.followUser} />
+						</View>
+					</Row>
+					<Text>{userDetail.profile.total_follow_users} following</Text>
+					<Row>
+						{userDetail.profile.webpage && (
+							<LinkRow>
+								<Icon
+									onPress={_openURL(userDetail.profile.webpage)}
+									name="home"
+									size={30}
+								/>
+							</LinkRow>
+						)}
+						{userDetail.profile.twitter_url && (
+							<LinkRow>
+								<Icon
+									onPress={_openURL(userDetail.profile.twitter_url)}
+									name="twitter"
+									size={30}
+								/>
+							</LinkRow>
+						)}
+					</Row>
+					<IllustCaption text={userDetail.user.comment} />
+				</PaddingBody>
+				<StyledText>Illust Works</StyledText>
+				<IllustList fetch={_fetchIllustWorks(userDetail.user.id)} />
+			</View>
+		</Content>
 	);
 };
 
