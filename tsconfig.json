@@ -19,6 +19,7 @@
       "dom"
     ],
     "moduleResolution": "node",
+    "module": "esNext",
     "noEmit": true,
     "strict": true,
     "target": "esnext",

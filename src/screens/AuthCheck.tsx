@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Text } from 'react-native';
-import { MAIL, PASSWORD } from 'react-native-dotenv';
 import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import styled from 'styled-components/native';
 
 import pixivApi from '@/api/PixivApi';
 import { Screens } from '@/constants';
+import SInfo from 'react-native-sensitive-info';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -14,15 +14,27 @@ interface Props {
 
 const AuthCheck = (props: Props) => {
 	useEffect(() => {
-		// pixivApi
-		// .login(MAIL, PASSWORD)
-		// .then(() => {
-		// 	props.navigation.navigate(Screens.App);
-		// })
-		// .catch(() => {
-		// 	props.navigation.navigate(Screens.Auth);
-		// });
-		props.navigation.navigate(Screens.Auth);
+		(async () => {
+			// ログイン情報取得
+			const username = await SInfo.getItem('username', {});
+			const password = await SInfo.getItem('password', {});
+
+			// ログイン情報が保持されていないときはログインページに飛ばす
+			if (!username && !password) {
+				props.navigation.navigate(Screens.Auth);
+				return;
+			}
+
+			pixivApi
+				.login(username, password)
+				.then(() => {
+					props.navigation.navigate(Screens.App);
+				})
+				.catch(() => {
+					props.navigation.navigate(Screens.Auth);
+				});
+		})();
+
 	}, []);
 
 	return (

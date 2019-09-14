@@ -5766,6 +5766,11 @@ react-native-safe-area-view@^0.14.1:
   dependencies:
     debounce "^1.2.0"
 
+react-native-sensitive-info@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-sensitive-info/-/react-native-sensitive-info-5.5.1.tgz#180367059650daca265d8b8811a961b68d0161e7"
+  integrity sha512-mIeDwyAs9Gyba/94AySs3qB2nJo7Qikqz9sO5ygpw2thsp+j734qAJSaZTGWJOEYbCgwu/FUXKVe1TLWAREtaw==
+
 react-native-svg@^9.8.4:
   version "9.8.4"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.8.4.tgz#6fd28198ae991b30cfbea10bb445b55870f0457c"
