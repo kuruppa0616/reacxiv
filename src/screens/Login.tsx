@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
+import { MAIL, PASSWORD } from 'react-native-dotenv';
+import { useNavigation } from 'react-navigation-hooks';
 
 import {
-	Container,
-	Text,
-	Item,
-	Input,
-	Label,
 	Button,
-	View,
+	Container,
 	Content,
-	Toast,
+	Input,
+	Item,
+	Label,
+	Row,
 	Switch,
-	Row
+	Text,
+	Toast,
+	View
 } from 'native-base';
 import styled from 'styled-components/native';
-import pixivApi from '@/api/PixivApi';
-import { useNavigation } from 'react-navigation-hooks';
-import { Screens } from '@/constants';
 
-import { MAIL, PASSWORD } from 'react-native-dotenv';
+import pixivApi from '@/api/PixivApi';
+import { Screens } from '@/constants';
 import { useCredential } from '@/hooks';
 
 const Login = () => {

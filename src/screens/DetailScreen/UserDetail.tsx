@@ -4,7 +4,7 @@ import { human } from 'react-native-typography';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { observer } from 'mobx-react-lite';
-import { Text, View, Container, Content } from 'native-base';
+import { Container, Content, Text, View } from 'native-base';
 import { User, UserResponse } from 'pixiv-api-client';
 import * as types from 'styled-components/cssprop';
 import styled from 'styled-components/native';

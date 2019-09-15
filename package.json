@@ -13,8 +13,6 @@
   "dependencies": {
     "axios": "^0.19.0",
     "dayjs": "^1.8.16",
-    "import-sort-cli": "^6.0.0",
-    "import-sort-style-react": "^5.1.0",
     "mobx": "^5.13.0",
     "mobx-react-lite": "^1.4.1",
     "native-base": "^2.13.7",
@@ -55,6 +53,8 @@
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-styled-components": "^1.10.6",
     "babel-preset-mobx": "^2.0.0",
+    "import-sort-cli": "^6.0.0",
+    "import-sort-style-react": "^5.1.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",
     "module-resolver": "^1.0.0",

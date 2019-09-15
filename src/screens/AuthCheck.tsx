@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Text } from 'react-native';
+import { useNavigation } from 'react-navigation-hooks';
 
+import { Container, Content, Toast } from 'native-base';
 import styled from 'styled-components/native';
 
 import pixivApi from '@/api/PixivApi';
 import { Screens } from '@/constants';
 import { useCredential } from '@/hooks';
-import { Toast, Container, Content } from 'native-base';
-import { useNavigation } from 'react-navigation-hooks';
 
 const AuthCheck = () => {
 	const [credential] = useCredential();

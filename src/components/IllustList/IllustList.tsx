@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Dimensions } from 'react-native';
 import { FlatList } from 'react-navigation';
+import { useNavigationKey } from 'react-navigation-hooks';
 
 import { observer } from 'mobx-react-lite';
 import { denormalize } from 'normalizr';
@@ -13,7 +14,6 @@ import { GlobalIllustsStore } from '@/mobx/stores';
 import IllustsStore from '@/mobx/stores/IllustsStore';
 
 import { ThumbnailTile } from '../ThumbnailTile';
-import { useNavigationKey } from 'react-navigation-hooks';
 
 interface Props {
 	store?: IllustsStore;

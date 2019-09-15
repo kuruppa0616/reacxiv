@@ -1,11 +1,14 @@
 import React from 'react';
+import { useScreens } from 'react-native-screens';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { useScreens } from 'react-native-screens';
-import { Login, AuthCheck, HomeScreen } from './screens';
-import { Screens } from '@/constants';
-import { IllustDetail, UserDetail } from './screens/DetailScreen';
+
 import { Root } from 'native-base';
+
+import { Screens } from '@/constants';
+
+import { AuthCheck, HomeScreen, Login } from './screens';
+import { IllustDetail, UserDetail } from './screens/DetailScreen';
 
 useScreens();
 

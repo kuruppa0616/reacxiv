@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { human } from 'react-native-typography';
+import { useNavigation } from 'react-navigation-hooks';
 
 import { Text, View } from 'native-base';
 import { Illust } from 'pixiv-api-client';
@@ -10,7 +11,6 @@ import styled from 'styled-components/native';
 import { FollowButton } from '@/components/Button';
 import { PxProfileIcon } from '@/components/PxImage';
 import { Screens } from '@/constants';
-import { useNavigation } from 'react-navigation-hooks';
 
 interface Props {
 	illust: Illust;

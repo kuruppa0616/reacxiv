@@ -3,7 +3,7 @@ import { human } from 'react-native-typography';
 import { FlatList } from 'react-navigation';
 
 import { observer } from 'mobx-react-lite';
-import { Text, View, Container, Content } from 'native-base';
+import { Container, Content, Text, View } from 'native-base';
 import { Illust, ImageUrls } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from 'react-navigation-hooks';
 
 import { Illust } from 'pixiv-api-client';
 import styled from 'styled-components/native';
@@ -8,7 +9,6 @@ import { Screens } from '@/constants';
 
 import { BookmarkButton } from '../Button';
 import { PxThumbnail } from '../PxImage';
-import { useNavigation } from 'react-navigation-hooks';
 
 // not working RN0.60(2019/09/07)
 // import { TouchableWithoutFeedback } from 'react-native-gesture-handler';

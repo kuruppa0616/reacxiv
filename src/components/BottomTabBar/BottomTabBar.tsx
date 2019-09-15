@@ -1,7 +1,7 @@
 import React from 'react';
+import { useNavigation } from 'react-navigation-hooks';
 
 import { Button, Footer, FooterTab, Text } from 'native-base';
-import { useNavigation } from 'react-navigation-hooks';
 
 const BottomTabBar = () => {
 	const { navigate } = useNavigation();
