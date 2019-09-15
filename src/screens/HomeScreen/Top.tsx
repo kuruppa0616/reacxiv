@@ -9,7 +9,7 @@ const Top = () => {
 	const _fetch = () => pixivApi.illustRecommended();
 	return (
 		<Container>
-			<IllustList fetch={_fetch} />
+			{/* <IllustList fetch={_fetch} /> */}
 		</Container>
 	);
 };

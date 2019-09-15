@@ -2,21 +2,38 @@ import React from 'react';
 import { useScreens } from 'react-native-screens';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import {
+	createDrawerNavigator,
+	DrawerContentComponentProps,
+	DrawerNavigatorItems
+} from 'react-navigation-drawer';
 
-import { Root } from 'native-base';
+import {
+	Root,
+	Container,
+	Content,
+	Body,
+	Header,
+	Left,
+	Button,
+	Icon,
+	Title,
+	Right
+} from 'native-base';
 
 import { Screens } from '@/constants';
 
 import { AuthCheck, HomeScreen, Login } from './screens';
 import { IllustDetail, UserDetail } from './screens/DetailScreen';
+import { useNavigation } from 'react-navigation-hooks';
 
 useScreens();
 
-const AuthNavigator = createStackNavigator({
+const AuthStack = createStackNavigator({
 	Login: Login
 });
 
-const AppNavigator = createStackNavigator(
+const AppStack = createStackNavigator(
 	{
 		[Screens.Home]: HomeScreen,
 		[Screens.IllustDetail]: IllustDetail,
@@ -33,12 +50,49 @@ const AppNavigator = createStackNavigator(
 	}
 );
 
+const CustomDrawerContentComponent = (props: DrawerContentComponentProps) => {
+	const nav = useNavigation();
+	const onButton = () => {
+		nav.toggleDrawer();
+	};
+
+	return (
+		<Container>
+			<Content>
+				<Header>
+					<Left>
+						<Button onPress={onButton} transparent={true}>
+							<Icon name="arrow-back" />
+						</Button>
+					</Left>
+					<Body>
+						<Title>Menu</Title>
+					</Body>
+					<Right />
+				</Header>
+				<DrawerNavigatorItems {...props} />
+			</Content>
+		</Container>
+	);
+};
+
+const AppDrawer = createDrawerNavigator(
+	{
+		AppStack: AppStack,
+		AuthStack: AuthStack
+	},
+	{
+		unmountInactiveRoutes: true,
+		contentComponent: CustomDrawerContentComponent
+	}
+);
+
 const AppContainer = createAppContainer(
 	createSwitchNavigator(
 		{
 			[Screens.AuthCheck]: AuthCheck,
-			[Screens.App]: AppNavigator,
-			[Screens.Auth]: AuthNavigator
+			[Screens.App]: AppDrawer,
+			[Screens.Auth]: AuthStack
 		},
 		{
 			initialRouteName: Screens.AuthCheck
