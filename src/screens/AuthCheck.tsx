@@ -6,18 +6,18 @@ import styled from 'styled-components/native';
 
 import pixivApi from '@/api/PixivApi';
 import { Screens } from '@/constants';
-import SInfo from 'react-native-sensitive-info';
+import { useCredential } from '@/hooks';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
 }
 
 const AuthCheck = (props: Props) => {
+	const [credential] = useCredential();
 	useEffect(() => {
 		(async () => {
 			// ログイン情報取得
-			const username = await SInfo.getItem('username', {});
-			const password = await SInfo.getItem('password', {});
+			const { username, password } = await credential.get();
 
 			// ログイン情報が保持されていないときはログインページに飛ばす
 			if (!username && !password) {
@@ -30,11 +30,11 @@ const AuthCheck = (props: Props) => {
 				.then(() => {
 					props.navigation.navigate(Screens.App);
 				})
-				.catch(() => {
+				.catch(async () => {
+					await credential.reset();
 					props.navigation.navigate(Screens.Auth);
 				});
 		})();
-
 	}, []);
 
 	return (

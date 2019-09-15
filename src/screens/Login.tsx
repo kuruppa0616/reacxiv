@@ -11,21 +11,21 @@ import {
 	Content,
 	Toast,
 	Switch,
-	Row,
+	Row
 } from 'native-base';
 import styled from 'styled-components/native';
 import pixivApi from '@/api/PixivApi';
 import { useNavigation } from 'react-navigation-hooks';
 import { Screens } from '@/constants';
 
-
 import { MAIL, PASSWORD } from 'react-native-dotenv';
-import SInfo from 'react-native-sensitive-info';
+import { useCredential } from '@/hooks';
 
 const Login = () => {
 	const [username, setUsername] = useState<string>(MAIL);
 	const [password, setPassword] = useState<string>(PASSWORD);
 	const [isKeepLogin, setIsKeepLogin] = useState<boolean>(false);
+	const [credential] = useCredential();
 	const { navigate } = useNavigation();
 
 	const onLogin = async () => {
@@ -35,18 +35,16 @@ const Login = () => {
 				navigate(Screens.App);
 
 				if (isKeepLogin) {
-					SInfo.setItem('username', username, {});
-					SInfo.setItem('password', password, {});
+					await credential.set(username, password);
 				} else {
-					SInfo.deleteItem('username', {});
-					SInfo.deleteItem('password', {});
+					await credential.reset();
 				}
 
 				Toast.show({
 					text: 'login success!',
 					buttonText: 'OK',
 					type: 'success',
-					duration: 3000
+					duration: 1500
 				});
 			})
 			.catch((err: Error) => {
@@ -99,7 +97,6 @@ const FormBody = styled(View)`
 	width: 80%;
 `;
 
-
 const FormItem = styled(View)`
 	margin-top: 20px;
 `;
@@ -110,7 +107,6 @@ const LoginButton = styled(Button)`
 `;
 
 const KeepLoginSwitcher = styled(Row)`
-
 	padding-bottom: 5px;
-`
+`;
 export default Login;
