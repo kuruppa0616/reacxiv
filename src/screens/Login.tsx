@@ -43,16 +43,15 @@ const Login = () => {
 				Toast.show({
 					text: 'login success!',
 					buttonText: 'OK',
-					type: 'success',
-					duration: 1500
+					type: 'success'
 				});
 			})
 			.catch((err: Error) => {
 				Toast.show({
 					text: err.message,
 					buttonText: 'OK',
-					type: 'warning',
-					duration: 5000
+					type: 'danger',
+					duration: 4000
 				});
 			});
 	};

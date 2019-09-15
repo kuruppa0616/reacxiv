@@ -7,6 +7,7 @@ import styled from 'styled-components/native';
 import pixivApi from '@/api/PixivApi';
 import { Screens } from '@/constants';
 import { useCredential } from '@/hooks';
+import { Toast,Container, Content } from 'native-base';
 
 interface Props {
 	navigation: NavigationScreenProp<any, any>;
@@ -29,22 +30,35 @@ const AuthCheck = (props: Props) => {
 				.login(username, password)
 				.then(() => {
 					props.navigation.navigate(Screens.App);
+					Toast.show({
+						text: 'login success!',
+						buttonText: 'OK',
+						type: 'success'
+					});
 				})
-				.catch(async () => {
+				.catch(async (err:Error) => {
 					await credential.reset();
 					props.navigation.navigate(Screens.Auth);
+					Toast.show({
+						text: err.message,
+						buttonText: 'OK',
+						type: 'danger',
+						duration: 4000
+					});
 				});
 		})();
 	}, []);
 
 	return (
-		<Container>
-			<Text>認証中</Text>
-		</Container>
+		<StyledContainer>
+			<Content>
+				<Text>認証中</Text>
+			</Content>
+		</StyledContainer>
 	);
 };
 
-const Container = styled.View`
+const StyledContainer = styled(Container)`
 	flex: 1;
 	width: 100%;
 	justify-content: center;
