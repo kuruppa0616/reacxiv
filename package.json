@@ -24,7 +24,7 @@
     "react-native-fast-image": "^7.0.2",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-htmlview": "^0.15.0",
-    "react-native-reanimated": "^1.2.0",
+    "react-native-reanimated": "https://github.com/kmagiera/react-native-reanimated.git#cd5a319eb6afd6efe5fb6750f7cef332fd17bdbd",
     "react-native-screens": "^1.0.0-alpha.22",
     "react-native-sensitive-info": "^5.5.1",
     "react-native-svg": "^9.8.4",

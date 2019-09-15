@@ -5747,10 +5747,9 @@ react-native-keyboard-aware-scroll-view@0.9.1:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
-react-native-reanimated@^1.2.0:
+"react-native-reanimated@https://github.com/kmagiera/react-native-reanimated.git#cd5a319eb6afd6efe5fb6750f7cef332fd17bdbd":
   version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.2.0.tgz#9219227a52a5dfa4d34c324596d6726ccd874293"
-  integrity sha512-vkWRHrPK5qfHP/ZawlRoo38oeYe9NZaaOH/lmFxRcsKzaSK6x3H5ZPXI8lK6MfTLveqwo1QhJje3zIKXO4nQQw==
+  resolved "https://github.com/kmagiera/react-native-reanimated.git#cd5a319eb6afd6efe5fb6750f7cef332fd17bdbd"
 
 react-native-safe-area-view@^0.14.1:
   version "0.14.8"
