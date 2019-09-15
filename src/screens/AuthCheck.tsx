@@ -1,20 +1,17 @@
 import React, { useEffect } from 'react';
 import { Text } from 'react-native';
-import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import styled from 'styled-components/native';
 
 import pixivApi from '@/api/PixivApi';
 import { Screens } from '@/constants';
 import { useCredential } from '@/hooks';
-import { Toast,Container, Content } from 'native-base';
+import { Toast, Container, Content } from 'native-base';
+import { useNavigation } from 'react-navigation-hooks';
 
-interface Props {
-	navigation: NavigationScreenProp<any, any>;
-}
-
-const AuthCheck = (props: Props) => {
+const AuthCheck = () => {
 	const [credential] = useCredential();
+	const { navigate } = useNavigation();
 	useEffect(() => {
 		(async () => {
 			// ログイン情報取得
@@ -22,23 +19,23 @@ const AuthCheck = (props: Props) => {
 
 			// ログイン情報が保持されていないときはログインページに飛ばす
 			if (!username && !password) {
-				props.navigation.navigate(Screens.Auth);
+				navigate(Screens.Auth);
 				return;
 			}
 
 			pixivApi
 				.login(username, password)
 				.then(() => {
-					props.navigation.navigate(Screens.App);
+					navigate(Screens.App);
 					Toast.show({
 						text: 'login success!',
 						buttonText: 'OK',
 						type: 'success'
 					});
 				})
-				.catch(async (err:Error) => {
+				.catch(async (err: Error) => {
 					await credential.reset();
-					props.navigation.navigate(Screens.Auth);
+					navigate(Screens.Auth);
 					Toast.show({
 						text: err.message,
 						buttonText: 'OK',
@@ -65,4 +62,4 @@ const StyledContainer = styled(Container)`
 	align-items: center;
 `;
 
-export default withNavigation(AuthCheck);
+export default AuthCheck;

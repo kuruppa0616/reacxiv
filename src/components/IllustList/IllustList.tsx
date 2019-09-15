@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Dimensions, FlatList } from 'react-native';
-import { NavigationScreenProp, withNavigation } from 'react-navigation';
+import { Dimensions } from 'react-native';
+import { FlatList } from 'react-navigation';
 
 import { observer } from 'mobx-react-lite';
 import { denormalize } from 'normalizr';
@@ -13,9 +13,9 @@ import { GlobalIllustsStore } from '@/mobx/stores';
 import IllustsStore from '@/mobx/stores/IllustsStore';
 
 import { ThumbnailTile } from '../ThumbnailTile';
+import { useNavigationKey } from 'react-navigation-hooks';
 
 interface Props {
-	navigation: NavigationScreenProp<any, any>;
 	store?: IllustsStore;
 	fetch: () => Promise<IllustsResponse>;
 }
@@ -24,7 +24,8 @@ const NUM_COLUMNS = 3;
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const IllustList = observer((props: Props) => {
-	const { navigation, fetch } = props;
+	const { fetch } = props;
+	const key = useNavigationKey();
 	const store = props.store ? props.store : useContext(GlobalIllustsStore);
 
 	const [nextUrl, setNextUrl] = useState<string>();
@@ -76,7 +77,7 @@ const IllustList = observer((props: Props) => {
 			data={illustMemo}
 			renderItem={_renderItem}
 			keyExtractor={_keyExtractor}
-			listKey={navigation.state.key + 'listview'}
+			listKey={key + 'listview'}
 			numColumns={NUM_COLUMNS}
 			onEndReached={_onEndReached}
 			onEndReachedThreshold={0.4}
@@ -87,4 +88,4 @@ const IllustList = observer((props: Props) => {
 	);
 });
 
-export default withNavigation(IllustList);
+export default IllustList;

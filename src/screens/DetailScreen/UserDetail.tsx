@@ -2,7 +2,6 @@ import React from 'react';
 import { Linking } from 'react-native';
 import { human } from 'react-native-typography';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { withNavigation } from 'react-navigation';
 
 import { observer } from 'mobx-react-lite';
 import { Text, View, Container, Content } from 'native-base';
@@ -116,4 +115,4 @@ const StyledText = styled(Text)`
 	margin-bottom: 10px;
 `;
 
-export default withNavigation(UserDetailContainer);
+export default UserDetailContainer;

@@ -1,15 +1,11 @@
-import React, { memo, useEffect, useState } from 'react';
-import { NavigationScreenProp, withNavigation } from 'react-navigation';
+import React from 'react';
 
 import { Button, Footer, FooterTab, Text } from 'native-base';
+import { useNavigation } from 'react-navigation-hooks';
 
-interface Props {
-	navigation: NavigationScreenProp<any, any>;
-}
-
-const BottomTabBar = (props: Props) => {
-	const { navigation } = props;
-	const _onPress = (route: string) => () => navigation.navigate(route);
+const BottomTabBar = () => {
+	const { navigate } = useNavigation();
+	const _onPress = (route: string) => () => navigate(route);
 	return (
 		<Footer>
 			<FooterTab>
@@ -30,4 +26,4 @@ const BottomTabBar = (props: Props) => {
 	);
 };
 
-export default withNavigation(BottomTabBar);
+export default BottomTabBar;

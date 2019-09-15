@@ -1,6 +1,6 @@
 import React from 'react';
 import { human } from 'react-native-typography';
-import { FlatList, withNavigation } from 'react-navigation';
+import { FlatList } from 'react-navigation';
 
 import { observer } from 'mobx-react-lite';
 import { Text, View, Container, Content } from 'native-base';
@@ -91,4 +91,4 @@ const TitleText = styled(Text)`
 	padding-bottom: 5px;
 `;
 
-export default withNavigation(IllustDetailContainer);
+export default IllustDetailContainer;

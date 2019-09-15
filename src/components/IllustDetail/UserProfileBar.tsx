@@ -1,7 +1,6 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { human } from 'react-native-typography';
-import { NavigationScreenProp, withNavigation } from 'react-navigation';
 
 import { Text, View } from 'native-base';
 import { Illust } from 'pixiv-api-client';
@@ -11,17 +10,18 @@ import styled from 'styled-components/native';
 import { FollowButton } from '@/components/Button';
 import { PxProfileIcon } from '@/components/PxImage';
 import { Screens } from '@/constants';
+import { useNavigation } from 'react-navigation-hooks';
 
 interface Props {
 	illust: Illust;
-	navigation: NavigationScreenProp<any, any>;
 	followUser: (user: User) => void;
 }
 const UserProfileBar = (props: Props) => {
-	const { illust, navigation, followUser } = props;
+	const { illust, followUser } = props;
+	const { navigate } = useNavigation();
 
 	const _onPressUserInfo = () => {
-		navigation.navigate(Screens.UserDetail, {
+		navigate(Screens.UserDetail, {
 			userId: illust.user.id
 		});
 	};
@@ -40,7 +40,7 @@ const UserProfileBar = (props: Props) => {
 	);
 };
 
-export default withNavigation(UserProfileBar);
+export default UserProfileBar;
 
 const Container = styled(View)`
 	display: flex;
