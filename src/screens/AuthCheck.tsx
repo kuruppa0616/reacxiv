@@ -19,14 +19,14 @@ const AuthCheck = () => {
 
 			// ログイン情報が保持されていないときはログインページに飛ばす
 			if (!username && !password) {
-				navigate(Screens.Auth);
+				navigate(Screens.Login);
 				return;
 			}
 
 			pixivApi
 				.login(username, password)
 				.then(() => {
-					navigate(Screens.App);
+					navigate(Screens.Home);
 					Toast.show({
 						text: 'login success!',
 						buttonText: 'OK',
@@ -35,7 +35,7 @@ const AuthCheck = () => {
 				})
 				.catch(async (err: Error) => {
 					await credential.reset();
-					navigate(Screens.Auth);
+					navigate(Screens.Login);
 					Toast.show({
 						text: err.message,
 						buttonText: 'OK',

@@ -1,7 +1,7 @@
 enum Screens {
 	AuthCheck = 'AuthCheck',
 	App = 'App',
-	Auth = 'Auth',
+	Login = 'Login',
 	Home = 'Home',
 	Top = 'Top',
 	Recommend = 'Recommend',

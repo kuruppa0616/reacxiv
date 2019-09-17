@@ -1,0 +1,19 @@
+# ページ構成案
+- AppContainer
+  - AppSwitch
+    - AuthCheck
+    - Login
+    - AppStack
+      - IllustDetail
+      - UserDetail
+      - AppDrawer
+        - Logout
+        - Ranking
+        - Search
+        - New
+        - Recommend
+        - AppStack
+        - HomeBottomTab
+          - Top
+          - Recommend
+          - New

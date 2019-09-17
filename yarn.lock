@@ -1114,10 +1114,10 @@
     "@types/prop-types" "*"
     "@types/react" "*"
 
-"@types/react-native@^0.60.14":
-  version "0.60.14"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.60.14.tgz#76b07b97127a563ec0c996848925f81fcee1320b"
-  integrity sha512-8P00PR0TjAZij5VXLYL5pj1ZBYZxY9+Jh2R4iC1daCLaLFkLJ2ceP7WwNhl4PKZyifx0ENJGrt7yClRZGd9Pcw==
+"@types/react-native@^0.60.15":
+  version "0.60.15"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.60.15.tgz#fe502d9fca6e292e54ea3d527004f21d9b806370"
+  integrity sha512-HcPSAlpFRiFqJ647YfUgzpr0aeMrH2SXkGPsLjkiG53oDj1upRvArVt/yBWRY+aykOs7C44EtZ5puzesO/U7HA==
   dependencies:
     "@types/prop-types" "*"
     "@types/react" "*"
@@ -5773,10 +5773,10 @@ react-native-sensitive-info@^5.5.1:
   resolved "https://registry.yarnpkg.com/react-native-sensitive-info/-/react-native-sensitive-info-5.5.1.tgz#180367059650daca265d8b8811a961b68d0161e7"
   integrity sha512-mIeDwyAs9Gyba/94AySs3qB2nJo7Qikqz9sO5ygpw2thsp+j734qAJSaZTGWJOEYbCgwu/FUXKVe1TLWAREtaw==
 
-react-native-svg@^9.9.3:
-  version "9.9.3"
-  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.9.3.tgz#5dab1a44b20b13a3f35245a286f30882b9611d66"
-  integrity sha512-oL4EWGEYhaXDwZw3ULxAtXXh3xao0BiUt2UdVANdGuP3jdpSWuXUmXCd2HpgppOVsHwbSuR67sFmnduXPGaxuA==
+react-native-svg@^9.9.4:
+  version "9.9.4"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.9.4.tgz#31070eeb68fb6e8dc0c0828c87687da3e0679102"
+  integrity sha512-tROcwGg69hEF+eUoYIIn8Aldq57ZZqq5gjxiILegK0EXc4XAoeWxOzfZiPQJbykY/FSYuT8IkKIsPF9ZGFlLqQ==
 
 react-native-tab-view@^2.9.0:
   version "2.10.0"
@@ -5842,14 +5842,14 @@ react-navigation-hooks@^1.0.3:
   resolved "https://registry.yarnpkg.com/react-navigation-hooks/-/react-navigation-hooks-1.0.3.tgz#8c203c1a4eff453d2cc07b33667abdd2a6417ab8"
   integrity sha512-w9H7hVJGS2rhonpnih4LgJ6Elrg2Xc41njvmwlI7ZwEo0JDJt/D4sulYvJcvrxhslmVNbu14F8KwgeCTwTWXjg==
 
-react-navigation-stack@^1.5.3:
+react-navigation-stack@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-1.7.3.tgz#2dce28bdc80bbd2bf09755a6aa7200055a907504"
   integrity sha512-wOt7T5NkIFInnFw+cxkUHUbNrXbPqascScia6azMWSdHhx+gvz3uW4Ubyw+2NULHcoshU53boUuQ8lUmUrJdhg==
   dependencies:
     prop-types "^15.7.2"
 
-react-navigation-tabs@^2.4.0:
+react-navigation-tabs@^2.5.2:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-2.5.2.tgz#80812254e32c5720722fed9a26b6e109ed0f4ac1"
   integrity sha512-f5OlXROO6VtnvgmSBzvS+2X8+KEMjJ4JM3S3IsmHa2J1dc/ssZE9QNEjttmsNxDi79vHVNaC+oiXI9GUtb3+YA==
@@ -5859,7 +5859,7 @@ react-navigation-tabs@^2.4.0:
     react-native-safe-area-view "^0.14.6"
     react-native-tab-view "^2.9.0"
 
-react-navigation@^4.0.0:
+react-navigation@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-4.0.5.tgz#d4e16d9884cfd6bb2cda4d16e001227e2c859b46"
   integrity sha512-VidRiSA2RvrgPlKs/7FNKV6pXEYXREtxiEl6m/Dmfb8x27amG6JRibzJC2mpWt4w0SAIGMUjHallRi3h9sIk0A==

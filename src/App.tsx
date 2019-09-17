@@ -29,31 +29,10 @@ import { useNavigation } from 'react-navigation-hooks';
 
 useScreens();
 
-const AuthStack = createStackNavigator({
-	Login: Login
-});
-
-const AppStack = createStackNavigator(
-	{
-		[Screens.Home]: HomeScreen,
-		[Screens.IllustDetail]: IllustDetail,
-		[Screens.UserDetail]: UserDetail
-	},
-	{
-		initialRouteName: Screens.Home,
-		defaultNavigationOptions: () => ({
-			headerTransparent: true,
-			headerStyle: {
-				borderBottomWidth: 0
-			}
-		})
-	}
-);
-
 const CustomDrawerContentComponent = (props: DrawerContentComponentProps) => {
 	const nav = useNavigation();
 	const onButton = () => {
-		nav.toggleDrawer();
+		nav.closeDrawer();
 	};
 
 	return (
@@ -78,8 +57,7 @@ const CustomDrawerContentComponent = (props: DrawerContentComponentProps) => {
 
 const AppDrawer = createDrawerNavigator(
 	{
-		AppStack: AppStack,
-		AuthStack: AuthStack
+		HomeScreen: HomeScreen
 	},
 	{
 		unmountInactiveRoutes: true,
@@ -87,11 +65,33 @@ const AppDrawer = createDrawerNavigator(
 	}
 );
 
-const AppSwitch: any = createSwitchNavigator({
-	[Screens.AuthCheck]: AuthCheck,
-	[Screens.App]: AppDrawer,
-	[Screens.Auth]: AuthStack
-});
+const AppStack = createStackNavigator(
+	{
+		[Screens.Home]: AppDrawer,
+		[Screens.IllustDetail]: IllustDetail,
+		[Screens.UserDetail]: UserDetail
+	},
+	{
+		initialRouteName: Screens.Home,
+		defaultNavigationOptions: () => ({
+			headerTransparent: true,
+			headerStyle: {
+				borderBottomWidth: 0
+			}
+		})
+	}
+);
+
+const AppSwitch: any = createSwitchNavigator(
+	{
+		[Screens.App]: AppStack,
+		[Screens.AuthCheck]: AuthCheck,
+		[Screens.Login]: Login
+	},
+	{
+		initialRouteName: Screens.AuthCheck
+	}
+);
 
 const AppContainer = createAppContainer(AppSwitch);
 

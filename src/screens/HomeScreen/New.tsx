@@ -10,7 +10,7 @@ const New = () => {
 	const nav = useNavigation();
 	const _fetch = () => pixivApi.illustFollow();
 	const onButton = () => {
-		nav.toggleDrawer();
+		nav.openDrawer();
 	};
 	return (
 		<Container>
