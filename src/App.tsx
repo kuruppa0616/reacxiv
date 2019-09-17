@@ -87,18 +87,13 @@ const AppDrawer = createDrawerNavigator(
 	}
 );
 
-const AppContainer = createAppContainer(
-	createSwitchNavigator(
-		{
-			[Screens.AuthCheck]: AuthCheck,
-			[Screens.App]: AppDrawer,
-			[Screens.Auth]: AuthStack
-		},
-		{
-			initialRouteName: Screens.AuthCheck
-		}
-	)
-);
+const AppSwitch: any = createSwitchNavigator({
+	[Screens.AuthCheck]: AuthCheck,
+	[Screens.App]: AppDrawer,
+	[Screens.Auth]: AuthStack
+});
+
+const AppContainer = createAppContainer(AppSwitch);
 
 const App = () => {
 	return (
