@@ -9,11 +9,50 @@
       - AppDrawer
         - Logout
         - Ranking
+          - Total
+            - 一般
+              - Daily
+              - Weekly
+              - Monthly
+              - Rookie
+              - Original
+              - for males
+              - for females
+            - R18
+              - Daily
+              - Weekly
+              - for males
+              - for males
+          - Illust
+          - 動くIllust
+          - Manga
+          - Novel
         - Search
+          - Illust
+          - User
+          - Manga
+          - Novel
         - New
+          - FollowingUser
+            - Illust
+            - Manga
+            - Novel
+          - GlobalUser
+            - Illust
+            - Manga
+            - Novel
+          - MyPixivUser
+            - Illust
+            - Manga
+            - Novel
         - Recommend
-        - AppStack
+          - Illust
+          - User
+          - Manga
+          - Novel
+        - Bookmark
         - HomeBottomTab
           - Top
           - Recommend
           - New
+        - History
