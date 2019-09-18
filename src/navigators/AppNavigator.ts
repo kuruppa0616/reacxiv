@@ -6,10 +6,12 @@ import { Screens } from '@/constants';
 import { AuthCheck, HomeScreen, Login } from '@/screens';
 import { IllustDetail, UserDetail } from '@/screens/DetailScreen';
 import { CustomDrawer } from '@/components/Drawer';
+import { Logout } from '@/components/Logout';
 
 const AppDrawer = createDrawerNavigator(
 	{
-		Home: HomeScreen
+		Home: HomeScreen,
+		Logout: Logout
 	},
 	{
 		unmountInactiveRoutes: true,

@@ -3,8 +3,6 @@ import { Image } from 'react-native';
 
 import { Device } from '@/constants';
 
-import PxImage from './PxImage';
-
 interface Props {
 	url: string;
 	height: number;
