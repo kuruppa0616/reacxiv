@@ -1,73 +1,9 @@
 import React from 'react';
 import { useScreens } from 'react-native-screens';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import {
-	createDrawerNavigator,
-	DrawerContentComponentProps,
-	DrawerNavigatorItems
-} from 'react-navigation-drawer';
-
-import {
-	Root,
-	Container,
-	Content,
-	Body,
-	Header,
-	Left,
-	Button,
-	Icon,
-	Title,
-	Right
-} from 'native-base';
-
-import { Screens } from '@/constants';
-
-import { AuthCheck, HomeScreen, Login } from './screens';
-import { IllustDetail, UserDetail } from './screens/DetailScreen';
-import { CustomDrawer } from './components/Drawer';
+import { Root } from 'native-base';
+import { AppContainer } from '@/navigators';
 
 useScreens();
-
-const AppDrawer = createDrawerNavigator(
-	{
-		HomeScreen: HomeScreen
-	},
-	{
-		unmountInactiveRoutes: true,
-		contentComponent: CustomDrawer
-	}
-);
-
-const AppStack = createStackNavigator(
-	{
-		[Screens.Home]: AppDrawer,
-		[Screens.IllustDetail]: IllustDetail,
-		[Screens.UserDetail]: UserDetail
-	},
-	{
-		initialRouteName: Screens.Home,
-		defaultNavigationOptions: () => ({
-			headerTransparent: true,
-			headerStyle: {
-				borderBottomWidth: 0
-			}
-		})
-	}
-);
-
-const AppSwitch: any = createSwitchNavigator(
-	{
-		[Screens.App]: AppStack,
-		[Screens.AuthCheck]: AuthCheck,
-		[Screens.Login]: Login
-	},
-	{
-		initialRouteName: Screens.AuthCheck
-	}
-);
-
-const AppContainer = createAppContainer(AppSwitch);
 
 const App = () => {
 	return (

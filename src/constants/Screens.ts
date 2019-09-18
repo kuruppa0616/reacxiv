@@ -1,6 +1,8 @@
 enum Screens {
 	AuthCheck = 'AuthCheck',
 	App = 'App',
+	AppDrawer = 'AppDrawer',
+	AppStack = 'AppStack',
 	Login = 'Login',
 	Home = 'Home',
 	Top = 'Top',

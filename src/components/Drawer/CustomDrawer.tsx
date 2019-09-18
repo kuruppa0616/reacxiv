@@ -3,7 +3,7 @@ import {
 	DrawerNavigatorItems
 } from 'react-navigation-drawer';
 import { useNavigation } from 'react-navigation-hooks';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	Container,
 	Body,
@@ -18,6 +18,7 @@ import {
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {
 	const nav = useNavigation();
+
 	const onButton = () => {
 		nav.closeDrawer();
 	};

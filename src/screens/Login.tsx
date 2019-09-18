@@ -32,7 +32,7 @@ const Login = () => {
 		pixivApi
 			.login(username, password)
 			.then(async () => {
-				navigate(Screens.App);
+				navigate(Screens.AppStack);
 
 				if (isKeepLogin) {
 					await credential.set(username, password);
