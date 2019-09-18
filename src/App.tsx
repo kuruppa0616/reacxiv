@@ -25,35 +25,9 @@ import { Screens } from '@/constants';
 
 import { AuthCheck, HomeScreen, Login } from './screens';
 import { IllustDetail, UserDetail } from './screens/DetailScreen';
-import { useNavigation } from 'react-navigation-hooks';
+import { CustomDrawer } from './components/Drawer';
 
 useScreens();
-
-const CustomDrawerContentComponent = (props: DrawerContentComponentProps) => {
-	const nav = useNavigation();
-	const onButton = () => {
-		nav.closeDrawer();
-	};
-
-	return (
-		<Container>
-			<Content>
-				<Header>
-					<Left>
-						<Button onPress={onButton} transparent={true}>
-							<Icon name="arrow-back" />
-						</Button>
-					</Left>
-					<Body>
-						<Title>Menu</Title>
-					</Body>
-					<Right />
-				</Header>
-				<DrawerNavigatorItems {...props} />
-			</Content>
-		</Container>
-	);
-};
 
 const AppDrawer = createDrawerNavigator(
 	{
@@ -61,7 +35,7 @@ const AppDrawer = createDrawerNavigator(
 	},
 	{
 		unmountInactiveRoutes: true,
-		contentComponent: CustomDrawerContentComponent
+		contentComponent: CustomDrawer
 	}
 );
 
