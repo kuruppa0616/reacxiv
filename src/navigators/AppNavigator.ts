@@ -7,6 +7,7 @@ import { AuthCheck, HomeScreen, Login } from '@/screens';
 import { IllustDetail, UserDetail } from '@/screens/DetailScreen';
 import { CustomDrawer } from '@/components/Drawer';
 import { Logout } from '@/components/Logout';
+import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 
 const AppDrawer = createDrawerNavigator(
 	{
@@ -47,6 +48,7 @@ const AppSwitch = createSwitchNavigator(
 	}
 );
 
-const AppContainer = createAppContainer(AppSwitch as any);
+// RN0.61だとスワイプが認識されないのでHOCで囲む
+const AppContainer = gestureHandlerRootHOC(createAppContainer(AppSwitch as any));
 
 export default AppContainer;
