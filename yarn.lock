@@ -5864,20 +5864,20 @@ react-navigation-stack@^1.8.0:
   dependencies:
     prop-types "^15.7.2"
 
-react-navigation-tabs@^2.5.3:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-2.5.3.tgz#3013762480dfda689451e7ec600e243a2d342e64"
-  integrity sha512-l8Zs8kt2chQomnoX7B7golSYNkBd269f3wF+usuZ2p8A54FgRUSRdrKSXpKUbkrTLpneDhvLuAJAhhW/fmimdA==
+react-navigation-tabs@^2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/react-navigation-tabs/-/react-navigation-tabs-2.5.4.tgz#7e03a51970d603cf02fa52060d81f1ee4d040e64"
+  integrity sha512-4iwlTih+94tSIPOvOgRmJSrZO6lM5Rmx59f+vO/peTdmgQMZYfoCi1kMz0oOoJ9No+JBL2mZfyRERhncuxxgMw==
   dependencies:
     hoist-non-react-statics "^3.3.0"
     react-lifecycles-compat "^3.0.4"
     react-native-safe-area-view "^0.14.6"
     react-native-tab-view "^2.9.0"
 
-react-navigation@^4.0.5:
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-4.0.5.tgz#d4e16d9884cfd6bb2cda4d16e001227e2c859b46"
-  integrity sha512-VidRiSA2RvrgPlKs/7FNKV6pXEYXREtxiEl6m/Dmfb8x27amG6JRibzJC2mpWt4w0SAIGMUjHallRi3h9sIk0A==
+react-navigation@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-4.0.6.tgz#6e0c4324c8eb314f31b510a43cbf7cea9410f246"
+  integrity sha512-DEhAcuiPI+I8pEgKStVrhDjZA5bc/1Nc+ByKWPn1pVWJCRHs+i+vJ6D2KWZCUtpzKCSm/yVPyUab4hOCg8L+Ww==
   dependencies:
     "@react-navigation/core" "^3.5.1"
     "@react-navigation/native" "^3.6.2"
@@ -6891,6 +6891,11 @@ tslint-plugin-prettier@^2.0.1:
     eslint-plugin-prettier "^2.2.0"
     lines-and-columns "^1.1.6"
     tslib "^1.7.1"
+
+tslint-react-hooks@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/tslint-react-hooks/-/tslint-react-hooks-2.2.1.tgz#c52c7df65ee1517b2d6c92bc716e9ef72ccdf208"
+  integrity sha512-bqIg2uZe+quJMfSOGc4OOZ4awo6TP1ejGDGS6IKg2WIrS0XnWfhUJ99i3B8rUpnZhuD4vRSvyYIbXPUmEqQxxQ==
 
 tslint-react@^4.1.0:
   version "4.1.0"

@@ -1,13 +1,15 @@
 {
 	"extends": [
 		"tslint-react",
-		"tslint-config-prettier"
+		"tslint-config-prettier",
+		"tslint-react-hooks"
 	],
 	"rulesDirectory": [
 		"tslint-plugin-prettier"
 	],
 	"rules": {
 		"prettier": true,
-		"no-unused-variable": true
+		"no-unused-variable": true,
+		"react-hooks-nesting": "error"
 	}
 }

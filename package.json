@@ -31,11 +31,11 @@
     "react-native-svg": "^9.9.4",
     "react-native-typography": "^1.4.1",
     "react-native-vector-icons": "^6.6.0",
-    "react-navigation": "^4.0.5",
+    "react-navigation": "^4.0.6",
     "react-navigation-drawer": "^2.2.1",
     "react-navigation-hooks": "^1.0.3",
     "react-navigation-stack": "^1.8.0",
-    "react-navigation-tabs": "^2.5.3",
+    "react-navigation-tabs": "^2.5.4",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
@@ -66,6 +66,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "tslint-react": "^4.1.0",
+    "tslint-react-hooks": "^2.2.1",
     "typescript": "^3.6.3"
   },
   "importSort": {
