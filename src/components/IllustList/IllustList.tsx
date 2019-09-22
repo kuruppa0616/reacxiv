@@ -16,7 +16,6 @@ import IllustsStore from '@/mobx/stores/IllustsStore';
 import { ThumbnailTile } from '../ThumbnailTile';
 
 interface Props {
-	store?: IllustsStore;
 	fetch: () => Promise<IllustsResponse>;
 }
 
@@ -26,7 +25,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const IllustList = observer((props: Props) => {
 	const { fetch } = props;
 	const key = useNavigationKey();
-	const store = props.store ? props.store : useContext(GlobalIllustsStore);
+	const store = useContext(GlobalIllustsStore);
 
 	const [nextUrl, setNextUrl] = useState<string>();
 	const [keys, addKeys, clearKeys] = useIllustKeys();
@@ -54,6 +53,7 @@ const IllustList = observer((props: Props) => {
 			});
 	};
 
+	
 	const _onRefresh = () => {
 		setIsRefreshing(true);
 		clearKeys();

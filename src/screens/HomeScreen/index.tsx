@@ -11,14 +11,15 @@ import { Screens } from '@/constants';
 import New from './New';
 import Recommend from './Recommend';
 import Top from './Top';
+import { withDrawer } from '@/hocs';
 
 const TabBarComponent = (props: BottomTabBarProps) => <BottomTabBar {...props} />;
 
 const TabNavigator = createBottomTabNavigator(
 	{
-		[Screens.Top]: Top,
-		[Screens.Recommend]: Recommend,
-		[Screens.New]: New
+		[Screens.Top]: withDrawer(Top),
+		[Screens.Recommend]: withDrawer(Recommend),
+		[Screens.New]: withDrawer(New)
 	},
 	{
 		tabBarOptions: {
