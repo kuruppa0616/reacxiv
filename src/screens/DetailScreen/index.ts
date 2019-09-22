@@ -1,2 +1,2 @@
-export { default as IllustDetail } from './IllustDetail';
-export { default as UserDetail } from './UserDetail';
+export { default as IllustDetailScreen } from './IllustDetailScreen';
+export { default as UserDetailScreen } from './UserDetailScreen';

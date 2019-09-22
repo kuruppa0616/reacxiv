@@ -4,9 +4,9 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Screens } from '@/constants';
 
 import { AuthCheck, HomeScreen, Login } from '@/screens';
-import { IllustDetail, UserDetail } from '@/screens/DetailScreen';
+import { IllustDetailScreen, UserDetailScreen } from '@/screens/DetailScreen';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
-import { withDrawer } from '@/hocs';
+import { withDrawer, withHeader } from '@/hocs';
 
 const AppDrawer = createSwitchNavigator({
 	Home: HomeScreen,
@@ -16,17 +16,12 @@ const AppDrawer = createSwitchNavigator({
 const AppStack = createStackNavigator(
 	{
 		[Screens.AppDrawer]: AppDrawer,
-		[Screens.IllustDetail]: (IllustDetail),
-		[Screens.UserDetail]: (UserDetail)
+		[Screens.IllustDetail]: withDrawer(IllustDetailScreen),
+		[Screens.UserDetail]: withDrawer(UserDetailScreen)
 	},
 	{
 		initialRouteName: Screens.AppDrawer,
-		defaultNavigationOptions: () => ({
-			headerTransparent: true,
-			headerStyle: {
-				borderBottomWidth: 0
-			}
-		})
+		headerMode: 'none'
 	}
 );
 

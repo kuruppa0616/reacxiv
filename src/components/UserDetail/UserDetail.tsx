@@ -19,20 +19,6 @@ import { PxHeader, PxProfileIcon } from '@/components/PxImage';
 import { useUserDetail } from '@/hooks';
 import { userAction } from '@/hooks/useUserDetail';
 
-const UserDetailContainer = observer(() => {
-	const [userDetail, userOverviewMemo, userAction] = useUserDetail();
-
-	return (
-		<Container>
-			{userDetail ? (
-				<UserDetail {...{ userDetail, userOverviewMemo, userAction }} />
-			) : (
-				<Loading />
-			)}
-		</Container>
-	);
-});
-
 interface UserDetailProps {
 	userDetail: UserResponse;
 	userOverviewMemo: User;
@@ -115,4 +101,4 @@ const StyledText = styled(Text)`
 	margin-bottom: 10px;
 `;
 
-export default UserDetailContainer;
+export default UserDetail;

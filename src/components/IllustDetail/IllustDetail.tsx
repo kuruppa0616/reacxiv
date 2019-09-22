@@ -2,8 +2,7 @@ import React from 'react';
 import { human } from 'react-native-typography';
 import { FlatList } from 'react-navigation';
 
-import { observer } from 'mobx-react-lite';
-import { Container, Content, Text, View } from 'native-base';
+import { Content, Text, View } from 'native-base';
 import { Illust, ImageUrls } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 
@@ -15,27 +14,15 @@ import {
 	RelatedIllusts,
 	UserProfileBar
 } from '@/components/IllustDetail';
-import { Loading } from '@/components/Loading';
 import { PxFitIllust } from '@/components/PxImage';
-import { useIllustDetail } from '@/hooks';
 import { IllustActions } from '@/hooks/useIllustDetail';
-
-const IllustDetailContainer = observer(() => {
-	const [illust, illustActions] = useIllustDetail();
-
-	return (
-		<Container>
-			{illust ? <IllustDetail {...{ illust, illustActions }} /> : <Loading />}
-		</Container>
-	);
-});
 
 interface IllustDetailProps {
 	illust: Illust;
 	illustActions: IllustActions;
 }
 
-const IllustDetail = observer((props: IllustDetailProps) => {
+const IllustDetail = (props: IllustDetailProps) => {
 	const { illust, illustActions } = props;
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
@@ -76,7 +63,7 @@ const IllustDetail = observer((props: IllustDetailProps) => {
 			<RelatedIllusts illust={illust} />
 		</Content>
 	);
-});
+};
 
 const Info = styled(View)`
 	padding-top: 6px;
@@ -91,4 +78,4 @@ const TitleText = styled(Text)`
 	padding-bottom: 5px;
 `;
 
-export default IllustDetailContainer;
+export default IllustDetail;
