@@ -1,7 +1,12 @@
 import React from 'react';
-import { Text, Container, Header, Left, Body, Title, Right } from 'native-base';
+import { Left, Body, Title, Right, Header } from 'native-base';
+import {} from 'react-native-elements';
 
-const RvHeader = () => {
+interface Props {
+	title?: string;
+}
+
+const RvHeader = (props: Props) => {
 	return (
 		<Header>
 			<Left />

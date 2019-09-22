@@ -42,7 +42,7 @@ const IllustDetail = (props: IllustDetailProps) => {
 	};
 
 	return (
-		<Content>
+		<View>
 			<View>
 				{illust.page_count === 1
 					? _renderIllust({ item: illust.image_urls })
@@ -61,7 +61,7 @@ const IllustDetail = (props: IllustDetailProps) => {
 				<UserProfileBar illust={illust} followUser={illustActions.followUser} />
 			</Info>
 			<RelatedIllusts illust={illust} />
-		</Content>
+		</View>
 	);
 };
 
