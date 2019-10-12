@@ -6,18 +6,20 @@ import { Screens } from '@/constants';
 import { AuthCheck, HomeScreen, Login } from '@/screens';
 import { IllustDetailScreen, UserDetailScreen } from '@/screens/DetailScreen';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
-import { withDrawer, withHeader } from '@/hocs';
+import New from '@/screens/HomeScreen/New';
+import Recommend from '@/screens/HomeScreen/Recommend';
 
-const AppDrawer = createSwitchNavigator({
+const AppDrawer = createDrawerNavigator({
 	Home: HomeScreen,
-	HomeLogin: Login
+	NewScreen: New,
+	RecommendScreen: Recommend,
 });
 
 const AppStack = createStackNavigator(
 	{
 		[Screens.AppDrawer]: AppDrawer,
-		[Screens.IllustDetail]: withDrawer(IllustDetailScreen),
-		[Screens.UserDetail]: withDrawer(UserDetailScreen)
+		[Screens.IllustDetail]: IllustDetailScreen,
+		[Screens.UserDetail]: UserDetailScreen
 	},
 	{
 		initialRouteName: Screens.AppDrawer,

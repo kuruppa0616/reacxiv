@@ -1,6 +1,5 @@
 import React from 'react';
 import { Left, Body, Title, Right, Header } from 'native-base';
-import {} from 'react-native-elements';
 
 interface Props {
 	title?: string;

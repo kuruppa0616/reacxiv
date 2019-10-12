@@ -2,11 +2,11 @@ import React from 'react';
 import { human } from 'react-native-typography';
 import { FlatList } from 'react-navigation';
 
-import { Content, Text, View } from 'native-base';
+import { Content, Text, View, Row } from 'native-base';
 import { Illust, ImageUrls } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 
-import { BookmarkButton } from '@/components/Button';
+import { FloatingBookmarkButton } from '@/components/Button';
 import {
 	IllustCaption,
 	IllustMeta,
@@ -42,26 +42,27 @@ const IllustDetail = (props: IllustDetailProps) => {
 	};
 
 	return (
-		<View>
+		<Content>
 			<View>
 				{illust.page_count === 1
 					? _renderIllust({ item: illust.image_urls })
 					: _renderIllustList(illust.meta_pages)}
 			</View>
 			<Info>
-				<TitleText>{illust.title}</TitleText>
-				<BookmarkButton
-					illust={illust}
-					size={25}
-					bookmarkFunc={illustActions.bookmarkIllust}
-				/>
+				<Row css="justify-content: space-between; align-items: center;">
+					<TitleText>{illust.title}</TitleText>
+					<FloatingBookmarkButton
+						illust={illust}
+						bookmarkFunc={illustActions.bookmarkIllust}
+					/>
+				</Row>
 				<IllustCaption text={illust.caption} />
 				<IllustMeta illust={illust} />
 				<IllustTags illust={illust} />
 				<UserProfileBar illust={illust} followUser={illustActions.followUser} />
 			</Info>
 			<RelatedIllusts illust={illust} />
-		</View>
+		</Content>
 	);
 };
 

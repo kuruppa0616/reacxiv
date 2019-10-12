@@ -14,17 +14,17 @@ const floatingBookmarkButton = (props: Props) => {
 	const { illust, bookmarkFunc } = props;
 	return (
 		<Container>
-			<Icon name="circle" size={60} color="#40aaef" />
+			<Icon name="circle" size={45} color="#40aaef" />
 			<ButtonWrapper>
-				<BookmarkButton illust={illust} size={25} bookmarkFunc={bookmarkFunc} />
+				<BookmarkButton illust={illust} size={22} bookmarkFunc={bookmarkFunc} />
 			</ButtonWrapper>
 		</Container>
 	);
 };
 
 const Container = styled.View`
-	width: 60px;
-	height: 60px;
+	width: 45;
+	height: 45;
 	position: relative;
 	height: 100%;
 	display: flex;
