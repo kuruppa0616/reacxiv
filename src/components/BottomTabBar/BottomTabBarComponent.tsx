@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigation } from 'react-navigation-hooks';
 
 import { Button, Footer, FooterTab, Text } from 'native-base';
+import { BottomTabBarProps } from 'react-navigation-tabs/lib/typescript/src/types';
 
-const BottomTabBar = () => {
+const BottomTabBarComponent = (props: BottomTabBarProps) => {
 	const { navigate } = useNavigation();
 	const _onPress = (route: string) => () => navigate(route);
 	return (
@@ -26,4 +27,4 @@ const BottomTabBar = () => {
 	);
 };
 
-export default BottomTabBar;
+export default BottomTabBarComponent;

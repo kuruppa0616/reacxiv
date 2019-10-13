@@ -5,6 +5,7 @@
   "scripts": {
     "and": "npx react-native run-android",
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "clear": "cd android && ./gradlew clean && cd ../",
     "test": "jest"
   },
   "jest": {

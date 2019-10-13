@@ -3,14 +3,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Screens } from '@/constants';
 
-import { AuthCheck, HomeScreen, Login } from '@/screens';
+import { AuthCheck, Login } from '@/screens';
 import { IllustDetailScreen, UserDetailScreen } from '@/screens/DetailScreen';
-import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import New from '@/screens/HomeScreen/New';
 import Recommend from '@/screens/HomeScreen/Recommend';
+import HomeScreenTabNavigator from '@/navigators/HomeScreenTabNavigator';
 
 const AppDrawer = createDrawerNavigator({
-	Home: HomeScreen,
+	Home: HomeScreenTabNavigator,
 	NewScreen: New,
 	RecommendScreen: Recommend,
 });
@@ -38,7 +38,6 @@ const AppSwitch = createSwitchNavigator(
 	}
 );
 
-// RN0.61だとスワイプが認識されないのでHOCで囲む
-const AppContainer = gestureHandlerRootHOC(createAppContainer(AppSwitch as any));
+const AppContainer = createAppContainer(AppSwitch as any);
 
 export default AppContainer;
