@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleProp } from 'react-native';
 import FastImage, { ImageStyle, OnLoadEvent } from 'react-native-fast-image';
+import { RequestHeader } from '@/constants';
 
 interface Props {
 	url: string;
@@ -18,10 +19,7 @@ const PxImage = (props: Props) => {
 			style={[{ width: width, height: height }, style]}
 			source={{
 				uri: url,
-				headers: {
-					'User-Agent': 'PixivIOSApp/7.2.2 (iOS 12.0.1; iPhone8,2)',
-					Referer: 'http://www.pixiv.net/'
-				},
+				headers: RequestHeader,
 				priority: FastImage.priority.normal
 			}}
 			onLoad={onLoad}

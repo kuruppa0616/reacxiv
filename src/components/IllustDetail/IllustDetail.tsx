@@ -7,18 +7,16 @@ import { Illust, ImageUrls } from 'pixiv-api-client';
 import styled from 'styled-components/native';
 
 import { FloatingBookmarkButton } from '@/components/Button';
-import {
-	IllustCaption,
-	IllustMeta,
-	IllustTags,
-	RelatedIllusts,
-	UserProfileBar
-} from '@/components/IllustDetail';
 import { PxFitIllust } from '@/components/PxImage';
 import { IllustActions } from '@/hooks/useIllustDetail';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
-import { TouchableHighlight, GestureResponderEvent } from 'react-native';
 import { useNavigation } from 'react-navigation-hooks';
+import { Screens } from '@/constants';
+import IllustCaption from './IllustCaption';
+import IllustMeta from './IllustMeta';
+import IllustTags from './IllustTags';
+import UserProfileBar from './UserProfileBar';
+import RelatedIllusts from './RelatedIllusts';
 
 interface IllustDetailProps {
 	illust: Illust;
@@ -31,12 +29,17 @@ const IllustDetail = (props: IllustDetailProps) => {
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
 
-	const _onPressIllust = (event: GestureResponderEvent) => {
-		console.log("pressed");
+	const _onPressIllust = () => {
+		const illustUrls =
+			illust.page_count === 1
+				? [illust.meta_single_page.original_image_url]
+				: illust.meta_pages.map(page => page.image_urls.original);
+		navigate(Screens.AppStacks.Viewer.IllustViewer, {
+			illustUrls: illustUrls
+		});
 	};
 
 	const _renderIllust = ({ item: image_urls }: { item: ImageUrls }) => {
-
 		return (
 			<TouchableNativeFeedback onPress={_onPressIllust}>
 				<PxFitIllust url={image_urls.large} />

@@ -8,6 +8,7 @@ import { IllustDetailScreen, UserDetailScreen } from '@/screens/DetailScreen';
 import New from '@/screens/HomeScreen/New';
 import Recommend from '@/screens/HomeScreen/Recommend';
 import HomeScreenTabNavigator from '@/navigators/HomeScreenTabNavigator';
+import { IllustViewerScreen } from '@/screens/ViewerScreen';
 
 const AppDrawer = createDrawerNavigator({
 	[Screens.AppStacks.AppDrawers.HomeTabs.HomeTab]: HomeScreenTabNavigator,
@@ -19,7 +20,8 @@ const AppStack = createStackNavigator(
 	{
 		[Screens.AppStacks.AppDrawers.AppDrawer]: AppDrawer,
 		[Screens.AppStacks.Details.IllustDetail]: IllustDetailScreen,
-		[Screens.AppStacks.Details.UserDetail]: UserDetailScreen
+		[Screens.AppStacks.Details.UserDetail]: UserDetailScreen,
+		[Screens.AppStacks.Viewer.IllustViewer]:IllustViewerScreen
 	},
 	{
 		initialRouteName: Screens.AppStacks.AppDrawers.AppDrawer,

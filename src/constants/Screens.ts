@@ -8,6 +8,9 @@ const Screens = {
 			IllustDetail: 'IllustDetail',
 			UserDetail: 'UserDetail'
 		},
+		Viewer: {
+			IllustViewer:"IllustViewer"
+		},
 		AppDrawers: {
 			AppDrawer: 'AppDrawer',
 			HomeTabs: {

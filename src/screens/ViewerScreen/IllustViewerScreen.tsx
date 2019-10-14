@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { observer } from 'mobx-react-lite';
 import { Container } from 'native-base';
 
 import { IllustViewer } from '@/components/IllustViewer';
+import { useNavigationParam } from 'react-navigation-hooks';
 
-const IllustDetailContainer = observer(() => {
+const IllustDetailContainer = () => {
+	const illustUrls: string[] = useNavigationParam('illustUrls');
 	return (
 		<Container>
-			<IllustViewer />
+			<IllustViewer illustUrls={illustUrls} />
 		</Container>
 	);
-});
+};
 
 export default IllustDetailContainer;
