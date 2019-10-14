@@ -26,7 +26,7 @@ const ThumbnailTile = (props: Props) => {
 	const illustMemo = useMemo(() => props.illust, [props.illust.is_bookmarked]);
 
 	const _onpressIllustDetail = () => {
-		push(Screens.IllustDetail, {
+		push(Screens.AppStacks.Details.IllustDetail, {
 			illustId: illustMemo.id
 		});
 	};

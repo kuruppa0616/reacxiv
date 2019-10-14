@@ -16,6 +16,9 @@ import {
 } from '@/components/IllustDetail';
 import { PxFitIllust } from '@/components/PxImage';
 import { IllustActions } from '@/hooks/useIllustDetail';
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { TouchableHighlight, GestureResponderEvent } from 'react-native';
+import { useNavigation } from 'react-navigation-hooks';
 
 interface IllustDetailProps {
 	illust: Illust;
@@ -24,11 +27,22 @@ interface IllustDetailProps {
 
 const IllustDetail = (props: IllustDetailProps) => {
 	const { illust, illustActions } = props;
+	const { navigate } = useNavigation();
 
 	const _keyExtractor = (item: ImageUrls) => item.large;
-	const _renderIllust = ({ item: image_urls }: { item: ImageUrls }) => (
-		<PxFitIllust url={image_urls.large} />
-	);
+
+	const _onPressIllust = (event: GestureResponderEvent) => {
+		console.log("pressed");
+	};
+
+	const _renderIllust = ({ item: image_urls }: { item: ImageUrls }) => {
+
+		return (
+			<TouchableNativeFeedback onPress={_onPressIllust}>
+				<PxFitIllust url={image_urls.large} />
+			</TouchableNativeFeedback>
+		);
+	};
 
 	const _renderIllustList = (meta_pages: Illust['meta_pages']) => {
 		const image_urls: ImageUrls[] = meta_pages.map(page => page.image_urls);

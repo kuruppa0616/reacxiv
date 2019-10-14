@@ -56,3 +56,4 @@
           - Recommend
           - New
         - History
+        - Home

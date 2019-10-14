@@ -13,9 +13,9 @@ const TabBarIcon = (props: Props) => {
 	const state = props.navigation.state;
 	const getIconByRouteName = (routeName: string) => {
 		switch (routeName) {
-			case Screens.Top:
+			case Screens.AppStacks.AppDrawers.HomeTabs.Top:
 				return 'home';
-			case Screens.Recommend:
+			case Screens.AppStacks.AppDrawers.HomeTabs.Recommend:
 				return 'star';
 			default:
 				return 'feed';

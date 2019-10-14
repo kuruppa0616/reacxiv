@@ -26,7 +26,7 @@ const AuthCheck = () => {
 			pixivApi
 				.login(username, password)
 				.then(() => {
-					navigate(Screens.AppDrawer);
+					navigate(Screens.AppStacks.AppDrawers.AppDrawer);
 					Toast.show({
 						text: 'login success!',
 						buttonText: 'OK',

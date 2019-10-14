@@ -31,7 +31,7 @@ const PxFitIllust = (props: Props) => {
 			height: optimizedHeight > limitHeight ? limitHeight : optimizedHeight
 		});
 	};
-	return <PxImage url={url} width={size.width} height={size.height} onLoad={_onLoad} />;
+	return <PxImage url={url} width={size.width} height={size.height} onLoad={_onLoad}/>;
 };
 
 export default PxFitIllust;

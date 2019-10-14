@@ -10,26 +10,26 @@ import Recommend from '@/screens/HomeScreen/Recommend';
 import HomeScreenTabNavigator from '@/navigators/HomeScreenTabNavigator';
 
 const AppDrawer = createDrawerNavigator({
-	Home: HomeScreenTabNavigator,
+	[Screens.AppStacks.AppDrawers.HomeTabs.HomeTab]: HomeScreenTabNavigator,
 	NewScreen: New,
 	RecommendScreen: Recommend,
 });
 
 const AppStack = createStackNavigator(
 	{
-		[Screens.AppDrawer]: AppDrawer,
-		[Screens.IllustDetail]: IllustDetailScreen,
-		[Screens.UserDetail]: UserDetailScreen
+		[Screens.AppStacks.AppDrawers.AppDrawer]: AppDrawer,
+		[Screens.AppStacks.Details.IllustDetail]: IllustDetailScreen,
+		[Screens.AppStacks.Details.UserDetail]: UserDetailScreen
 	},
 	{
-		initialRouteName: Screens.AppDrawer,
+		initialRouteName: Screens.AppStacks.AppDrawers.AppDrawer,
 		headerMode: 'none'
 	}
 );
 
 const AppSwitch = createSwitchNavigator(
 	{
-		[Screens.AppStack]: AppStack,
+		[Screens.AppStacks.AppStack]: AppStack,
 		[Screens.AuthCheck]: AuthCheck,
 		[Screens.Login]: Login
 	},

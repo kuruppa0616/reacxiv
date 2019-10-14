@@ -9,16 +9,16 @@ import { TabBarIcon } from '@/components/BottomTabBar';
 
 const HomeScreenTabNavigator = createBottomTabNavigator(
 	{
-		[Screens.Top]: Top,
-		[Screens.Recommend]: Recommend,
-		[Screens.New]: New
+		[Screens.AppStacks.AppDrawers.HomeTabs.Top]: Top,
+		[Screens.AppStacks.AppDrawers.HomeTabs.Recommend]: Recommend,
+		[Screens.AppStacks.AppDrawers.HomeTabs.New]: New
 	},
 	{
 		tabBarOptions: {
 			activeTintColor: 'blue',
 			inactiveTintColor: 'gray'
 		},
-		initialRouteName: Screens.New,
+		initialRouteName: Screens.AppStacks.AppDrawers.HomeTabs.New,
 		// header非表示
 		navigationOptions: () => ({
 			header: null

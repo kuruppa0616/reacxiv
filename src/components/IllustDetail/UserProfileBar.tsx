@@ -21,7 +21,7 @@ const UserProfileBar = (props: Props) => {
 	const { navigate } = useNavigation();
 
 	const _onPressUserInfo = () => {
-		navigate(Screens.UserDetail, {
+		navigate(Screens.AppStacks.Details.UserDetail, {
 			userId: illust.user.id
 		});
 	};
